@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国核电发展史 · 时间轴海报</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f5;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* 窄版海报 */
+        .poster {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .hero {
+            background: #f8fafc;
+            padding: 2rem 1.8rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #e9edf2;
+        }
+
+        .title-main {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1a2c3e;
+            letter-spacing: -0.3px;
+        }
+
+        .subhead {
+            font-size: 0.85rem;
+            color: #5b6e8c;
+            margin-top: 0.4rem;
+        }
+
+        .timeline {
+            padding: 2rem 1.8rem 2.5rem;
+        }
+
+        .timeline-block {
+            display: flex;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-date {
+            flex-shrink: 0;
+            width: 115px;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: #1f3a4b;
+            padding-top: 0.2rem;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-left: 1.5rem;
+            border-left: 2px solid #cbdde9;
+            margin-left: 0.5rem;
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 0.4rem;
+            width: 12px;
+            height: 12px;
+            background: #2c6e9e;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #cbdde9;
+        }
+
+        .block-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0e2a38;
+            margin-bottom: 0.6rem;
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            font-weight: 500;
+            background: #e7edf4;
+            color: #2c6e9e;
+            padding: 0.15rem 0.6rem;
+            border-radius: 30px;
+            margin-left: 0.5rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .desc {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #2c3f4f;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail {
+            font-size: 0.85rem;
+            color: #5b6f82;
+            margin-top: 0.3rem;
+            padding-left: 0.2rem;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #1a5d8c;
+        }
+
+        @media (max-width: 650px) {
+            .timeline-block {
+                flex-direction: column;
+                margin-bottom: 2rem;
+            }
+            .timeline-date {
+                width: auto;
+                margin-bottom: 0.3rem;
+                padding-left: 0.5rem;
+            }
+            .timeline-content {
+                margin-left: 0;
+                padding-left: 1.2rem;
+            }
+            .timeline-content::before {
+                left: -7px;
+                top: 0.2rem;
+            }
+            .title-main {
+                font-size: 1.6rem;
+            }
+            .hero {
+                padding: 1.5rem;
+            }
+            .timeline {
+                padding: 1.5rem;
+            }
+        }
+
+        .footer-note {
+            background: #f9fbfd;
+            padding: 1rem 1.8rem;
+            border-top: 1px solid #e9edf2;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #7c8ea0;
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="hero">
+        <div class="title-main">法国核电发展史</div>
+        <div class="subhead">关键时间轴 · 政策演变与能源抉择</div>
+    </div>
+
+    <div class="timeline">
+        <!-- 1973 萌芽期 -->
+        <div class="timeline-block">
+            <div class="timeline-date">1973</div>
+            <div class="timeline-content">
+                <div class="block-title">核电萌芽期 <span class="badge">梅斯梅尔计划</span></div>
+                <div class="desc"><span class="highlight">起因：</span>1973年阿以冲突引发第一次石油危机，法国能源对外依赖度高达75%，经济遭受重创。</div>
+                <div class="detail"><span class="highlight">关键事件：</span>时任法国总统蓬皮杜与总理梅斯梅尔启动“梅斯梅尔计划”，决定大力发展核电，目标30年内建成170台核反应堆，从此开启法国核能强国之路。</div>
+            </div>
+        </div>
+
+        <!-- 1973-2010 稳定期 -->
+        <div class="timeline-block">
+            <div class="timeline-date">1973-2010</div>
+            <div class="timeline-content">
+                <div class="block-title">核电稳定期 <span class="badge">左右共识</span></div>
+                <div class="desc"><span class="highlight">政治支持：</span>法国左右党派均支持核电发展，形成跨越党派的能源共识，确保核能政策长期稳定。</div>
+                <div class="detail"><span class="highlight">成果与影响：</span>期间建成投产55台核反应堆，核电占比跃居全球第一。法国借助核能成功抵御1978年（伊斯兰革命）和1990年（科威特战争）两次石油危机，电力价格保持稳定。</div>
+            </div>
+        </div>
+
+        <!-- 2011-2021 波动期 -->
+        <div class="timeline-block">
+            <div class="timeline-date">2011-2021</div>
+            <div class="timeline-content">
+                <div class="block-title">核电波动期 <span class="badge">福岛冲击</span></div>
+                <div class="desc"><span class="highlight">起因：</span>2011年日本福岛核事故引发欧洲反核浪潮，德国、意大利、瑞士宣布放弃核电。法国左翼政党借助社会恐核情绪上台。</div>
+                <div class="detail"><span class="highlight">政策转折：</span>2015年法国发布首份多年能源规划（PPE），首次宣布降低核电比例至50%。2017年马克龙作为中间派当选，首任期内延续“降低核电+发展可再生能源”策略，核电发展陷入停滞。</div>
+            </div>
+        </div>
+
+        <!-- 2022至今 复兴期 -->
+        <div class="timeline-block">
+            <div class="timeline-date">2022-今</div>
+            <div class="timeline-content">
+                <div class="block-title">核电复兴期 <span class="badge">能源危机驱动</span></div>
+                <div class="desc"><span class="highlight">起因：</span>2021年欧洲能源危机叠加法国核电站大规模技术检修停运，导致电价暴涨，国民能源经济性需求重回最高优先级。</div>
+                <div class="detail"><span class="highlight">结果：</span>马克龙在第二任期选举时为争取选票，宣布“核电复兴”。2026年第一季度发布的PP3能源规划中，正式确认未来以核电为主、可再生能源为辅的并行战略，计划新建6～14座EPR2机组，并延长现有反应堆运行寿命。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        ⚛️ 从石油危机到福岛震荡，再到能源危机下的务实复兴 —— 法国核电史的缩影
+    </div>
+</div>
+</body>
+</html>
