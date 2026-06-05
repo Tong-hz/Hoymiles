@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>户用光伏场景对比 · 小型 · 中型 · 大型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.5rem;
+            box-shadow: none;
+        }
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6c7e95;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.3rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        th {
+            background: #f8fafc;
+            padding: 0.8rem 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            color: #1f3a4b;
+            border-bottom: 2px solid #eef2f5;
+            vertical-align: middle;
+        }
+        td {
+            padding: 0.7rem 0.5rem;
+            border-bottom: 1px solid #eef2f5;
+            vertical-align: middle;
+            color: #2c3e50;
+            line-height: 1.4;
+            text-align: center;
+        }
+        .category-header {
+            background: #fefefe;
+            font-weight: 700;
+            color: #2c6e9e;
+            text-align: left;   /* 第一列左对齐便于阅读，但垂直居中已实现 */
+        }
+        .icon {
+            font-size: 1rem;
+            margin-right: 0.2rem;
+        }
+        .highlight {
+            background: #fef7e0;
+            padding: 0.1rem 0.2rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .badge {
+            background: #e9f0f5;
+            border-radius: 30px;
+            padding: 0.15rem 0.4rem;
+            font-size: 0.65rem;
+            display: inline-block;
+        }
+        .footnote {
+            font-size: 0.65rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            td, th { padding: 0.5rem 0.3rem; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">📊 户用光伏场景需求对比</div>
+    <div class="subhead">小型 · 中型 · 大型 | 容量、设备、控制需求</div>
+
+    <table>
+        <thead>
+            <tr><th>对比维度</th><th>🏠 小型单相户用</th><th>🏡 中型单相户用</th><th>🏰 大型单/三相户用</th></tr>
+        </thead>
+        <tbody>
+            <tr><td class="category-header">☀️ 光伏容量</td><td>3-4 kWp</td><td>6-9 kWp</td><td>≥12 kWp</td></tr>
+            <tr><td class="category-header">🔋 储能容量</td><td>4-6 kWh</td><td>10-15 kWh</td><td>15-30 kWh</td></tr>
+            <tr><td class="category-header">📏 防逆流需求</td><td>无</td><td>有 6kW 防逆流</td><td>有单相6kW防逆流</td></tr>
+            <tr><td class="category-header">🏘️ 家庭面积</td><td>80-100 m²</td><td>120-140 m²</td><td>≥200 m² (可能有地下室/储藏室)</td></tr>
+            <tr><td class="category-header">🔌 订阅功率</td><td>~6kW (75-80%)</td><td>~9kW (约20%)</td><td>单相12kW / 三相18-36kW (约5%)</td></tr>
+            <tr><td class="category-header">🔌 主要额外设备</td><td>无电热水器/热泵/充电桩</td><td>💧 电热水器 &nbsp;🌡️ 热泵 &nbsp;🔌 充电桩</td><td>💧 电热水器 &nbsp;🌡️ 热泵 &nbsp;🔌 充电桩 &nbsp;🏊 游泳池</td></tr>
+            <tr><td class="category-header">⚡ 备电能力</td><td>无全屋备电</td><td>全屋备电</td><td>大功率全屋备电</td></tr>
+            <tr><td class="category-header">🔧 光储控制需求</td><td>自发自用 · 动态电价 · VPP</td><td>自发自用 · 动态电价 · VPP · 热泵控制 · 充电桩控制 · 全屋备电</td><td>远距离通信 · 自发自用 · 动态电价 · VPP · 热泵控制 · 充电桩控制 · 大功率备电</td></tr>
+        </tbody>
+    </table>
+
+    <div class="footnote">
+        📌 基于法国典型户用场景调研 · 订阅功率及容量比例为行业参考值
+    </div>
+</div>
+</body>
+</html>
