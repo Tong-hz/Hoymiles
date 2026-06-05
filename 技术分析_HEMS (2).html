@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>家庭能源管理技术 (HEMS) · 趋势分析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .poster {
+            max-width: 1000px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: none;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1.2rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .header p {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+        .content {
+            padding: 1.5rem;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.8rem;
+            padding-left: 0.6rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        .grid-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+        .card {
+            flex: 1;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #2c6e9e;
+        }
+        .tech-item {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid #eef2f5;
+        }
+        .tech-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .tech-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #1e2f3e;
+        }
+        .tech-detail {
+            font-size: 0.75rem;
+            color: #5b6f82;
+            margin-top: 0.2rem;
+            line-height: 1.4;
+        }
+        .badge {
+            background: #e9f0f5;
+            border-radius: 20px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.65rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .sub-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.5rem 0 0.2rem;
+            color: #1f3a4b;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.6rem;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 750px) {
+            .grid-2 { flex-direction: column; }
+            .content { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>🏠 家庭能源管理技术 (HEMS)</h1>
+        <p>从光储系统到智能能源管家 · 最大化能效与独立性</p>
+    </div>
+    <div class="content">
+        <div class="section-title">⚡ 核心技术趋势</div>
+        <div class="grid-2">
+            <!-- 左：精密化负载分析能力 -->
+            <div class="card">
+                <h3>📊 精密化负载分析能力</h3>
+                <div class="tech-item">
+                    <div class="tech-name">Emporia Vue 3 · Siemens Inhab · Refoss</div>
+                    <div class="tech-detail">推出 <span class="highlight">16支路能源监控设备</span>，支持精细到每个回路的用电监测。</div>
+                    <div class="tech-detail">🔹 Siemens Inhab 支持<span class="highlight">用电行为分析和异常用电提醒</span>，及时发现能耗异常。</div>
+                    <div class="tech-detail">🔹 Refoss 集成 <span class="highlight">Home Assistant</span>，分析消费行为，智能推送用电优化策略，节省能源账单。</div>
+                    <div class="badge">开源生态集成</div>
+                </div>
+
+                <!-- AI智能负载监测（独立区块，加子标题） -->
+                <div class="sub-title">🤖 AI 智能负载监测</div>
+                <div class="tech-item">
+                    <div class="tech-name">海尔 AI 智能家用负荷检测技术</div>
+                    <div class="tech-detail">超越传统通信监测，通过典型家用负荷的<span class="highlight">暂态、稳态电气特性特征分析</span>，智能识别家用负载的运行状态，实现无传感器负荷感知与精细化管理。</div>
+                    <div class="badge">AI 无感识别</div>
+                </div>
+            </div>
+            <!-- 右：实时负载监控 + 生态系统兼容 -->
+            <div class="card">
+                <h3>🔗 实时负载监控 & 生态系统兼容</h3>
+                <div class="tech-item">
+                    <div class="tech-name">Shelly Pro EM50</div>
+                    <div class="tech-detail">基于 <span class="highlight">WiFi 通信的数据监控 + DO控制功能</span>，实现远程智能负载控制，实时调节用电设备。</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Matter 1.4 协议</div>
+                    <div class="tech-detail">成为 HEMS 中最有潜力的设备互联协议，支持 <span class="highlight">光伏 + 储能 + 热泵 + 充电桩</span> 统一控制，打破品牌壁垒。</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Homey Pro · San-smart</div>
+                    <div class="tech-detail">率先兼容 Matter 协议的家庭能源管理系统，实现跨品牌设备协同与智能调度，优化用能策略。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footnote">
+        📌 基于2025-2026年主要厂商发布及行业技术路线图 · Matter 1.4 为最新互联标准
+    </div>
+</div>
+</body>
+</html>

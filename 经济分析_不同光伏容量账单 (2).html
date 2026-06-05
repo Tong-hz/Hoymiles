@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>家庭光伏账单 · 回报测算</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.8rem;
+            min-height: 100vh;
+        }
+        /* 缩小页面：宽500px，紧凑 */
+        .card {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .header {
+            background: #1e2f3e;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 { font-size: 1.2rem; font-weight: 600; }
+        .header p { font-size: 0.6rem; opacity: 0.8; margin-top: 0.1rem; }
+        .control-bar {
+            background: #f8fafc;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid #eef2f5;
+        }
+        .control-group { display: flex; align-items: center; gap: 0.5rem; }
+        .control-group label { font-size: 0.7rem; font-weight: 500; color: #2c5a74; }
+        select {
+            background: white;
+            border: 1px solid #cbdde9;
+            border-radius: 24px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+        .bill-content { padding: 0.8rem; }
+        .energy-card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .energy-title {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.5rem;
+        }
+        .detail-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+        }
+        .detail-box {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.4rem;
+            text-align: center;
+        }
+        .detail-label {
+            font-size: 0.6rem;
+            color: #5b6f82;
+            margin-bottom: 0.1rem;
+        }
+        .detail-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1e2f3e;
+        }
+        .detail-unit {
+            font-size: 0.6rem;
+            font-weight: normal;
+            color: #6c7e95;
+        }
+        .price { color: #2c6e9e; }
+        .saving { color: #2c9e6e; font-weight: 700; }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.3rem;
+            flex-wrap: wrap;
+            gap: 0.2rem;
+        }
+        .row-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .row-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e2f3e;
+        }
+        .small-note {
+            font-size: 0.6rem;
+            color: #5b6f82;
+        }
+        .divider {
+            margin: 0.6rem 0;
+            border: none;
+            border-top: 1px solid #eef2f5;
+        }
+        .roi-card {
+            background: #eef2fa;
+            border-radius: 20px;
+            padding: 0.6rem;
+            margin-top: 0.8rem;
+        }
+        .roi-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            font-size: 0.7rem;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 0.6rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>☀️ 家庭光伏收益分析</h1>
+        <p>法国 · 热泵已装（年用电7500kWh） | 电价年涨2% · 20年周期</p>
+    </div>
+    <div class="control-bar">
+        <div class="control-group">
+            <label>📷 光伏系统：</label>
+            <select id="pvSelect">
+                <option value="3kW">3 kW 光伏</option>
+                <option value="6kW">6 kW 光伏</option>
+            </select>
+        </div>
+    </div>
+    <div class="bill-content" id="billContent"></div>
+</div>
+
+<script>
+    const ANNUAL_ELEC = 7500;
+    const BASE_ELEC_PRICE = 0.201;
+    const FEED_IN_TARIFF = 0.04;
+    const PROJECT_YEARS = 20;
+    const ANNUAL_PRICE_GROWTH = 0.02;
+    
+    const pvConfigs = {
+        '3kW': {
+            name: '3 kW 光伏',
+            power: 3,
+            investment: 6000,
+            subsidy: 240,
+            annualGen: 3600,
+            selfUseRatio: 0.67,
+            feedRatio: 0.33
+        },
+        '6kW': {
+            name: '6 kW 光伏',
+            power: 6,
+            investment: 10200,
+            subsidy: 480,
+            annualGen: 7200,
+            selfUseRatio: 0.40,
+            feedRatio: 0.60
+        }
+    };
+    
+    function getNoPvAnnualCost(year) {
+        const price = BASE_ELEC_PRICE * Math.pow(1 + ANNUAL_PRICE_GROWTH, year - 1);
+        return ANNUAL_ELEC * price;
+    }
+    
+    function getAnnualSavings(config, year) {
+        const gen = config.annualGen;
+        const selfUse = gen * config.selfUseRatio;
+        const feed = gen * config.feedRatio;
+        const currentPrice = BASE_ELEC_PRICE * Math.pow(1 + ANNUAL_PRICE_GROWTH, year - 1);
+        return selfUse * currentPrice + feed * FEED_IN_TARIFF;
+    }
+    
+    function computeMetrics(config) {
+        const netInv = config.investment - config.subsidy;
+        let cumulative = 0;
+        let paybackYear = null;
+        let totalSavings = 0;
+        for (let y = 1; y <= PROJECT_YEARS; y++) {
+            const saving = getAnnualSavings(config, y);
+            totalSavings += saving;
+            cumulative += saving;
+            if (cumulative >= netInv && paybackYear === null) paybackYear = y;
+        }
+        if (!paybackYear) paybackYear = PROJECT_YEARS;
+        const totalProfit = totalSavings - netInv;
+        // IRR 简单二分
+        const cashflows = [-netInv];
+        for (let y = 1; y <= PROJECT_YEARS; y++) cashflows.push(getAnnualSavings(config, y));
+        let low = -0.99, high = 1.0;
+        const npv = (r) => cashflows.reduce((sum, cf, i) => sum + cf / Math.pow(1 + r, i), 0);
+        for (let iter = 0; iter < 50; iter++) {
+            const mid = (low + high) / 2;
+            if (npv(mid) > 0) low = mid;
+            else high = mid;
+        }
+        const irr = (low + high) / 2;
+        return { netInv, paybackYear, totalSavings, totalProfit, irr: irr * 100 };
+    }
+    
+    function formatCurrency(v) { return Math.round(v) + ' €'; }
+    
+    function render() {
+        const pvKey = document.getElementById('pvSelect').value;
+        const config = pvConfigs[pvKey];
+        const netInv = config.investment - config.subsidy;
+        const firstYearSaving = getAnnualSavings(config, 1);
+        const firstYearNoPv = getNoPvAnnualCost(1);
+        const gridPurchase = Math.max(0, ANNUAL_ELEC - (config.annualGen * config.selfUseRatio));
+        const firstYearNewCost = gridPurchase * BASE_ELEC_PRICE;
+        const monthlySaving = firstYearSaving / 12;
+        const metrics = computeMetrics(config);
+        
+        const selfGen = config.annualGen * config.selfUseRatio;
+        const feedGen = config.annualGen * config.feedRatio;
+        const selfSaveFirst = selfGen * BASE_ELEC_PRICE;
+        const feedIncomeFirst = feedGen * FEED_IN_TARIFF;
+        
+        const html = `
+            <div class="energy-card">
+                <div class="energy-title">⚡ 电力消费与光伏收益</div>
+                <div class="detail-grid">
+                    <div class="detail-box"><div class="detail-label">年用电量</div><div class="detail-value">${ANNUAL_ELEC} kWh</div></div>
+                    <div class="detail-box"><div class="detail-label">基础电价</div><div class="detail-value price">${BASE_ELEC_PRICE} €/kWh</div></div>
+                    <div class="detail-box"><div class="detail-label">余电上网价</div><div class="detail-value">${FEED_IN_TARIFF} €/kWh (固定)</div></div>
+                </div>
+                <div class="small-note" style="margin-bottom:0.3rem;">📈 电价每年上涨 ${ANNUAL_PRICE_GROWTH*100}%</div>
+                <div class="divider"></div>
+                <div class="energy-title">☀️ ${config.name}</div>
+                <div class="detail-grid">
+                    <div class="detail-box"><div class="detail-label">年发电量</div><div class="detail-value">${config.annualGen} kWh</div></div>
+                    <div class="detail-box"><div class="detail-label">自用比例</div><div class="detail-value">${(config.selfUseRatio*100).toFixed(0)}%</div></div>
+                    <div class="detail-box"><div class="detail-label">上网比例</div><div class="detail-value">${(config.feedRatio*100).toFixed(0)}%</div></div>
+                </div>
+                <div class="detail-grid">
+                    <div class="detail-box"><div class="detail-label">自用电量</div><div class="detail-value">${Math.round(selfGen)} kWh/年</div><div class="small-note">首年抵扣 ${Math.round(selfSaveFirst)} €</div></div>
+                    <div class="detail-box"><div class="detail-label">余电上网</div><div class="detail-value">${Math.round(feedGen)} kWh/年</div><div class="small-note">首年收入 ${Math.round(feedIncomeFirst)} €</div></div>
+                </div>
+                <div class="divider"></div>
+                <div class="row"><span class="row-label">📆 原月电费 (首年)</span><span class="row-value">${formatCurrency(firstYearNoPv/12)}</span></div>
+                <div class="row"><span class="row-label">📅 原年电费 (首年)</span><span class="row-value">${formatCurrency(firstYearNoPv)}</span></div>
+                <div class="row"><span class="row-label">📆 新月电费 (首年)</span><span class="row-value">${formatCurrency(firstYearNewCost/12)} <span class="saving">(节省 ${formatCurrency(monthlySaving)}/月)</span></span></div>
+                <div class="row"><span class="row-label">📅 新年电费 (首年)</span><span class="row-value">${formatCurrency(firstYearNewCost)} <span class="saving">(节省 ${formatCurrency(firstYearSaving)}/年)</span></span></div>
+            </div>
+            <div class="roi-card">
+                <div class="roi-item"><span>💰 总投资</span><span><strong>${formatCurrency(config.investment)}</strong> (补贴 -${formatCurrency(config.subsidy)})</span></div>
+                <div class="roi-item"><span>🏦 净投资</span><span><strong>${formatCurrency(netInv)}</strong></span></div>
+                <div class="roi-item"><span>📈 首年节省</span><span><strong>${formatCurrency(firstYearSaving)}</strong></span></div>
+                <div class="roi-item"><span>🔄 内部收益率 (IRR)</span><span><strong>${metrics.irr.toFixed(1)}%</strong></span></div>
+                <div class="roi-item"><span>⏱️ 回本周期</span><span><strong>${metrics.paybackYear} 年</strong></span></div>
+                <div class="roi-item"><span>📊 20年累计节省</span><span><strong>${formatCurrency(metrics.totalSavings)}</strong></span></div>
+                <div class="roi-item"><span>💰 20年净收益</span><span><strong>${formatCurrency(metrics.totalProfit)}</strong></span></div>
+                <div class="small-note" style="text-align:center; margin-top:0.3rem;">
+                    ${config.power === 3 ? '✔️ 3kW系统IRR约3-4%，回本9-10年' : '✔️ 6kW系统IRR约2-3%，回本10-11年'}
+                </div>
+            </div>
+            <div class="footnote">
+                📌 测算基于法国南部辐照度1200h，电价年涨2%，余电上网电价固定0.04€/kWh。
+            </div>
+        `;
+        document.getElementById('billContent').innerHTML = html;
+    }
+    
+    const select = document.getElementById('pvSelect');
+    select.addEventListener('change', render);
+    render();
+</script>
+</body>
+</html>

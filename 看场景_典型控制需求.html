@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国户用光伏系统 · 典型控制需求</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.5rem;
+            box-shadow: none;
+        }
+        .title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c7e95;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.3rem;
+        }
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-content {
+            font-size: 0.8rem;
+            color: #2c3e50;
+            line-height: 1.45;
+        }
+        .sub-list {
+            margin: 0.4rem 0 0 1.2rem;
+            list-style: none;
+        }
+        .sub-list li {
+            margin-bottom: 0.3rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        .sub-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2c6e9e;
+        }
+        .highlight {
+            background: #fef7e0;
+            padding: 0.1rem 0.2rem;
+            border-radius: 6px;
+            color: #b45f2b;
+            font-weight: 500;
+        }
+        .footnote {
+            font-size: 0.65rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">⚡ 法国户用光伏系统 · 典型控制需求</div>
+    <div class="subhead">四大核心控制场景</div>
+
+    <div class="grid">
+        <!-- 1. 上网功率限制 -->
+        <div class="card">
+            <div class="card-title">🔌 1. 上网功率限制</div>
+            <div class="card-content">
+                <ul class="sub-list">
+                    <li><strong>6kW 最大上网功率</strong>：法国电网要求签署余电上网合约的户用光伏系统（主流模式），最大馈网功率不得超过 <span class="highlight">6kW</span>。</li>
+                    <li><strong>0功率防逆流</strong>：适用于签署自发自用无上网合约的系统（较少）以及未通过 Consuel / Enedis 电气并网审批的光伏系统（如 Plug&play 产品），需严格防止功率倒送电网。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. SG Ready & Modbus 热泵控制 -->
+        <div class="card">
+            <div class="card-title">🌡️ 2. SG Ready & Modbus 热泵控制</div>
+            <div class="card-content">
+                <p>随着热泵普及率提升，光储系统智能控制热泵可显著提高自发自用率，从而提升投资回报。</p>
+                <ul class="sub-list">
+                    <li><strong>SG Ready</strong>：大部分热泵产品已支持 SG Ready 的 DO 功率控制功能，可实现基础的分级功率调节。</li>
+                    <li><strong>Modbus 趋势</strong>：未来对精细化监控要求更高，热泵控制将越来越多依赖交互能力更强的 <span class="highlight">Modbus 协议</span>。几乎所有欧洲销售的热泵均已支持 Modbus。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. OCPP 充电桩控制 -->
+        <div class="card">
+            <div class="card-title">🔋 3. OCPP 充电桩控制</div>
+            <div class="card-content">
+                <p>尽管目前充电桩在法国普及率较低，但随着欧盟 <span class="highlight">2035 年禁售燃油车</span>政策落地，充电桩需求将快速增长。</p>
+                <p>基于 <span class="highlight">OCPP 协议</span>的监控与智能控制能力将成为光储系统的重要扩展功能。</p>
+            </div>
+        </div>
+
+        <!-- 4. 动态电价和 VPP 控制 -->
+        <div class="card">
+            <div class="card-title">📈 4. 动态电价 & VPP 控制</div>
+            <div class="card-content">
+                <p>2026 年 10 月起，法国将正式开启 <span class="highlight">动态电价</span>试点，未来全面推广。户储搭配动态电价实现 <span class="highlight">AI 智能控制</span>将成为刚需。</p>
+                <p>同时，基于 <span class="highlight">VPP（虚拟电厂）</span>的负荷响应和辅助调频应用，将成为提高光储系统投资回报率的重要功能。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 数据基于2025-2026年法国电网法规及主流技术趋势 · 控制需求逐步升级
+    </div>
+</div>
+</body>
+</html>

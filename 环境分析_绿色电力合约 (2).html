@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国民众的环保选择 · 绿色电力合约 & GO机制</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        .poster {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.65rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+        .content {
+            padding: 1rem;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin: 0.8rem 0 0.4rem 0;
+            padding-left: 0.5rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+        .card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 18px;
+            padding: 0.7rem;
+            margin-bottom: 0.8rem;
+        }
+        .card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #2c6e9e;
+        }
+        .tech-detail {
+            font-size: 0.75rem;
+            color: #5b6f82;
+            line-height: 1.4;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .badge {
+            background: #e9f0f5;
+            border-radius: 16px;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.65rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+        .stat-number {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+        .flow-container {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .flow-node {
+            text-align: center;
+            flex: 1;
+            min-width: 90px;
+        }
+        .flow-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+        .flow-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1f3a4b;
+        }
+        .flow-desc {
+            font-size: 0.6rem;
+            color: #5b6f82;
+        }
+        .arrow-down, .arrow-up {
+            font-size: 1rem;
+            color: #8c9aa8;
+            margin: 0 0.2rem;
+        }
+        .line-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.55rem;
+            color: #8c9aa8;
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 600px) {
+            .flow-container { flex-direction: column; }
+            .arrow-down, .arrow-up { transform: rotate(90deg); margin: 0.3rem 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>🌍 法国民众的环保选择</h1>
+        <p>100% 绿色电力合约 · GO原产地担保机制</p>
+    </div>
+    <div class="content">
+        <!-- 什么是绿色电力合约 -->
+        <div class="section-title">🔋 什么是绿色电力合约？</div>
+        <div class="card">
+            <div class="tech-detail">法国几乎所有替代电力供应商（EDF除外）均提供绿色电力合约。核心机制为<span class="highlight">GO原产地担保</span>：供应商在向可再生能源发电厂购电时额外购买对应额度的GO证书，证明其售出的电力来自可再生来源。虽电力未定向流入家庭，但合约推动了整体绿电采购。</div>
+            <div class="badge">间接推动可再生电力发展</div>
+        </div>
+
+        <div class="section-title">🔗 原产地担保 (GO) 机制流向图</div>
+        <div class="flow-container">
+            <div class="flow-node">
+                <div class="flow-icon">🏭</div>
+                <div class="flow-label">可再生能源发电厂</div>
+                <div class="flow-desc">生产绿电 + 获得GO证书</div>
+            </div>
+            <div class="line-group">
+                <div class="arrow-down">▶</div>
+                <div class="arrow-up">◀</div>
+            </div>
+            <div class="flow-node">
+                <div class="flow-icon">⚡</div>
+                <div class="flow-label">电力供应商</div>
+                <div class="flow-desc">购电 + 购买GO证书 → 向用户销售绿电合约</div>
+            </div>
+            <div class="line-group">
+                <div class="arrow-down">▶</div>
+                <div class="arrow-up">◀</div>
+            </div>
+            <div class="flow-node">
+                <div class="flow-icon">🏠</div>
+                <div class="flow-label">用户</div>
+                <div class="flow-desc">签订绿电合约，支付电费 (含溢价)</div>
+            </div>
+        </div>
+        <div class="tech-detail" style="text-align:center; margin-bottom:0.6rem;">
+            <span class="badge">💵 资金流</span> <span class="badge">🔌 电力流 (物理电网混合)</span> <span class="badge">📜 证书流 (GO)</span>
+        </div>
+        <div class="tech-detail" style="text-align:center; margin-bottom:0.8rem; background:#eef2fa; padding:0.4rem; border-radius:16px;">
+            💡 绿色电力合约并不保证可再生电力直接送入家中，但通过GO证书机制，用户支付的溢价促使供应商购买更多绿电证书，从而支持可再生能源发展。
+        </div>
+
+        <div class="section-title">💰 成本与参与意愿</div>
+        <div class="card">
+            <div class="tech-detail">绿色电力合约电价通常比普通电价高出<span class="highlight">5%–15%</span>。以月电费66€为基准，每月约上涨<span class="highlight">3.3€</span>。</div>
+            <div class="tech-detail" style="margin-top:0.4rem;">在签订替代能源供应商的用户中，已有<span class="stat-number">约25%</span>的家庭选择了绿色电力合约，表明<span class="highlight">当成本增加较小时，法国民众愿意用实际行动支持环保</span>。</div>
+        </div>
+    </div>
+    <div class="footnote">
+        📌 数据来源：法国能源监管委员会（CRE）/ 绿色电力供应商调研
+    </div>
+</div>
+</body>
+</html>

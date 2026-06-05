@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国光储市场细分 · 16:9宽屏版（容量一行）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .poster {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.75rem;
+            opacity: 0.85;
+            margin-top: 0.2rem;
+        }
+        .control-bar {
+            background: #f8fafc;
+            padding: 0.6rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            border-bottom: 1px solid #eef2f5;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .control-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2c5a74;
+        }
+        select {
+            background: white;
+            border: 1px solid #cbdde9;
+            border-radius: 30px;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            outline: none;
+        }
+        .content {
+            padding: 1.5rem 2rem;
+        }
+        .market-hierarchy {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .hierarchy-level {
+            margin-bottom: 1rem;
+        }
+        .level-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.6rem;
+            padding-left: 0.2rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        /* 容量一行布局：所有节点在一行，均分宽度 */
+        .options-row {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+        .options-row .node {
+            flex: 1;
+            min-width: 0; /* 防止溢出 */
+            text-align: center;
+        }
+        /* 其他选项（非容量）保留换行布局 */
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .node {
+            background: white;
+            border: 1px solid #cbdde9;
+            border-radius: 20px;
+            padding: 0.6rem 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .node-highlight {
+            background: #2c6e9e;
+            border-color: #2c6e9e;
+            color: white;
+            box-shadow: 0 4px 12px rgba(44,110,158,0.2);
+        }
+        .node-highlight .node-title {
+            color: white;
+        }
+        .node-highlight .node-desc {
+            color: rgba(255,255,255,0.85);
+        }
+        .node-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            color: #1e2f3e;
+        }
+        .node-desc {
+            font-size: 0.7rem;
+            color: #5b6f82;
+        }
+        .arrow-down {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #8c9aa8;
+            margin: 0.3rem 0;
+        }
+        .insight-card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .insight-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+            margin-bottom: 0.5rem;
+        }
+        .insight-text {
+            font-size: 0.85rem;
+            color: #2c3e50;
+            line-height: 1.45;
+        }
+        .highlight {
+            color: #d9534f;
+            font-weight: 600;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 1000px) {
+            .options-row {
+                flex-wrap: wrap;
+            }
+            .options-row .node {
+                flex: 1 1 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>🎯 法国光储市场细分</h1>
+        <p>光伏 · 储能 | 可切换查看</p>
+    </div>
+    <div class="control-bar">
+        <div class="control-group">
+            <label>📊 市场类型：</label>
+            <select id="marketSelect">
+                <option value="pv">☀️ 光伏市场</option>
+                <option value="storage">🔋 储能市场</option>
+            </select>
+        </div>
+    </div>
+    <div class="content" id="dynamicContent"></div>
+    <div class="footnote" id="dynamicFootnote">
+        📌 数据来源：法国能源监管委员会（CRE）/ 户用光伏调研报告 · 补贴政策基于2026年最新标准
+    </div>
+</div>
+
+<script>
+    // 光伏市场HTML（容量模块使用一行布局）
+    const pvHtml = `
+        <div class="market-hierarchy">
+            <div class="hierarchy-level">
+                <div class="level-title">📌 安装模式</div>
+                <div class="options">
+                    <div class="node node-highlight">
+                        <div class="node-title">⭐ 新增安装市场</div>
+                        <div class="node-desc">新装电站，享受当前补贴电价</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">存量加装市场</div>
+                        <div class="node-desc">扩容/改造，重签合约 → 补贴电价降低</div>
+                    </div>
+                </div>
+            </div>
+            <div class="arrow-down">▼</div>
+            <div class="hierarchy-level">
+                <div class="level-title">🔋 容量</div>
+                <!-- 所有容量节点在一行 -->
+                <div class="options-row">
+                    <div class="node node-highlight">
+                        <div class="node-title">⭐ &lt;12kW</div>
+                        <div class="node-desc">单相户用市场 (约94%)</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">&lt;36kW</div>
+                        <div class="node-desc">三相户用市场 (约6%)</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">36-100kW</div>
+                        <div class="node-desc">小型工商业</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">100-500kW</div>
+                        <div class="node-desc">中大型工商业</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">&gt;500kW</div>
+                        <div class="node-desc">公共事业项目</div>
+                    </div>
+                </div>
+            </div>
+            <div class="arrow-down">▼</div>
+            <div class="hierarchy-level">
+                <div class="level-title">⚙️ 系统方案</div>
+                <div class="options">
+                    <div class="node node-highlight">
+                        <div class="node-title">⭐ 微逆光伏系统</div>
+                        <div class="node-desc">重点目标市场</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">组串式纯光伏系统</div>
+                        <div class="node-desc">传统方案</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">Hybrid光储系统</div>
+                        <div class="node-desc">储能集成</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="insight-card">
+            <div class="insight-title">📌 为什么聚焦 <span class="highlight">新增市场</span>？</div>
+            <div class="insight-text">
+                <p>✅ 当前补贴电价仅适用于<span class="highlight">新装电站</span>，存量电站维持原有较高补贴电价（如2017-2021年签约的0.18-0.24€/kWh）。</p>
+                <p>⚠️ 存量电站若要加装扩容，须重新签订售电合约，届时将适用<span class="highlight">当前较低的上网电价（0.04-0.12€/kWh）</span>，导致整体收益大幅下降。</p>
+                <p>📉 因此，<span class="highlight">存量加装市场非常有限</span>，用户缺乏动机破坏原有高收益合约。新增市场是唯一稳定增长点。</p>
+            </div>
+        </div>
+    `;
+
+    // 储能市场HTML（保持不变）
+    const storageHtml = `
+        <div class="market-hierarchy">
+            <div class="hierarchy-level">
+                <div class="level-title">📌 安装模式</div>
+                <div class="options">
+                    <div class="node node-highlight">
+                        <div class="node-title">⭐ 新增安装市场</div>
+                        <div class="node-desc">新装光储系统</div>
+                    </div>
+                    <div class="node node-highlight">
+                        <div class="node-title">⭐ 存量加装市场</div>
+                        <div class="node-desc">现有光伏电站加装储能</div>
+                    </div>
+                </div>
+            </div>
+            <div class="arrow-down">▼</div>
+            <div class="hierarchy-level">
+                <div class="level-title">🏭 应用场景</div>
+                <div class="options">
+                    <div class="node node-highlight">
+                        <div class="node-title">⭐ 户用储能</div>
+                        <div class="node-desc">重点目标市场</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">工商业储能</div>
+                        <div class="node-desc">削峰填谷、需量管理</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">离网储能</div>
+                        <div class="node-desc">偏远地区/岛屿</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">表前大储</div>
+                        <div class="node-desc">电网侧调频调峰</div>
+                    </div>
+                </div>
+            </div>
+            <div class="arrow-down">▼</div>
+            <div class="hierarchy-level">
+                <div class="level-title">⚙️ 系统方案</div>
+                <div class="options">
+                    <div class="node node-highlight">
+                        <div class="node-title">⭐ AC耦合储能系统</div>
+                        <div class="node-desc">重点目标市场（适配存量电站）</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">Hybrid分体式储能</div>
+                        <div class="node-desc">直流耦合，光伏+储能</div>
+                    </div>
+                    <div class="node">
+                        <div class="node-title">Hybrid一体式储能</div>
+                        <div class="node-desc">逆变器+电池一体机</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="insight-card">
+            <div class="insight-title">🔋 为什么户用储能<span class="highlight">存量加装也是重点市场</span>？</div>
+            <div class="insight-text">
+                <p>✅ 存量光伏电站加装储能<span class="highlight">无需重新签订售电合约</span>，可保留原有较高的上网电价（0.18-0.24€/kWh）。</p>
+                <p>⚡ 加装储能后，用户可将多余光伏电力储存在电池中，在电价高时自用或上网，<span class="highlight">大幅提升自发自用率和整体收益</span>。</p>
+                <p>📈 随着动态电价普及和电网稳定性需求，存量用户加装储能意愿强烈，是储能的<span class="highlight">核心增量来源</span>。</p>
+            </div>
+        </div>
+    `;
+
+    const contentDiv = document.getElementById('dynamicContent');
+    const footnoteDiv = document.getElementById('dynamicFootnote');
+    const selectEl = document.getElementById('marketSelect');
+
+    function updateMarket() {
+        const value = selectEl.value;
+        if (value === 'pv') {
+            contentDiv.innerHTML = pvHtml;
+            footnoteDiv.innerHTML = '📌 数据来源：法国能源监管委员会（CRE）/ 户用光伏调研报告 · 补贴政策基于2026年最新标准';
+        } else {
+            contentDiv.innerHTML = storageHtml;
+            footnoteDiv.innerHTML = '📌 数据来源：法国能源监管委员会（CRE）/ 储能市场分析报告 · 基于2026年政策及市场趋势';
+        }
+    }
+
+    selectEl.addEventListener('change', updateMarket);
+    updateMarket();
+</script>
+</body>
+</html>

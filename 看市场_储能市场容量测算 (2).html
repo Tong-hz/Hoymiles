@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>户用储能市场对比 · S&P报告 vs 配储行为预测（堆叠版）</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;   /* 纯白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .card {
+            max-width: 1000px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;   /* 细边框 */
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+        .title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e2f3e;
+            margin-bottom: 0.3rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid #2c6e9e;
+        }
+        .sub {
+            font-size: 0.75rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+        .tab-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5b6f82;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #2c6e9e;
+            color: white;
+        }
+        .chart-container {
+            width: 100%;
+            height: 480px;
+        }
+        .logic-box {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: #2c3e50;
+            border-left: 3px solid #2c6e9e;
+        }
+        .footnote {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 700px) {
+            .chart-container { height: 420px; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="title">🔋 法国储能市场 · 户用及工商业对比</div>
+    <div class="sub">S&P报告数据 vs. 配储行为预测 (MWh)</div>
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="sp">📊 根据S&P报告预测</button>
+        <button class="tab-btn" data-tab="behavior">🔮 根据配储行为预测</button>
+    </div>
+    <div id="chartContainer" class="chart-container"></div>
+    <div id="logicBox" class="logic-box"></div>
+    <div class="footnote">
+        📌 数据来源：S&P全球报告及内部逻辑测算 · 2025年前为历史数据，2026年后为预测 | 配储行为基于户用光伏/微逆容量×配储率×1 kWh/kW
+    </div>
+</div>
+
+<script>
+    const years = ['2023', '2024', '2025', '2026', '2027', '2028'];
+
+    // ========== 公共数据（选项卡一） ==========
+    // S&P 户用储能容量 (MWh)
+    const spResidential = [44, 57, 70, 65, 77, 80];
+    // 工商业容量 (MW) 和占比
+    const commercialCap = [8, 9, 74, 86, 110, 146];
+    const totalCapacities = [266, 475, 1353, 865, 1187, 1458];
+    const commercialPct = commercialCap.map((v, i) => (v / totalCapacities[i]) * 100);
+    const residentialPct = spResidential.map((v, i) => (v / totalCapacities[i]) * 100);
+
+    // ========== 配储行为预测专用数据 ==========
+    // 户用光伏容量 (MW) 用于总预测 (2026-2028)
+    const pvCapacities = [null, null, null, 846, 822, 855];
+    // 微逆容量 (MW) 全时段
+    const microInvCapacities = [806, 813, 606, 622, 596, 611];
+    // 配储率: 2023-2025 分别为 3%,4%,5%, 2026年20%, 2027-2028 30%
+    const storageRates = [0.03, 0.04, 0.05, 0.20, 0.30, 0.30];
+    const ratio = 1;  // kWh/kW
+
+    // 计算预测总户储容量 (MWh): 2023-2025使用S&P历史数据（已发生），2026-2028使用光伏容量*配储率
+    const predictedTotal = [...spResidential];
+    for (let i = 3; i <= 5; i++) {
+        if (pvCapacities[i] !== null) {
+            predictedTotal[i] = pvCapacities[i] * storageRates[i] * ratio;
+        }
+    }
+    // 计算微逆AC耦合容量 (MWh) = 微逆容量 * 配储率
+    const microPart = microInvCapacities.map((mic, i) => mic * storageRates[i]);
+    // 其他部分 = 总预测 - 微逆部分
+    const otherPart = predictedTotal.map((total, i) => total - microPart[i]);
+
+    // 验证非负（微逆部分不应超过总预测）
+    for (let i = 0; i < 6; i++) {
+        if (otherPart[i] < 0) otherPart[i] = 0;  // 理论上不会
+    }
+
+    let currentChart = null;
+
+    // 选项卡一：S&P报告（户用+工商业柱状图 + 占比折线）
+    function renderSP() {
+        const option = {
+            backgroundColor: '#ffffff',
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                formatter: function(params) {
+                    let res = params[0].axisValue + '<br/>';
+                    for (let p of params) {
+                        if (p.value !== undefined && p.value !== null) {
+                            if (p.seriesName.includes('占比')) {
+                                res += `${p.marker} ${p.seriesName}: ${p.value.toFixed(1)}%<br/>`;
+                            } else {
+                                res += `${p.marker} ${p.seriesName}: ${Math.round(p.value)} MW<br/>`;
+                            }
+                        }
+                    }
+                    return res;
+                }
+            },
+            legend: {
+                data: ['户用容量 (MW)', '工商业容量 (MW)', '户用占比 (%)', '工商业占比 (%)'],
+                left: 'left', top: 0, itemWidth: 25, textStyle: { fontSize: 11 }
+            },
+            grid: { left: '8%', right: '8%', top: '12%', bottom: '8%', containLabel: true },
+            xAxis: { type: 'category', data: years, name: '年份', axisLabel: { fontSize: 11 } },
+            yAxis: [
+                { type: 'value', name: '容量 (MW)', nameLocation: 'middle', nameGap: 50, axisLabel: { fontSize: 10, formatter: (v) => Math.round(v) } },
+                { type: 'value', name: '占比 (%)', nameLocation: 'middle', nameGap: 45, min: 0, max: 20, axisLabel: { fontSize: 10, formatter: (v) => v.toFixed(1) + '%' } }
+            ],
+            series: [
+                { name: '户用容量 (MW)', type: 'bar', data: spResidential, itemStyle: { color: '#2C7DA0', borderRadius: [4,4,0,0] }, yAxisIndex: 0, label: { show: false } },
+                { name: '工商业容量 (MW)', type: 'bar', data: commercialCap, itemStyle: { color: '#E9A23B', borderRadius: [4,4,0,0] }, yAxisIndex: 0, label: { show: false } },
+                { name: '户用占比 (%)', type: 'line', data: residentialPct, symbol: 'circle', lineStyle: { width: 2, color: '#2C7DA0', type: 'dashed' }, yAxisIndex: 1, label: { show: true, position: 'top', formatter: (p) => p.value.toFixed(1) + '%', fontSize: 10 } },
+                { name: '工商业占比 (%)', type: 'line', data: commercialPct, symbol: 'diamond', lineStyle: { width: 2, color: '#E9A23B', type: 'dashed' }, yAxisIndex: 1, label: { show: true, position: 'top', formatter: (p) => p.value.toFixed(1) + '%', fontSize: 10 } }
+            ],
+            dataZoom: [{ type: 'inside', start: 0, end: 100 }, { type: 'slider', bottom: 10, height: 20 }]
+        };
+        if (currentChart) currentChart.dispose();
+        const dom = document.getElementById('chartContainer');
+        currentChart = echarts.init(dom);
+        currentChart.setOption(option);
+        window.addEventListener('resize', () => currentChart.resize());
+        document.getElementById('logicBox').innerHTML = `<strong>📌 数据说明：</strong> 基于S&P全球报告对法国户用及工商业储能市场的预测，包含已发生历史值（2023-2025）及预测值（2026-2028）。占比基于总市场容量计算。`;
+    }
+
+    // 选项卡二：配储行为预测（堆叠柱状图）
+    function renderBehavior() {
+        const option = {
+            backgroundColor: '#ffffff',
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                formatter: function(params) {
+                    let res = params[0].axisValue + '<br/>';
+                    for (let p of params) {
+                        if (p.value !== null && p.value !== undefined) {
+                            res += `${p.marker} ${p.seriesName}: ${Math.round(p.value)} MWh<br/>`;
+                        }
+                    }
+                    return res;
+                }
+            },
+            legend: {
+                data: ['S&P报告数据 (参考)', '微逆AC耦合', '其他储能方案'],
+                left: 'left', top: 0, itemWidth: 25, textStyle: { fontSize: 11 }
+            },
+            grid: { left: '8%', right: '5%', top: '12%', bottom: '8%', containLabel: true },
+            xAxis: { type: 'category', data: years, name: '年份', axisLabel: { fontSize: 11 } },
+            yAxis: { type: 'value', name: '容量 (MWh)', nameLocation: 'middle', nameGap: 50, axisLabel: { fontSize: 10, formatter: (v) => Math.round(v) } },
+            series: [
+                {
+                    name: 'S&P报告数据 (参考)',
+                    type: 'bar',
+                    data: spResidential,
+                    itemStyle: { color: '#A9B4C2', borderRadius: [4,4,0,0] },
+                    label: { show: true, position: 'top', formatter: (p) => Math.round(p.value) + ' MWh', fontSize: 9 }
+                },
+                {
+                    name: '微逆AC耦合',
+                    type: 'bar',
+                    stack: 'prediction',
+                    data: microPart,
+                    itemStyle: { color: '#2C7DA0' },
+                    label: { show: true, position: 'inside', formatter: (p) => Math.round(p.value) + ' MWh', fontSize: 9 }
+                },
+                {
+                    name: '其他储能方案',
+                    type: 'bar',
+                    stack: 'prediction',
+                    data: otherPart,
+                    itemStyle: { color: '#D0DCE8' },
+                    label: { show: true, position: 'inside', formatter: (p) => Math.round(p.value) + ' MWh', fontSize: 9 }
+                }
+            ],
+            dataZoom: [{ type: 'inside', start: 0, end: 100 }, { type: 'slider', bottom: 10, height: 20 }]
+        };
+        if (currentChart) currentChart.dispose();
+        const dom = document.getElementById('chartContainer');
+        currentChart = echarts.init(dom);
+        currentChart.setOption(option);
+        window.addEventListener('resize', () => currentChart.resize());
+
+        document.getElementById('logicBox').innerHTML = `
+            <strong>📌 预测逻辑：</strong> 户用储能容量 = 户用光伏容量 × 配储率 × 1 kWh/kW（2026-2028），2023-2025年采用实际S&P数据作为总量。<br>
+            • 配储率：2023年3%，2024年4%，2025年5%，2026年20%，2027-2028年30%。<br>
+            • 柱状图堆叠显示，总高度即为配储行为预测总量，参考柱为S&P报告数据。
+        `;
+    }
+
+    // 选项卡切换
+    const tabSp = document.querySelector('[data-tab="sp"]');
+    const tabBehavior = document.querySelector('[data-tab="behavior"]');
+    tabSp.addEventListener('click', () => {
+        tabSp.classList.add('active');
+        tabBehavior.classList.remove('active');
+        renderSP();
+    });
+    tabBehavior.addEventListener('click', () => {
+        tabBehavior.classList.add('active');
+        tabSp.classList.remove('active');
+        renderBehavior();
+    });
+
+    // 默认显示第一个选项卡
+    renderSP();
+</script>
+</body>
+</html>

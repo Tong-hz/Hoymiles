@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国宏观经济对比 · GDP & 人均 & PPP</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        .poster {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+        .title-main {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            color: #1e2f3e;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+        .tab-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #5b6f82;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #2c6e9e;
+            color: white;
+        }
+        .chart-container {
+            width: 100%;
+            height: 320px;
+            margin-bottom: 0.5rem;
+        }
+        .insight {
+            font-size: 0.7rem;
+            background: #f8fafc;
+            padding: 0.5rem;
+            border-radius: 16px;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin-top: 0.3rem;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="title-main">📊 法国宏观经济对比 (2025)</div>
+    <div style="text-align: center;"><span class="subhead">GDP总量 · 人均GDP · 购买力平价 (PPP)</span></div>
+
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="gdp">🏆 GDP总量</button>
+        <button class="tab-btn" data-tab="pcap">💰 人均GDP</button>
+        <button class="tab-btn" data-tab="ppp">🛒 人均PPP</button>
+    </div>
+
+    <div id="gdpPanel">
+        <div id="gdpChart" class="chart-container"></div>
+        <div class="insight">💡 法国GDP总量位居欧洲第三，仅次于德国和英国。与德国差距约1.5万亿美元，但显著高于意大利、西班牙等。</div>
+    </div>
+    <div id="pcapPanel" style="display: none;">
+        <div id="pcapChart" class="chart-container"></div>
+        <div class="insight">💡 法国人均GDP位列欧洲第15名，略低于欧盟平均水平。荷兰、英国、德国均高于法国，反映法国人均产出处于中游。</div>
+    </div>
+    <div id="pppPanel" style="display: none;">
+        <div id="pppChart" class="chart-container"></div>
+        <div class="insight">💡 法国人均PPP与欧盟平均水平基本持平，但远低于荷兰、德国。购买力平价调整后，法国居民实际生活水平位于欧洲中游。</div>
+    </div>
+
+    <div class="footnote">数据来源：IMF / 欧盟统计局 · 2025年预测值 · 法国以蓝色突出显示</div>
+</div>
+
+<script>
+    // GDP 数据
+    const gdpData = [
+        { name: '德国 #1', value: 4660, isFrance: false },
+        { name: '英国 #2', value: 3644, isFrance: false },
+        { name: '法国 #3', value: 3162, isFrance: true },
+        { name: '意大利 #4', value: 2250, isFrance: false },
+        { name: '西班牙 #6', value: 1620, isFrance: false },
+        { name: '荷兰 #8', value: 1180, isFrance: false }
+    ];
+    const gdpCountries = gdpData.map(d => d.name);
+    const gdpValues = gdpData.map(d => d.value);
+    // 柱状图颜色：法国为蓝色，其他灰色
+    const gdpColors = gdpData.map(d => d.isFrance ? '#2C7DA0' : '#A9B4C2');
+
+    // 人均GDP
+    const pcapData = [
+        { name: '荷兰 #8', value: 51471, isFrance: false },
+        { name: '英国 #9', value: 47265, isFrance: false },
+        { name: '德国 #13', value: 44109, isFrance: false },
+        { name: '法国 #15', value: 39441, isFrance: true },
+        { name: '意大利 #16', value: 35200, isFrance: false },
+        { name: '西班牙 #19', value: 30500, isFrance: false }
+    ];
+    const pcapCountries = pcapData.map(d => d.name);
+    const pcapValues = pcapData.map(d => d.value);
+    const pcapColors = pcapData.map(d => d.isFrance ? '#2C7DA0' : '#A9B4C2');
+    const euAvgPcap = 34860;
+
+    // 人均PPP
+    const pppData = [
+        { name: '荷兰 #6', value: 70902, isFrance: false },
+        { name: '德国 #11', value: 62830, isFrance: false },
+        { name: '法国 #15', value: 54465, isFrance: true },
+        { name: '意大利 #17', value: 50200, isFrance: false },
+        { name: '英国 #18', value: 48500, isFrance: false },
+        { name: '西班牙 #20', value: 46000, isFrance: false }
+    ];
+    const pppCountries = pppData.map(d => d.name);
+    const pppValues = pppData.map(d => d.value);
+    const pppColors = pppData.map(d => d.isFrance ? '#2C7DA0' : '#A9B4C2');
+    const euAvgPpp = 54291;
+
+    let gdpChart, pcapChart, pppChart;
+
+    // 初始化 GDP 图表
+    function initGDP() {
+        const dom = document.getElementById('gdpChart');
+        if (gdpChart) gdpChart.dispose();
+        gdpChart = echarts.init(dom);
+        gdpChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '12%', right: '5%', top: 20, bottom: 20, containLabel: true },
+            xAxis: { type: 'category', data: gdpCountries, axisLabel: { rotate: 30, fontSize: 9 } },
+            yAxis: { type: 'value', name: '十亿美元', nameLocation: 'middle', nameGap: 40 },
+            series: [{
+                type: 'bar',
+                data: gdpValues,
+                itemStyle: {
+                    borderRadius: [8,8,0,0],
+                    color: function(params) {
+                        return gdpColors[params.dataIndex];
+                    }
+                },
+                label: { show: true, position: 'top', formatter: '{c} B$', fontSize: 9 }
+            }]
+        });
+    }
+
+    // 初始化人均GDP图表
+    function initPCAP() {
+        const dom = document.getElementById('pcapChart');
+        if (pcapChart) pcapChart.dispose();
+        pcapChart = echarts.init(dom);
+        pcapChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '12%', right: '5%', top: 30, bottom: 20, containLabel: true },
+            xAxis: { type: 'category', data: pcapCountries, axisLabel: { rotate: 30, fontSize: 9 } },
+            yAxis: { type: 'value', name: '美元', nameLocation: 'middle', nameGap: 40 },
+            series: [
+                {
+                    type: 'bar',
+                    data: pcapValues,
+                    itemStyle: {
+                        borderRadius: [8,8,0,0],
+                        color: function(params) {
+                            return pcapColors[params.dataIndex];
+                        }
+                    },
+                    label: { show: true, position: 'top', formatter: '{c} $', fontSize: 8 }
+                },
+                {
+                    type: 'line',
+                    data: Array(pcapCountries.length).fill(euAvgPcap),
+                    symbol: 'none',
+                    lineStyle: { width: 2, color: '#d9534f', type: 'dashed' },
+                    name: '欧盟平均'
+                }
+            ],
+            legend: { data: ['国家数据', '欧盟平均'], left: 'left', top: 0, itemWidth: 20, textStyle: { fontSize: 9 } }
+        });
+    }
+
+    // 初始化人均PPP图表
+    function initPPP() {
+        const dom = document.getElementById('pppChart');
+        if (pppChart) pppChart.dispose();
+        pppChart = echarts.init(dom);
+        pppChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '12%', right: '5%', top: 30, bottom: 20, containLabel: true },
+            xAxis: { type: 'category', data: pppCountries, axisLabel: { rotate: 30, fontSize: 9 } },
+            yAxis: { type: 'value', name: '国际美元', nameLocation: 'middle', nameGap: 40 },
+            series: [
+                {
+                    type: 'bar',
+                    data: pppValues,
+                    itemStyle: {
+                        borderRadius: [8,8,0,0],
+                        color: function(params) {
+                            return pppColors[params.dataIndex];
+                        }
+                    },
+                    label: { show: true, position: 'top', formatter: '{c} $', fontSize: 8 }
+                },
+                {
+                    type: 'line',
+                    data: Array(pppCountries.length).fill(euAvgPpp),
+                    symbol: 'none',
+                    lineStyle: { width: 2, color: '#d9534f', type: 'dashed' },
+                    name: '欧盟平均'
+                }
+            ],
+            legend: { data: ['国家数据', '欧盟平均'], left: 'left', top: 0, itemWidth: 20, textStyle: { fontSize: 9 } }
+        });
+    }
+
+    // 选项卡切换逻辑
+    const gdpPanel = document.getElementById('gdpPanel');
+    const pcapPanel = document.getElementById('pcapPanel');
+    const pppPanel = document.getElementById('pppPanel');
+    const tabs = document.querySelectorAll('.tab-btn');
+
+    function setActiveTab(tabId) {
+        gdpPanel.style.display = 'none';
+        pcapPanel.style.display = 'none';
+        pppPanel.style.display = 'none';
+        if (tabId === 'gdp') {
+            gdpPanel.style.display = 'block';
+            if (gdpChart) setTimeout(() => gdpChart.resize(), 50);
+        } else if (tabId === 'pcap') {
+            pcapPanel.style.display = 'block';
+            if (pcapChart) setTimeout(() => pcapChart.resize(), 50);
+        } else if (tabId === 'ppp') {
+            pppPanel.style.display = 'block';
+            if (pppChart) setTimeout(() => pppChart.resize(), 50);
+        }
+        tabs.forEach(btn => {
+            if (btn.dataset.tab === tabId) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setActiveTab(btn.dataset.tab);
+        });
+    });
+
+    // 初始化所有图表
+    initGDP();
+    initPCAP();
+    initPPP();
+
+    // 默认显示GDP
+    setActiveTab('gdp');
+    window.addEventListener('resize', () => {
+        if (gdpChart) gdpChart.resize();
+        if (pcapChart) pcapChart.resize();
+        if (pppChart) pppChart.resize();
+    });
+</script>
+</body>
+</html>

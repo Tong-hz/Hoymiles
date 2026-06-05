@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>为什么法国电价更低？—— 边际成本定价与核电优势</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;  /* 改为纯白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .poster {
+            max-width: 560px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 0;      /* 无圆角或可保留轻微圆角，改为可选 */
+            box-shadow: none;      /* 去除阴影 */
+            padding: 1.5rem 1rem 1.5rem;
+        }
+
+        .title-main {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c7e95;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.3rem;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1rem 0 0.8rem;
+            color: #1f3a4b;
+            border-left: 3px solid #2c6e9e;
+            padding-left: 0.6rem;
+        }
+
+        /* 竖向柱状图 */
+        .bar-chart {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 24px;
+            padding: 1rem 0.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .chart-title {
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+        .bars-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .bar-item {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bar {
+            width: 100%;
+            background: #cbdde9;
+            border-radius: 12px 12px 6px 6px;
+            margin-bottom: 0.4rem;
+        }
+        .bar-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+            color: #2c3e50;
+        }
+        .bar-sub {
+            font-size: 0.6rem;
+            color: #6c7e95;
+        }
+
+        .price-marker {
+            margin-top: 0.5rem;
+            background: #e9f0f5;
+            border-radius: 30px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            display: inline-block;
+        }
+
+        /* 三国卡片 */
+        .compare-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 0.5rem 0 1rem;
+        }
+        .country-card {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 0.7rem 0.3rem;
+            text-align: center;
+            border: 1px solid #eef2f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .country-flag { font-size: 1.4rem; margin-bottom: 0.2rem; }
+        .country-name { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .nuclear-badge {
+            background: #2c6e9e20;
+            color: #2c6e9e;
+            border-radius: 20px;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.6rem;
+            display: inline-block;
+            margin-bottom: 0.3rem;
+        }
+        .price-highlight { font-size: 0.9rem; font-weight: 700; color: #1e2f3e; }
+        .desc-text { font-size: 0.65rem; color: #5b6f82; margin-top: 0.2rem; line-height: 1.3; }
+
+        /* 跨境套利 */
+        .export-box {
+            background: #eef7fb;
+            border-radius: 20px;
+            padding: 0.9rem;
+            text-align: center;
+            margin: 0.5rem 0 0;
+        }
+        .footer-note {
+            font-size: 0.65rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 520px) {
+            .poster { padding: 1rem; }
+            .bar-label { font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="title-main">⚡ 为什么法国电价更低？</div>
+    <div style="text-align: center; margin-bottom: 0.5rem;"><span class="subhead">Merit Order 边际成本排序 · 核电结构红利</span></div>
+
+    <!-- 竖向柱状图：边际成本从低到高 -->
+    <div class="section-title">📊 边际成本曲线 (€/MWh)</div>
+    <div class="bar-chart">
+        <div class="chart-title">⬆️ 低边际成本 ➜ 优先调度 &nbsp;&nbsp;&nbsp;&nbsp; ⬇️ 高边际成本 ➜ 最后调度</div>
+        <div class="bars-container">
+            <div class="bar-item">
+                <div class="bar" style="height: 30px; background: #9fcbc0;"></div>
+                <div class="bar-label">风光水</div>
+                <div class="bar-sub">≈0 €</div>
+            </div>
+            <div class="bar-item">
+                <div class="bar" style="height: 45px; background: #8fc9e0;"></div>
+                <div class="bar-label">⚛️ 核电</div>
+                <div class="bar-sub">极低</div>
+            </div>
+            <div class="bar-item">
+                <div class="bar" style="height: 70px; background: #e9cf9e;"></div>
+                <div class="bar-label">🔥 煤电</div>
+                <div class="bar-sub">较高</div>
+            </div>
+            <div class="bar-item">
+                <div class="bar" style="height: 90px; background: #f0bf9a;"></div>
+                <div class="bar-label">⛽ 气电</div>
+                <div class="bar-sub">高</div>
+            </div>
+            <div class="bar-item">
+                <div class="bar" style="height: 115px; background: #e8ae9a;"></div>
+                <div class="bar-label">🛢️ 燃油</div>
+                <div class="bar-sub">最高</div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 0.3rem;">
+            <div class="price-marker">🎯 市场出清价 = 最后被调用的机组边际成本（边际技术）</div>
+        </div>
+        <div style="font-size: 0.7rem; text-align: center; margin-top: 0.4rem; color: #2c6e9e;">
+            ✅ 优先调度低成本能源 → 最终电价由各国不同的“边际技术”决定
+        </div>
+    </div>
+
+    <!-- 法、德、荷结构对比 -->
+    <div class="section-title">🏭 三国电力结构 → 边际技术差异</div>
+    <div class="compare-grid">
+        <div class="country-card">
+            <div class="country-flag">🇫🇷</div>
+            <div class="country-name">法国</div>
+            <div class="nuclear-badge">⚛️ 核电占比 ~68%</div>
+            <div class="price-highlight">核能供给 > 需求</div>
+            <div class="desc-text">✅ 核电常为边际技术 → 电价由核电低边际成本决定 → <strong>批发电价低</strong></div>
+        </div>
+        <div class="country-card">
+            <div class="country-flag">🇩🇪</div>
+            <div class="country-name">德国</div>
+            <div class="nuclear-badge">🔥 煤电+气电主导</div>
+            <div class="price-highlight">化石能源定价</div>
+            <div class="desc-text">⚠️ 弃核+可再生波动 → 依赖煤/气 → 电价由化石燃料高边际成本决定 → <strong>批发电价高</strong></div>
+        </div>
+        <div class="country-card">
+            <div class="country-flag">🇳🇱</div>
+            <div class="country-name">荷兰</div>
+            <div class="nuclear-badge">🔥 天然气发电主导</div>
+            <div class="price-highlight">气电机组定价</div>
+            <div class="desc-text">⚠️ 天然气价格高 → 边际成本居高 → 推高整体批发电价</div>
+        </div>
+    </div>
+
+    <!-- 跨境套利红利 -->
+    <div class="section-title">💰 法国核电的额外红利</div>
+    <div class="export-box">
+        <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="font-weight:600;">🇫🇷 法国</span>
+            <span style="font-size:1.2rem;">➜ 廉价核电出口 ➜</span>
+            <span style="font-weight:600;">🇩🇪 / 🇳🇱 高价市场</span>
+        </div>
+        <div style="margin: 0.4rem 0; font-weight:600; color:#2c6e9e;">⚡ 跨境套利 ⚡</div>
+        <div class="desc-text" style="text-align:center;">
+            欧洲统一电力市场鼓励跨境交易，法国利用剩余核电出口至电价更高的邻国。<br>
+            <strong>每出口 1 MWh，赚取批发电价差价 → 法国消费者受益，电力公司盈利</strong>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        📌 总结：核电提供廉价基荷 → 压低法国批发电价 + 过剩产能向高价邻国出口 → 法国获得双重经济优势
+    </div>
+</div>
+</body>
+</html>

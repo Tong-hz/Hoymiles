@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>人均经济指标偏低 · 三大影响模块</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .card {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+
+        .title-main {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+
+        .subhead {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+
+        /* 每个模块 */
+        .module {
+            margin-bottom: 1rem;
+            border: 1px solid #eef2f5;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: #ffffff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .module-header:hover {
+            background: #f8fafc;
+        }
+        .module-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toggle-icon {
+            font-size: 1rem;
+            color: #2c6e9e;
+            transition: transform 0.2s;
+        }
+        .module-content {
+            padding: 0 1rem 1rem 1rem;
+            border-top: 1px solid #eef2f5;
+            display: none;
+        }
+        .module-content.show {
+            display: block;
+        }
+
+        /* 内部样式 */
+        .chart-container {
+            width: 100%;
+            height: 260px;
+            margin-bottom: 0.5rem;
+        }
+        .stats-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        .stat-card {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.6rem;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            color: #5b6f82;
+            margin-top: 0.1rem;
+        }
+        .flex-compare {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.6rem;
+            margin: 0.5rem 0;
+        }
+        .compare-item {
+            flex: 1;
+            text-align: center;
+            background: #fefefe;
+            border: 1px solid #eef2f5;
+            border-radius: 16px;
+            padding: 0.4rem;
+        }
+        .value {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0.1rem 0;
+        }
+        .insight {
+            font-size: 0.65rem;
+            background: #fef7e0;
+            padding: 0.4rem;
+            border-radius: 14px;
+            margin-top: 0.5rem;
+            color: #b45f2b;
+            line-height: 1.3;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="title-main">📉 人均经济指标偏低的影响</div>
+    <div class="subhead">三大传导路径</div>
+
+    <!-- 模块1：消费者信心指数低 -->
+    <div class="module">
+        <div class="module-header" data-target="content1">
+            <div class="module-title">
+                <span>📉</span> 消费者信心指数低
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content1" class="module-content">
+            <div id="confidenceChart" class="chart-container"></div>
+            <div class="insight">
+                💡 荷兰信心指数围绕100波动；德国2022年短暂冲高后回落；法国长期低位徘徊，消费意愿疲软。
+            </div>
+        </div>
+    </div>
+
+    <!-- 模块2：家庭储蓄率高 -->
+    <div class="module">
+        <div class="module-header" data-target="content2">
+            <div class="module-title">
+                <span>💰</span> 家庭储蓄率高（预防性储蓄）
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content2" class="module-content">
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-number">~18%</div><div class="stat-label">🇫🇷 法国</div></div>
+                <div class="stat-card"><div class="stat-number">~10%</div><div class="stat-label">🇩🇪 德国</div></div>
+                <div class="stat-card"><div class="stat-number">~17%</div><div class="stat-label">🇳🇱 荷兰</div></div>
+            </div>
+            <div class="insight">
+                🧠 荷兰高储蓄率源于高收入(80k USD) + 低物价(100) → 更多可支配收入；法国则为预防未来不确定性而储蓄。
+            </div>
+        </div>
+    </div>
+
+    <!-- 模块3：价格敏感度高 -->
+    <div class="module">
+        <div class="module-header" data-target="content3">
+            <div class="module-title">
+                <span>🏷️</span> 消费者价格敏感度高
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content3" class="module-content">
+            <div class="flex-compare">
+                <div class="compare-item"><div class="value">60%</div><div>🇫🇷 法国</div></div>
+                <div class="compare-item"><div class="value">57%</div><div>🇩🇪 德国</div></div>
+                <div class="compare-item"><div class="value">46%</div><div>🇳🇱 荷兰</div></div>
+            </div>
+            <div class="insight">
+                ⚠️ 法国民众价格敏感度最高，倾向于削减非必要开支，进一步抑制消费。
+            </div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 数据来源：欧洲消费者信心调查 / 各国统计局 · 2025-2026
+    </div>
+</div>
+
+<script>
+    // 消费者信心指数数据
+    const years = ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'];
+    const franceSentiment = [98, 95, 92, 80, 95, 82, 88, 90, 89, 88];
+    const germanySentiment = [106, 112, 108, 100, 99, 118, 98, 92, 90, 92];
+    const netherlandsSentiment = [98, 105, 100, 102, 100, 106, 102, 104, 101, 100];
+
+    let chartInitialized = false;
+    let myChart = null;
+
+    function initChart() {
+        if (myChart) return;
+        const dom = document.getElementById('confidenceChart');
+        if (!dom) return;
+        myChart = echarts.init(dom);
+        myChart.setOption({
+            tooltip: { trigger: 'axis', valueFormatter: (value) => value + ' (指数)' },
+            legend: { data: ['🇫🇷 法国', '🇩🇪 德国', '🇳🇱 荷兰'], left: 'left', top: 0, itemWidth: 20, textStyle: { fontSize: 9 } },
+            grid: { left: '8%', right: '5%', top: '15%', bottom: '10%', containLabel: true },
+            xAxis: { type: 'category', data: years, name: '年份', axisLabel: { rotate: 30, fontSize: 8 } },
+            yAxis: { type: 'value', name: '消费者信心指数', axisLabel: { fontSize: 8 }, min: 70, max: 130 },
+            series: [
+                { name: '🇫🇷 法国', type: 'line', data: franceSentiment, symbol: 'circle', lineStyle: { width: 2, color: '#2C7DA0' } },
+                { name: '🇩🇪 德国', type: 'line', data: germanySentiment, symbol: 'diamond', lineStyle: { width: 2, color: '#A9B4C2' } },
+                { name: '🇳🇱 荷兰', type: 'line', data: netherlandsSentiment, symbol: 'triangle', lineStyle: { width: 2, color: '#E9A23B' } }
+            ]
+        });
+        chartInitialized = true;
+    }
+
+    // 为所有模块添加点击展开/收起功能
+    const headers = document.querySelectorAll('.module-header');
+    headers.forEach(header => {
+        header.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-target');
+            const contentDiv = document.getElementById(targetId);
+            const icon = this.querySelector('.toggle-icon');
+            if (contentDiv.classList.contains('show')) {
+                contentDiv.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                contentDiv.classList.add('show');
+                icon.textContent = '▲';
+                // 如果展开的是消费者信心模块且图表未初始化，则初始化；否则resize
+                if (targetId === 'content1') {
+                    if (!chartInitialized) {
+                        initChart();
+                    } else {
+                        setTimeout(() => myChart.resize(), 50);
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

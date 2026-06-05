@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国人均GDP偏低 · 三大主因</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .card {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+
+        .title-main {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+
+        .subhead {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+
+        /* 每个原因区块 */
+        .reason-block {
+            margin-bottom: 1rem;
+            border: 1px solid #eef2f5;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .reason-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: #fefefe;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .reason-header:hover {
+            background: #f8fafc;
+        }
+        .reason-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .toggle-icon {
+            font-size: 1rem;
+            color: #2c6e9e;
+            transition: transform 0.2s;
+        }
+        .detail-panel {
+            padding: 0 1rem 1rem 1rem;
+            border-top: 1px solid #eef2f5;
+            display: none;
+        }
+        .detail-panel.show {
+            display: block;
+        }
+
+        /* 数据表格样式 */
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin: 0.6rem 0;
+        }
+        .country-label {
+            flex: 1;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .fr-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+        .de-value, .nl-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #5b6f82;
+        }
+        .insight {
+            font-size: 0.7rem;
+            background: #fef7e0;
+            padding: 0.5rem;
+            border-radius: 16px;
+            margin-top: 0.6rem;
+            color: #b45f2b;
+            line-height: 1.4;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="title-main">📉 为什么法国人均GDP和消费水平偏低？</div>
+    <div class="subhead">三大结构性因素</div>
+
+    <!-- 原因1：劳动年龄人口少 -->
+    <div class="reason-block">
+        <div class="reason-header" data-target="detail1">
+            <div class="reason-title">
+                <span>👶</span> 劳动年龄人口占比低
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="detail1" class="detail-panel">
+            <div class="stat-row">
+                <div class="country-label">🇫🇷 法国</div>
+                <div class="country-label">🇩🇪 德国</div>
+                <div class="country-label">🇳🇱 荷兰</div>
+            </div>
+            <div class="stat-row">
+                <div><span class="fr-value">16%</span><br>少年人口(≤14岁)</div>
+                <div><span class="de-value">13.8%</span></div>
+                <div><span class="nl-value">14.8%</span></div>
+            </div>
+            <div class="stat-row">
+                <div><span class="fr-value">61.12%</span><br>劳动年龄人口</div>
+                <div><span class="de-value">62%</span></div>
+                <div><span class="nl-value">63.9%</span></div>
+            </div>
+            <div class="insight">
+                ⚠️ 法国少年人口比例偏高 → 劳动年龄人口占比偏低 → 人均产出分母更大，拉低人均GDP。
+            </div>
+        </div>
+    </div>
+
+    <!-- 原因2：劳动时间短 -->
+    <div class="reason-block">
+        <div class="reason-header" data-target="detail2">
+            <div class="reason-title">
+                <span>⏱️</span> 平均劳动时间短 & 退休早
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="detail2" class="detail-panel">
+            <div class="stat-row">
+                <div class="country-label">🇫🇷 法国</div>
+                <div class="country-label">🇩🇪 德国</div>
+                <div class="country-label">🇳🇱 荷兰</div>
+            </div>
+            <div class="stat-row">
+                <div><span class="fr-value">31 小时/周</span><br>平均劳动时间</div>
+                <div><span class="de-value">34.3 小时/周</span></div>
+                <div><span class="nl-value">31.3 小时/周</span></div>
+            </div>
+            <div class="stat-row">
+                <div><span class="fr-value">63 岁</span><br>平均退休年龄</div>
+                <div><span class="de-value">66.3 岁</span></div>
+                <div><span class="nl-value">67 岁</span></div>
+            </div>
+            <div class="insight">
+                ⚠️ 法国周劳动时间仅31小时（近十年峰值<32h），退休年龄比德荷早3-4年 → 社会总劳动投入显著偏低。
+            </div>
+        </div>
+    </div>
+
+    <!-- 原因3：失业率高 -->
+    <div class="reason-block">
+        <div class="reason-header" data-target="detail3">
+            <div class="reason-title">
+                <span>📈</span> 失业率高
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="detail3" class="detail-panel">
+            <div class="stat-row">
+                <div class="country-label">🇫🇷 法国</div>
+                <div class="country-label">🇩🇪 德国</div>
+                <div class="country-label">🇳🇱 荷兰</div>
+            </div>
+            <div class="stat-row">
+                <div><span class="fr-value">8.1%</span><br>2026 Q1失业率</div>
+                <div><span class="de-value">≈6%</span></div>
+                <div><span class="nl-value">≈4%</span></div>
+            </div>
+            <div class="insight">
+                ⚠️ 法国失业率自2023年持续攀升，目前已远高于德国和荷兰，劳动力闲置进一步拉低人均产出。
+            </div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 点击标题展开详情 · 法国在劳动力结构、劳动投入及就业方面均处于劣势
+    </div>
+</div>
+
+<script>
+    // 为每个区块添加点击展开/收起功能
+    const headers = document.querySelectorAll('.reason-header');
+    headers.forEach(header => {
+        header.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-target');
+            const detailPanel = document.getElementById(targetId);
+            const icon = this.querySelector('.toggle-icon');
+            if (detailPanel.classList.contains('show')) {
+                detailPanel.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                detailPanel.classList.add('show');
+                icon.textContent = '▲';
+            }
+        });
+    });
+</script>
+</body>
+</html>

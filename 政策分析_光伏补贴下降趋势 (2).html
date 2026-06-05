@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国光伏支持政策：上网电价 & 安装补贴</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;   /* 纯白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        /* 卡片缩小为约1:1比例（宽500px，高度自动适应，保持方型感） */
+        .card {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 24px;
+            padding: 1rem 0.8rem 0.8rem;
+            box-shadow: none;
+        }
+        .title-main { 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            text-align: center; 
+            color: #1e2f3e; 
+            margin-bottom: 0.2rem; 
+        }
+        .subhead { 
+            text-align: center; 
+            font-size: 0.65rem; 
+            color: #6c7e95; 
+            margin-bottom: 0.8rem; 
+            border-bottom: 1px solid #eef2f5; 
+            display: inline-block; 
+            width: auto; 
+            padding-bottom: 0.2rem; 
+        }
+        .control { 
+            display: flex; 
+            justify-content: flex-end; 
+            margin-bottom: 0.6rem; 
+            gap: 0.5rem; 
+            align-items: center; 
+        }
+        .control label { 
+            font-size: 0.7rem; 
+            font-weight: 500; 
+            color: #2c5a74; 
+        }
+        select { 
+            background: white; 
+            border: 1px solid #cbdde9; 
+            border-radius: 20px; 
+            padding: 0.2rem 0.6rem; 
+            font-size: 0.7rem; 
+            cursor: pointer; 
+        }
+        .chart-container { 
+            width: 100%; 
+            height: 320px;   /* 高度略小于宽度，保持方型视觉 */
+            margin-bottom: 0.4rem; 
+        }
+        .footnote { 
+            font-size: 0.55rem; 
+            text-align: center; 
+            color: #8c9aa8; 
+            margin-top: 0.5rem; 
+            border-top: 1px solid #eef2f5; 
+            padding-top: 0.5rem; 
+        }
+        @media (max-width: 550px) {
+            .chart-container { height: 280px; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="title-main">📉 法国光伏支持政策持续退坡</div>
+    <div class="subhead">核电路线转向 → 光伏补贴大幅削减</div>
+    <div class="control">
+        <label>📊 显示指标：</label>
+        <select id="metricSelect">
+            <option value="fit">上网电价 (Feed-in Tariff)</option>
+            <option value="subsidy">一次性安装补贴</option>
+        </select>
+    </div>
+    <div id="trendChart" class="chart-container"></div>
+    <div class="footnote">数据来源：法国光伏上网电价法令 (Arrêté S21 PV Métropole, 2021-2026)</div>
+</div>
+
+<script>
+    // 统一时间轴 (2021-10 至 2026-07)
+    const start = new Date(2021, 9, 1);
+    const end = new Date(2026, 6, 1);
+    const months = [];
+    let cur = new Date(start);
+    while (cur <= end) {
+        months.push(`${cur.getFullYear()}-${(cur.getMonth()+1).toString().padStart(2,'0')}`);
+        cur.setMonth(cur.getMonth() + 1);
+    }
+
+    // ----- 1. 全额上网电价 (0-3kWp) -----
+    const fullRaw = {
+        '2021-10': 17.89, '2022-02': 17.89, '2022-05': 18.14, '2022-08': 20.22, '2022-11': 22.42438259254071,
+        '2023-02': 23.488157717473943, '2023-05': 23.946360504010794, '2023-08': 20.76609056731251,
+        '2023-11': 17.345595615824568, '2024-02': 16.57430667070357, '2024-05': 14.296067575537084,
+        '2024-08': 12.05148248236937, '2024-11': 10.31, '2025-02': 9.87
+    };
+    let fullData = months.map(m => fullRaw[m] !== undefined ? fullRaw[m] : null);
+    let last = null;
+    for (let i = 0; i < fullData.length; i++) {
+        if (fullData[i] !== null) last = fullData[i];
+        else if (last !== null) fullData[i] = last;
+    }
+    const febIdx = months.indexOf('2025-02');
+    if (febIdx !== -1) {
+        for (let i = febIdx + 1; i < fullData.length; i++) fullData[i] = 0;
+    }
+
+    // ----- 2. 余电上网电价 (0-9kWp) -----
+    const surplusRaw = {
+        '2021-10': 10.0, '2022-08': 12.534590605109395, '2022-11': 13.129210574328642,
+        '2023-02': 13.385332869765676, '2023-05': 13.385332869765676, '2023-08': 13.00179084028533,
+        '2023-11': 12.97374001754202, '2024-02': 13.013254964133392, '2024-05': 12.75702322693557,
+        '2024-08': 12.687014539126453, '2024-11': 12.690398922843741, '2025-02': 12.690398922843741,
+        '2025-04': 4.0
+    };
+    let surplusData = months.map(m => surplusRaw[m] !== undefined ? surplusRaw[m] : null);
+    last = null;
+    for (let i = 0; i < surplusData.length; i++) {
+        if (surplusData[i] !== null) last = surplusData[i];
+        else if (last !== null) surplusData[i] = last;
+    }
+    const aprIdx = months.indexOf('2025-04');
+    if (aprIdx !== -1) {
+        for (let i = aprIdx; i < surplusData.length; i++) surplusData[i] = 4.0;
+    }
+
+    // ----- 3. 一次性安装补贴 (0-3kWp) 表格第13行 -----
+    const subRaw = {
+        '2021-10': 0.38, '2022-02': 0.38, '2022-05': 0.39, '2022-08': 0.41, '2022-11': 0.43,
+        '2023-02': 0.476314442994157, '2023-05': 0.4989100018244884, '2023-08': 0.5086426490510957,
+        '2023-11': 0.44109080020004215, '2024-02': 0.3684363518174027, '2024-05': 0.35205346757223904,
+        '2024-08': 0.30366158069894306, '2024-11': 0.25598453567917057, '2025-02': 0.21,
+        '2025-04': 0.08, '2025-07': 0.08, '2025-10': 0.08, '2026-01': 0.08, '2026-04': 0.08
+    };
+    let subsidyData = months.map(m => subRaw[m] !== undefined ? subRaw[m] : null);
+    last = null;
+    for (let i = 0; i < subsidyData.length; i++) {
+        if (subsidyData[i] !== null) last = subsidyData[i];
+        else if (last !== null) subsidyData[i] = last;
+    }
+
+    const chartDom = document.getElementById('trendChart');
+    const myChart = echarts.init(chartDom);
+    let currentMetric = 'fit';
+
+    function renderFit() {
+        myChart.setOption({
+            backgroundColor: '#ffffff',
+            tooltip: { trigger: 'axis' },
+            xAxis: { type: 'category', data: months, name: '时间 (年-月)', axisLabel: { rotate: 35, interval: 4, fontSize: 9 } },
+            yAxis: { type: 'value', name: '上网电价 (c€/kWh)', min: 0, axisLabel: { fontSize: 9 } },
+            series: [
+                { name: '全额上网电价 (0-3kWp)', type: 'line', data: fullData, symbol: 'none', lineStyle: { width: 2.5, color: '#2C7DA0' } },
+                { name: '余电上网电价 (0-9kWp)', type: 'line', data: surplusData, symbol: 'none', lineStyle: { width: 2, color: '#E9A23B' } }
+            ],
+            legend: { data: ['全额上网电价 (0-3kWp)', '余电上网电价 (0-9kWp)'], left: 'left', top: 0, textStyle: { fontSize: 10 } },
+            grid: { top: '15%', bottom: '10%', left: '10%', right: '5%', containLabel: true }
+        });
+    }
+
+    function renderSubsidy() {
+        myChart.setOption({
+            backgroundColor: '#ffffff',
+            tooltip: { trigger: 'axis' },
+            xAxis: { type: 'category', data: months, name: '时间 (年-月)', axisLabel: { rotate: 35, interval: 4, fontSize: 9 } },
+            yAxis: { type: 'value', name: '一次性安装补贴 (€/Wc)', min: 0, axisLabel: { fontSize: 9 } },
+            series: [
+                { name: '一次性安装补贴 (0-3kWp)', type: 'line', data: subsidyData, symbol: 'none', lineStyle: { width: 2.5, color: '#4C9A8C' } }
+            ],
+            legend: { data: ['一次性安装补贴 (0-3kWp)'], left: 'left', top: 0, textStyle: { fontSize: 10 } },
+            grid: { top: '15%', bottom: '10%', left: '10%', right: '5%', containLabel: true }
+        });
+    }
+
+    function updateChart(metric) {
+        myChart.clear();
+        if (metric === 'fit') {
+            renderFit();
+        } else {
+            renderSubsidy();
+        }
+    }
+
+    updateChart(currentMetric);
+    const selectEl = document.getElementById('metricSelect');
+    selectEl.addEventListener('change', (e) => {
+        currentMetric = e.target.value;
+        updateChart(currentMetric);
+    });
+    window.addEventListener('resize', () => myChart.resize());
+</script>
+</body>
+</html>

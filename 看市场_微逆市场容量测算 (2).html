@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国光伏细分市场容量 · 交互切换视图</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .dashboard {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;   /* 细边框 */
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: none;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1.2rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.75rem;
+            opacity: 0.85;
+            margin-top: 0.2rem;
+        }
+        .tab-bar {
+            display: flex;
+            background: #f8fafc;
+            border-bottom: 1px solid #eef2f5;
+            padding: 0 1rem;
+            gap: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.8rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5b6f82;
+            cursor: pointer;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            color: #2c6e9e;
+            border-bottom-color: #2c6e9e;
+        }
+        .tab-btn:hover {
+            color: #2c6e9e;
+        }
+        .chart-container {
+            padding: 1.5rem;
+        }
+        .chart-card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 24px;
+            padding: 1rem;
+        }
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.8rem;
+            padding-left: 0.6rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        .chart-box {
+            width: 100%;
+            height: 420px;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #8c9aa8;
+            padding: 1rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 700px) {
+            .chart-box { height: 350px; }
+            .tab-btn { padding: 0.6rem 0.8rem; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <div class="header">
+        <h1>📊 法国光伏细分市场容量趋势</h1>
+        <p>户用 · 小型工商业 · 微逆总容量 | 点击切换视图</p>
+    </div>
+    <div class="tab-bar">
+        <button class="tab-btn active" data-chart="res">🏠 户用市场细分</button>
+        <button class="tab-btn" data-chart="com">🏭 小型工商业细分</button>
+        <button class="tab-btn" data-chart="micro">⚡ 微逆总容量趋势</button>
+    </div>
+    <div class="chart-container">
+        <div id="chartPanel" class="chart-card">
+            <div class="chart-title" id="dynamicTitle">🏠 户用市场容量细分 (MW)</div>
+            <div id="mainChart" class="chart-box"></div>
+        </div>
+    </div>
+    <div class="footnote">
+        📌 数据来源：内部市场整理（2023-2028） · 鼠标悬停查看详细数值 | 微逆总容量 = 户用微逆 + 工商业微逆
+    </div>
+</div>
+
+<script>
+    // 年份
+    const years = ['2023', '2024', '2025', '2026', '2027', '2028'];
+
+    // 户用数据
+    const resMicro = [806, 813, 606, 622, 596, 611];
+    const resSingleString = [70, 58, 44, 45, 44, 46];
+    const resSingleHybrid = [265, 155, 120, 131, 130, 140];
+    const resTripleString = [57, 26, 19, 19, 18, 18];
+    const resTripleHybrid = [108, 25, 24, 30, 34, 40];
+
+    // 工商业数据
+    const comMicro = [42, 90, 145, 140, 124, 120];
+    const comTripleString = [434, 193, 302, 289, 248, 229];
+    const comTripleHybrid = [131, 113, 204, 212, 213, 230];
+
+    // 微逆总容量
+    const totalMicroInverter = resMicro.map((v, i) => v + comMicro[i]);
+
+    let currentChart = null;
+
+    // 渲染户用堆叠图
+    function renderResidential() {
+        const option = {
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { 
+                data: ['微逆系统', '单相组串纯光伏', '单相Hybrid', '三相组串纯光伏', '三相Hybrid'],
+                left: 'left', top: 0, itemWidth: 25, textStyle: { fontSize: 11 }
+            },
+            grid: { left: '8%', right: '5%', top: '15%', bottom: '8%', containLabel: true },
+            xAxis: { type: 'category', data: years, axisLabel: { fontSize: 11 } },
+            yAxis: { type: 'value', name: '容量 (MW)', nameLocation: 'middle', nameGap: 45 },
+            series: [
+                { name: '微逆系统', type: 'bar', stack: 'total', data: resMicro, itemStyle: { color: '#2C7DA0', borderRadius: [4,4,0,0] } },
+                { name: '单相组串纯光伏', type: 'bar', stack: 'total', data: resSingleString, itemStyle: { color: '#A9B4C2' } },
+                { name: '单相Hybrid', type: 'bar', stack: 'total', data: resSingleHybrid, itemStyle: { color: '#E9A23B' } },
+                { name: '三相组串纯光伏', type: 'bar', stack: 'total', data: resTripleString, itemStyle: { color: '#8C9AA8' } },
+                { name: '三相Hybrid', type: 'bar', stack: 'total', data: resTripleHybrid, itemStyle: { color: '#4C9A8C' } }
+            ]
+        };
+        if (currentChart) currentChart.dispose();
+        const dom = document.getElementById('mainChart');
+        currentChart = echarts.init(dom);
+        currentChart.setOption(option);
+        window.addEventListener('resize', () => currentChart.resize());
+    }
+
+    // 渲染工商业堆叠图
+    function renderCommercial() {
+        const option = {
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { 
+                data: ['微逆系统', '三相组串纯光伏', '三相Hybrid'],
+                left: 'left', top: 0, itemWidth: 25, textStyle: { fontSize: 11 }
+            },
+            grid: { left: '8%', right: '5%', top: '15%', bottom: '8%', containLabel: true },
+            xAxis: { type: 'category', data: years, axisLabel: { fontSize: 11 } },
+            yAxis: { type: 'value', name: '容量 (MW)', nameLocation: 'middle', nameGap: 45 },
+            series: [
+                { name: '微逆系统', type: 'bar', stack: 'total', data: comMicro, itemStyle: { color: '#2C7DA0', borderRadius: [4,4,0,0] } },
+                { name: '三相组串纯光伏', type: 'bar', stack: 'total', data: comTripleString, itemStyle: { color: '#A9B4C2' } },
+                { name: '三相Hybrid', type: 'bar', stack: 'total', data: comTripleHybrid, itemStyle: { color: '#E9A23B' } }
+            ]
+        };
+        if (currentChart) currentChart.dispose();
+        const dom = document.getElementById('mainChart');
+        currentChart = echarts.init(dom);
+        currentChart.setOption(option);
+        window.addEventListener('resize', () => currentChart.resize());
+    }
+
+    // 渲染微逆总容量折线图
+    function renderMicroTotal() {
+        const option = {
+            tooltip: { trigger: 'axis', valueFormatter: (value) => value + ' MW' },
+            legend: { data: ['微逆总容量 (户用+工商业)'], left: 'left', top: 0 },
+            grid: { left: '8%', right: '5%', top: '15%', bottom: '8%', containLabel: true },
+            xAxis: { type: 'category', data: years, name: '年份' },
+            yAxis: { type: 'value', name: '容量 (MW)', min: 0 },
+            series: [{
+                name: '微逆总容量', type: 'line', data: totalMicroInverter,
+                symbol: 'circle', symbolSize: 6,
+                lineStyle: { width: 2.5, color: '#2C7DA0' },
+                areaStyle: { opacity: 0.1, color: '#2C7DA0' },
+                smooth: false,
+                label: { show: true, position: 'top', formatter: '{c} MW', fontSize: 10 }
+            }]
+        };
+        if (currentChart) currentChart.dispose();
+        const dom = document.getElementById('mainChart');
+        currentChart = echarts.init(dom);
+        currentChart.setOption(option);
+        window.addEventListener('resize', () => currentChart.resize());
+    }
+
+    // 切换逻辑
+    function switchChart(type) {
+        const titleMap = {
+            res: '🏠 户用市场容量细分 (MW)',
+            com: '🏭 小型工商业市场容量细分 (MW)',
+            micro: '⚡ 微逆总容量趋势 (户用+工商业)'
+        };
+        document.getElementById('dynamicTitle').innerHTML = titleMap[type];
+        if (type === 'res') renderResidential();
+        else if (type === 'com') renderCommercial();
+        else renderMicroTotal();
+
+        // 更新按钮样式
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            if (btn.dataset.chart === type) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+
+    // 绑定按钮事件
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchChart(btn.dataset.chart);
+        });
+    });
+
+    // 默认显示户用
+    switchChart('res');
+</script>
+</body>
+</html>

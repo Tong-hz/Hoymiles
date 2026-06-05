@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国民众对光伏安装的想法 · 交互模块</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        .report {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 24px;
+            padding: 1rem;
+            box-shadow: none;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .title h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e2f3e;
+        }
+        .title p {
+            font-size: 0.65rem;
+            color: #6c7e95;
+            margin-top: 0.2rem;
+        }
+
+        /* 模块卡片 */
+        .module {
+            margin-bottom: 0.8rem;
+            border: 1px solid #eef2f5;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: #ffffff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .module-header:hover {
+            background: #f8fafc;
+        }
+        .module-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toggle-icon {
+            font-size: 0.9rem;
+            color: #2c6e9e;
+            transition: transform 0.2s;
+        }
+        .module-content {
+            padding: 0.6rem 0.8rem 0.8rem;
+            border-top: 1px solid #eef2f5;
+            display: none;
+        }
+        .module-content.show {
+            display: block;
+        }
+        .chart-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: space-between;
+            margin-bottom: 0.2rem;
+        }
+        .chart-card {
+            flex: 1;
+            min-width: 100px;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 16px;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        .chart-card h3 {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #2c3e50;
+        }
+        .chart-container {
+            width: 100%;
+            height: 130px;
+        }
+        .note {
+            font-size: 0.6rem;
+            color: #5b6f82;
+            margin-top: 0.2rem;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">
+        <h1>🇫🇷 法国民众对光伏安装的想法</h1>
+        <p>点击模块标题展开数据 · 五大主题</p>
+    </div>
+
+    <!-- 主题1 -->
+    <div class="module">
+        <div class="module-header" data-target="content1">
+            <div class="module-title"><span>⚡</span> 安装动机</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content1" class="module-content">
+            <div class="chart-row">
+                <div class="chart-card"><h3>节约电费</h3><div id="motif1" class="chart-container"></div><div class="note">80%</div></div>
+                <div class="chart-card"><h3>能源独立</h3><div id="motif2" class="chart-container"></div><div class="note">54%</div></div>
+                <div class="chart-card"><h3>环保意识</h3><div id="motif3" class="chart-container"></div><div class="note">40%</div></div>
+                <div class="chart-card"><h3>提升房产价值</h3><div id="motif4" class="chart-container"></div><div class="note">32%</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主题2 -->
+    <div class="module">
+        <div class="module-header" data-target="content2">
+            <div class="module-title"><span>🔧</span> 报价选择依据</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content2" class="module-content">
+            <div class="chart-row">
+                <div class="chart-card"><h3>专业安装商</h3><div id="choice1" class="chart-container"></div><div class="note">76%</div></div>
+                <div class="chart-card"><h3>投资收益</h3><div id="choice2" class="chart-container"></div><div class="note">59%</div></div>
+                <div class="chart-card"><h3>性能与稳定性</h3><div id="choice3" class="chart-container"></div><div class="note">53%</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主题3 -->
+    <div class="module">
+        <div class="module-header" data-target="content3">
+            <div class="module-title"><span>📈</span> 满意度与口碑</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content3" class="module-content">
+            <div class="chart-row">
+                <div class="chart-card"><h3>收益超预期</h3><div id="satisfaction1" class="chart-container"></div><div class="note">65%</div></div>
+                <div class="chart-card"><h3>愿意推荐</h3><div id="satisfaction2" class="chart-container"></div><div class="note">80%</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主题4 -->
+    <div class="module">
+        <div class="module-header" data-target="content4">
+            <div class="module-title"><span>📦</span> 未来计划</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content4" class="module-content">
+            <div class="chart-row">
+                <div class="chart-card"><h3>计划扩容 (总体)</h3><div id="future1" class="chart-container"></div><div class="note">40%</div></div>
+                <div class="chart-card"><h3>已装储能家庭扩容意愿</h3><div id="future2" class="chart-container"></div><div class="note">69%</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主题5 -->
+    <div class="module">
+        <div class="module-header" data-target="content5">
+            <div class="module-title"><span>⚠️</span> 阻碍因素</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content5" class="module-content">
+            <div class="chart-row">
+                <div class="chart-card"><h3>安装成本高</h3><div id="barrier1" class="chart-container"></div><div class="note">67%</div></div>
+                <div class="chart-card"><h3>盈利能力质疑</h3><div id="barrier2" class="chart-container"></div><div class="note">52%</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📊 数据来源：法国民意调查 · 饼图显示选择该选项的比例
+    </div>
+</div>
+
+<script>
+    // 通用饼图绘制函数（确保在容器可见时绘制，且只绘制一次）
+    const chartCache = {};
+
+    function drawPie(domId, percent, label, color = '#2C7DA0') {
+        const dom = document.getElementById(domId);
+        if (!dom) return;
+        // 如果已存在实例，先销毁（避免重复）
+        if (chartCache[domId]) {
+            chartCache[domId].dispose();
+        }
+        const chart = echarts.init(dom);
+        chart.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+            series: [{
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '50%'],
+                data: [
+                    { name: label, value: percent, itemStyle: { color: color } },
+                    { name: '其他', value: 100 - percent, itemStyle: { color: '#e9edf2' } }
+                ],
+                label: { show: true, formatter: '{d}%', position: 'outside', fontSize: 9 },
+                labelLine: { length: 5, length2: 3 },
+                emphasis: { scale: false }
+            }]
+        });
+        chartCache[domId] = chart;
+        window.addEventListener('resize', () => { if (chartCache[domId]) chartCache[domId].resize(); });
+    }
+
+    // 预定义所有饼图绘制参数
+    const pieConfigs = {
+        motif1: [80, '节约电费', '#2C7DA0'],
+        motif2: [54, '能源独立', '#3A7CA5'],
+        motif3: [40, '环保意识', '#4C9A8C'],
+        motif4: [32, '提升房产价值', '#9B6B43'],
+        choice1: [76, '专业安装商', '#2C7DA0'],
+        choice2: [59, '投资收益', '#E9A23B'],
+        choice3: [53, '性能与稳定性', '#8C9AA8'],
+        satisfaction1: [65, '收益超预期', '#2C9E6E'],
+        satisfaction2: [80, '愿意推荐', '#2C7DA0'],
+        future1: [40, '计划扩容', '#d9534f'],
+        future2: [69, '已装储能·有意扩容', '#d9534f'],
+        barrier1: [67, '安装成本高', '#d9534f'],
+        barrier2: [52, '质疑盈利能力', '#E9A23B']
+    };
+
+    // 延迟初始化所有饼图（首次点击时绘制或预绘制？为了性能，在模块展开时再绘制对应饼图）
+    // 记录哪些模块的饼图已经绘制过
+    const drawnModules = {
+        content1: false,
+        content2: false,
+        content3: false,
+        content4: false,
+        content5: false
+    };
+
+    function drawModuleCharts(moduleId) {
+        if (moduleId === 'content1') {
+            drawPie('motif1', ...pieConfigs.motif1);
+            drawPie('motif2', ...pieConfigs.motif2);
+            drawPie('motif3', ...pieConfigs.motif3);
+            drawPie('motif4', ...pieConfigs.motif4);
+        } else if (moduleId === 'content2') {
+            drawPie('choice1', ...pieConfigs.choice1);
+            drawPie('choice2', ...pieConfigs.choice2);
+            drawPie('choice3', ...pieConfigs.choice3);
+        } else if (moduleId === 'content3') {
+            drawPie('satisfaction1', ...pieConfigs.satisfaction1);
+            drawPie('satisfaction2', ...pieConfigs.satisfaction2);
+        } else if (moduleId === 'content4') {
+            drawPie('future1', ...pieConfigs.future1);
+            drawPie('future2', ...pieConfigs.future2);
+        } else if (moduleId === 'content5') {
+            drawPie('barrier1', ...pieConfigs.barrier1);
+            drawPie('barrier2', ...pieConfigs.barrier2);
+        }
+    }
+
+    // 为所有模块添加点击展开/收起功能
+    const headers = document.querySelectorAll('.module-header');
+    headers.forEach(header => {
+        header.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-target');
+            const contentDiv = document.getElementById(targetId);
+            const icon = this.querySelector('.toggle-icon');
+            if (contentDiv.classList.contains('show')) {
+                contentDiv.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                contentDiv.classList.add('show');
+                icon.textContent = '▲';
+                // 第一次展开时绘制饼图
+                if (!drawnModules[targetId]) {
+                    drawModuleCharts(targetId);
+                    drawnModules[targetId] = true;
+                } else {
+                    // 如果已经绘制过，但可能因resize需要重绘？不需要，但确保图表尺寸正确
+                    // 对于已经存在的图表，调用resize确保适配当前容器大小
+                    const relatedIds = [];
+                    if (targetId === 'content1') relatedIds = ['motif1','motif2','motif3','motif4'];
+                    else if (targetId === 'content2') relatedIds = ['choice1','choice2','choice3'];
+                    else if (targetId === 'content3') relatedIds = ['satisfaction1','satisfaction2'];
+                    else if (targetId === 'content4') relatedIds = ['future1','future2'];
+                    else if (targetId === 'content5') relatedIds = ['barrier1','barrier2'];
+                    relatedIds.forEach(id => {
+                        if (chartCache[id]) chartCache[id].resize();
+                    });
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

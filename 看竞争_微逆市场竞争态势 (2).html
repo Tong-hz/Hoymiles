@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国微逆市场竞争态势 · 户用市场品牌份额</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        /* 1:1 比例卡片，宽度550px，高度自适应但通过内容撑起接近正方形 */
+        .report {
+            max-width: 550px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+        .title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+        .chart-card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .chart-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        .chart-container {
+            width: 100%;
+            height: 280px;
+        }
+        .data-note {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.5rem;
+            margin-top: 0.6rem;
+            font-size: 0.65rem;
+            color: #5b6f82;
+            border-left: 3px solid #2c6e9e;
+        }
+        .footnote {
+            font-size: 0.6rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">📊 法国微逆市场竞争态势</div>
+    <div style="text-align: center;"><span class="subhead">户用光伏主战场 · 品牌份额与格局</span></div>
+
+    <!-- 户用微逆品牌份额饼图 -->
+    <div class="chart-card">
+        <div class="chart-title">🏠 户用微逆品牌份额 (2024-2025)</div>
+        <div id="brandPie" class="chart-container"></div>
+        <div class="data-note">
+            📌 <strong>数据参考来源：</strong><br>
+            • 整体光伏市场品牌市占率：Enphase 8.6% / Hoymiles 6.7% / Apsystem 4.0%<br>
+            • 户用市场占总市场容量 <strong>26%</strong>，小型工商业占 <strong>12%</strong><br>
+            • 微逆在户用光伏中市占率 <strong>75%</strong>，在小型工商业中市占率 <strong>20%</strong>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 数据来源：基于2024-2025年法国光伏市场调研及主流品牌出货推算 · 户用微逆市场品牌份额为推算值
+    </div>
+</div>
+
+<script>
+    // 户用微逆品牌份额数据
+    const brands = ['Enphase', 'Hoymiles', 'Apsystem', '其他品牌'];
+    const shares = [41.1, 31.9, 18.9, 8.1];
+    const colors = ['#2C7DA0', '#E9A23B', '#8C9AA8', '#A9B4C2'];
+
+    const pieChart = echarts.init(document.getElementById('brandPie'));
+    pieChart.setOption({
+        backgroundColor: '#ffffff',
+        tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+        legend: {
+            orient: 'vertical',
+            right: 5,
+            top: 'center',
+            data: brands,
+            textStyle: { fontSize: 10 }
+        },
+        series: [{
+            type: 'pie',
+            radius: '60%',
+            center: ['40%', '55%'],
+            data: brands.map((name, i) => ({ name, value: shares[i], itemStyle: { color: colors[i] } })),
+            label: { show: true, formatter: '{d}%', fontSize: 10, position: 'outside' },
+            labelLine: { length: 6, length2: 4 }
+        }]
+    });
+
+    window.addEventListener('resize', () => pieChart.resize());
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国光伏系统设备安装位置示意</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1rem;
+            box-shadow: none;
+        }
+        .title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #6c7e95;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+        .control-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 0.8rem;
+        }
+        select {
+            background: white;
+            border: 1px solid #cbdde9;
+            border-radius: 30px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+        }
+        .scene-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .image-area {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-area img {
+            max-width: 100%;
+            max-height: 380px;
+            width: auto;
+            height: auto;
+            border-radius: 16px;
+            border: 1px solid #eef2f5;
+            object-fit: contain;
+        }
+        .description-area {
+            flex: 1.2;
+            background: #fefefe;
+            border-radius: 20px;
+            padding: 0.2rem 0.5rem;
+        }
+        .device-list {
+            list-style: none;
+        }
+        .device-item {
+            margin-bottom: 0.7rem;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 0.4rem;
+        }
+        .device-name {
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1f3a4b;
+            margin-bottom: 0.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .device-desc {
+            font-size: 0.7rem;
+            color: #4a627a;
+            line-height: 1.35;
+        }
+        .highlight {
+            background: #fef7e0;
+            padding: 0.1rem 0.2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            color: #b45f2b;
+        }
+        .note {
+            font-size: 0.65rem;
+            color: #8c9aa8;
+            background: #f8fafc;
+            padding: 0.2rem 0.4rem;
+            border-radius: 10px;
+            margin-top: 0.2rem;
+        }
+        .footnote {
+            font-size: 0.6rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 650px) {
+            .scene-panel { flex-direction: column; align-items: stretch; }
+            .image-area img { max-height: 250px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">🏠 法国光伏系统设备安装位置示意</div>
+    <div class="subhead">典型场景 · 下拉切换</div>
+
+    <div class="control-bar">
+        <label for="sceneSelect" style="margin-right: 0.5rem; font-size:0.7rem;">选择安装场景：</label>
+        <select id="sceneSelect">
+            <option value="old">🏚️ 典型老房屋 (2006年以前建造)</option>
+            <option value="new">🏡 典型新房屋 (2006年以后建造)</option>
+            <option value="special">⚠️ 特殊安装场景</option>
+        </select>
+    </div>
+
+    <div id="scenePanel" class="scene-panel">
+        <!-- 动态内容由js填充 -->
+    </div>
+
+    <div class="footnote">
+        📌 基于法国NF C 15-100电气法规及常见施工实践 · 图片仅供参考，实际位置可能因房型差异而不同
+    </div>
+</div>
+
+<script>
+    // 场景数据
+    const scenes = {
+        old: {
+            title: "典型老房屋 (2006年以前建造)",
+            img: "安装场景_常见老房屋.png",
+            devices: [
+                { name: "📊 主配电箱", desc: "一般位于房屋旁的车库/储藏室的大型独立空间；空间较大便于操作。" },
+                { name: "🔢 计量电表", desc: "一般位于主配电箱正上方，与主配电箱之间存在一个主空开。" },
+                { name: "🛡️ AC保护盒", desc: "一般都位于房屋旁的车库内，因为墙壁空间足够大+室内安装影响美观。", note: "根据NF C 15-100电气法规，光伏安装通常需要一个额外电气保护盒，包含空气开关、漏电流保护和浪涌保护。" },
+                { name: "🔋 户储设备", desc: "一般位于房屋旁的车库，便于散热和维护。" },
+                { name: "🌡️ 热泵设备", desc: "室外机一般位于房屋外墙（考虑噪声和散热）；室内机液压模块一般位于车库等。", note: "SG Ready控制接口一般位于室内机模块上，或者独立控制面板上。" },
+                { name: "💧 电热水器设备", desc: "考虑到散热要求，一般位于车库或洗衣房内。" },
+                { name: "🔌 EV充电桩", desc: "一般位于车库内。" }
+            ]
+        },
+        new: {
+            title: "典型新房屋 (2006年以后建造)",
+            img: "安装场景_常见新房屋.png",
+            devices: [
+                { name: "📊 主配电箱", desc: "<span class='highlight'>一般位于房屋入户处的储藏室，空间较小。</span>" },
+                { name: "🔢 计量电表", desc: "一般位于主配电箱正上方，与主配电箱之间存在一个主空开。" },
+                { name: "🛡️ AC保护盒", desc: "一般都位于房屋旁的车库内。" },
+                { name: "🔋 户储设备", desc: "一般位于房屋旁的车库。" },
+                { name: "🌡️ 热泵设备", desc: "室外机一般位于房屋外墙；室内机液压模块一般位于车库等。" },
+                { name: "💧 电热水器设备", desc: "一般位于车库或洗衣房内。" },
+                { name: "🔌 EV充电桩", desc: "一般位于车库内。" }
+            ]
+        },
+        special: {
+            title: "特殊安装场景",
+            img: "安装场景_特殊情况.png",
+            devices: [
+                { name: "🔢 计量电表", desc: "<span class='highlight'>可能位于房屋外的位置（户外围栏），距离房屋最大可达50米。</span>" },
+                { name: "🔋 户储设备", desc: "<span class='highlight'>在有地下室的房屋中，可能被安放在地下室。</span>" },
+                { name: "🌡️ 热泵设备", desc: "<span class='highlight'>在有地下室的房屋中，可能被安放在地下室。</span>" }
+            ],
+            extraNote: "其他设备（主配电箱、AC保护盒、电热水器、EV充电桩等）位置与标准场景相似，需根据现场灵活调整。"
+        }
+    };
+
+    function renderScene(sceneKey) {
+        const scene = scenes[sceneKey];
+        if (!scene) return;
+
+        let devicesHtml = '';
+        scene.devices.forEach(device => {
+            devicesHtml += `
+                <li class="device-item">
+                    <div class="device-name">${device.name}</div>
+                    <div class="device-desc">${device.desc}</div>
+                    ${device.note ? `<div class="note">💡 ${device.note}</div>` : ''}
+                </li>
+            `;
+        });
+        // 如果是特殊场景，添加额外注释
+        if (sceneKey === 'special' && scene.extraNote) {
+            devicesHtml += `<li class="device-item"><div class="note">📌 ${scene.extraNote}</div></li>`;
+        }
+
+        const panelHtml = `
+            <div class="image-area">
+                <img src="${scene.img}" alt="${scene.title}" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20150%22%3E%3Crect%20width%3D%22200%22%20height%3D%22150%22%20fill%3D%22%23f0f2f5%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20text-anchor%3D%22middle%22%20dy%3D%22.3em%22%20fill%3D%22%238c9aa8%22%3E图片加载失败%3C%2Ftext%3E%3C%2Fsvg%3E';">
+            </div>
+            <div class="description-area">
+                <ul class="device-list">
+                    ${devicesHtml}
+                </ul>
+            </div>
+        `;
+        document.getElementById('scenePanel').innerHTML = panelHtml;
+    }
+
+    const select = document.getElementById('sceneSelect');
+    select.addEventListener('change', (e) => {
+        renderScene(e.target.value);
+    });
+
+    renderScene('old');
+</script>
+</body>
+</html>

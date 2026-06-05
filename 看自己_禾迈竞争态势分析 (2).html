@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>禾迈竞争力分析 · 法国微逆市场</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .report {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.5rem;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            font-size: 0.9rem;
+            color: #6c7e95;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.3rem;
+        }
+        .grid-3 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .card {
+            flex: 1;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 24px;
+            padding: 1.2rem;
+            transition: all 0.2s;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eef2f5;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-subtitle {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1f3a4b;
+            margin: 0.8rem 0 0.4rem 0;
+            background: #f8fafc;
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+        }
+        .sub-module {
+            margin-top: 0.8rem;
+            border-left: 2px solid #eef2f5;
+            padding-left: 0.6rem;
+        }
+        .risk-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #d9534f;
+            margin-bottom: 0.2rem;
+        }
+        .strategy-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2c9e6e;
+            margin-bottom: 0.2rem;
+        }
+        .risk-text, .strategy-text {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            margin-bottom: 0.4rem;
+        }
+        /* 左侧和右侧的列表样式（行距紧凑） */
+        .p-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .p-list li {
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.2rem;
+            line-height: 1.4;
+        }
+        .p-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2c6e9e;
+        }
+        /* 中间模块（品牌定位与价格竞争力）专属加大行距 */
+        .mid-card .p-list li {
+            margin-bottom: 0.9rem;
+            line-height: 1.6;
+        }
+        .mid-card .price-subtitle {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1f3a4b;
+            margin: 1.2rem 0 0.5rem 0;
+        }
+        .mid-card .price-desc {
+            font-size: 0.75rem;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+        .mid-card .risk-note {
+            background: #fef7e0;
+            border-radius: 16px;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            border-left: 3px solid #d9534f;
+            line-height: 1.7;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .footnote {
+            font-size: 0.75rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 900px) {
+            .grid-3 { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">⚡ 禾迈 · 法国市场竞争力分析</div>
+    <div style="text-align: center;"><span class="subhead">产品技术 · 品牌定位 · 服务能力</span></div>
+
+    <div class="grid-3">
+        <!-- 左侧：产品与系统竞争力 -->
+        <div class="card">
+            <div class="card-title">🔧 产品与系统竞争力</div>
+            
+            <!-- 1. 微逆产品 -->
+            <div class="section-subtitle">📌 微逆产品 · 技术升级刚需</div>
+            <div class="sub-module">
+                <div class="risk-title">⚠️ 风险</div>
+                <div class="risk-text">HMS系列微逆在法国市场稳定运行，但功率和效率参数已落后于ATMOCE等新兴竞品。</div>
+                <div class="strategy-title">✅ 策略</div>
+                <div class="strategy-text">MIS-1250新品微逆上市，以高功率、高效率、Sub-1G稳定通信，维持禾迈在市场中的技术优势。</div>
+            </div>
+
+            <!-- 2. DTU -->
+            <div class="section-subtitle">📡 DTU · 从网关到能源管理中心</div>
+            <div class="sub-module">
+                <div class="risk-title">⚠️ 风险</div>
+                <div class="risk-text">DTU-Pro-S以Sub-1G稳定通信优势获得法国市场好评，但硬件接口和存储空间限制了HEMS功能的迭代（如热泵控制等关键需求）；目前需配合Shelly控制器使用，增加了系统成本和安装配置复杂度。</div>
+                <div class="strategy-title">✅ 策略</div>
+                <div class="strategy-text">DTU G2新品上市，从传统光伏网关转型为能源管理中心，提升通信速度、交互体验和兼容性，增强HEMS潜力。</div>
+            </div>
+
+            <!-- 3. 户储 -->
+            <div class="section-subtitle">🔋 户用储能 · 系统融合优化</div>
+            <div class="sub-module">
+                <div class="risk-title">⚠️ 风险</div>
+                <div class="risk-text">HYS/HIS/HiOne等主力产品融合微逆做AC耦合方案，在系统融合性、交互统一性、安装简易性等方面较其他微逆厂商存在一定差距。</div>
+                <div class="strategy-title">✅ 策略</div>
+                <div class="strategy-text">优化现有户储产品的安装、使用体验，同时规划新一代AC电池产品，提高市场竞争力。</div>
+            </div>
+        </div>
+
+        <!-- 中间：品牌定位与价格竞争力（加大行距） -->
+        <div class="card mid-card">
+            <div class="card-title">🏷️ 品牌定位与价格竞争力</div>
+            <ul class="p-list">
+                <li>禾迈在法国定位 <span class="highlight">中高端品牌</span>（Enphase高端 > 禾迈中高端 > Apsystem中端）。</li>
+                <li>品牌优势：电力电子技术实力强，能支持安装商向终端客户讲述技术可靠性，并支撑<span class="highlight">产品溢价</span>。</li>
+            </ul>
+            <div class="price-subtitle">💰 中高端市场：性价比优势突出</div>
+            <div class="price-desc">HMS系列价格低于Enphase，系统配件（内置继电器、延长天线 vs PLC滤波器；内置HEMS vs IQ Energy Router）形成方案性价比优势，对注重投资回报的用户具备吸引力。</div>
+            <div class="price-subtitle">📊 中低端市场：技术优势与稳定性支撑</div>
+            <div class="price-desc">价格高于Apsystem、TSUN、DEYE等，但<span class="highlight">技术优势+低故障率（<0.5%）</span>赢得安装商信任，品牌价值支撑溢价，稳定运行增加安装商潜在收益。</div>
+            <div class="risk-note">
+                ⚠️ <strong>主要竞争风险：ATMOCE</strong><br>
+                • 依托与Enphase相似的技术树立中高端定位，一拖一产品直接与Enphase价格竞争，逼迫Enphase降价。<br>
+                • 一拖二产品主打极致性价比，配合安装商直销营销，正在收割Apsystem的安装商客户。<br>
+                • <span class="highlight">禾迈渠道客户面临较大的竞争压力</span>。
+            </div>
+        </div>
+
+        <!-- 右侧：技术服务能力 -->
+        <div class="card">
+            <div class="card-title">🛠️ 技术服务能力</div>
+            <ul class="p-list">
+                <li>禾迈在法国设有<span class="highlight">4人本地技术团队 + 欧洲热线中心</span>，可做到安装商反馈实时回复。</li>
+                <li>与分销商合作开展安装商培训活动，技术服务能力在法国市场认可度较高。</li>
+            </ul>
+            <div class="section-subtitle">📊 竞对对比：Apsystem衰退教训</div>
+            <ul class="p-list">
+                <li>Apsystem在法国衰退原因：产品创新不足、稳定性波动，但<span class="highlight">最核心问题在于本地技术服务响应能力减弱</span>。</li>
+                <li>负面评价增多 → 品牌可靠性降低 → 安装商信任度下降 → 分销商切换合作品牌。</li>
+                <li>禾迈应持续强化本地技术服务，避免重蹈覆辙。</li>
+            </ul>
+            <div class="section-subtitle">✅ 禾迈优势总结</div>
+            <ul class="p-list">
+                <li>实时技术支持，培训体系完善，安装商粘性较高。</li>
+                <li>以技术服务支撑品牌溢价，形成差异化竞争壁垒。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 数据基于2025-2026年法国市场调研、分销商访谈及内部产品路线图
+    </div>
+</div>
+</body>
+</html>

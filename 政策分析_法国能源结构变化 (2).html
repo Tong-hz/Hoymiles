@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国电力能源结构 · 简化分类</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* 窄版卡片，宽高比接近1:1 */
+        .chart-card {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 20px;
+            padding: 1rem 0.8rem 0.6rem 0.8rem;
+            box-shadow: none;
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            gap: 0.4rem;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 0.4rem;
+        }
+        .title h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e2f3e;
+            letter-spacing: -0.2px;
+        }
+        .title p {
+            font-size: 0.65rem;
+            color: #5b6f82;
+            margin-top: 2px;
+        }
+        .control {
+            background: #f8fafc;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .control label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c5a74;
+        }
+        select {
+            background: white;
+            border: 1px solid #cbdde9;
+            border-radius: 24px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;   /* 高度适配1:1视觉 */
+        }
+        .footer {
+            font-size: 0.6rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+            padding-top: 0.4rem;
+        }
+        @media (max-width: 600px) {
+            .chart-container { height: 360px; }
+            .title h1 { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="chart-card">
+    <div class="header">
+        <div class="title">
+            <h1>⚡ 法国电力能源结构（简化分类）</h1>
+            <p>1970–2024 · 化石能源合计（煤+油+气） | 核电 · 水电 · 风电 · 太阳能</p>
+        </div>
+        <div class="control">
+            <label>📊 显示指标：</label>
+            <select id="metric-select">
+                <option value="generation">发电量 (GWh)</option>
+                <option value="percentage">占比 (%)</option>
+            </select>
+        </div>
+    </div>
+    <div id="energy-chart" class="chart-container"></div>
+    <div class="footer">
+        数据来源：IEA Electricity Information (CC BY 4.0) · 1970-1989年数据基于IEA历史趋势估算
+    </div>
+</div>
+
+<script>
+(function() {
+    // 年份 1970-2024
+    const years = [];
+    for (let y = 1970; y <= 2024; y++) years.push(y);
+    const histYears = years.slice(0, 20);  // 1970-1989
+    const realYears = years.slice(20);     // 1990-2024
+
+    // ---------- 原始发电量数据 (GWh) ----------
+    // 历史估算 (1970-1989)
+    const coal_hist =     [40000,41000,42000,43000,44000,45000,48000,51000,54000,57000,60000,58000,56000,54000,52000,50000,47000,44000,41000,38000];
+    const oil_hist =      [35000,35000,35000,35000,35000,35000,33000,31000,29000,27000,30000,27000,24000,21000,18000,15000,14000,13000,11000,10000];
+    const gas_hist =      [8000,8400,8800,9200,9600,10000,11000,12000,13000,14000,15000,14000,13000,12000,11000,10000,8800,7600,6400,5200];
+    const nuclear_hist =  [5000,7000,9000,11000,13000,15000,20000,30000,40000,50000,60000,90000,120000,160000,190000,220000,240000,260000,280000,300000];
+    const hydro_hist =    [50000,52000,54000,56000,58000,60000,62000,64000,66000,68000,70000,68000,66000,64000,62000,60000,59500,59000,58500,58000];
+    const wind_hist =     new Array(20).fill(0);
+    const solar_hist =    new Array(20).fill(0);
+
+    // 真实数据 (1990-2024) 来自IEA
+    const coal_real =     [35423,43204,37732,24749,24143,26556,30966,25863,37312,33112,30860,23901,26991,29266,27235,30705,26404,28197,26434,24019,26315,19877,24130,26343,13832,14556,12246,15198,10542,5872,4943,7339,5867,3071,2038];
+    const oil_real =      [8668,14084,9319,6091,5617,7749,7790,7727,11651,9952,7165,5958,5767,7096,6528,7925,7133,6163,5343,4712,5521,7445,7285,6390,6424,6673,6855,6979,5717,5914,5595,5722,6354,6184,7004];
+    const gas_real =      [3027,3054,3185,3496,3625,3840,4122,4900,4975,7701,11514,15146,18369,19368,21049,23069,21760,21987,21884,20503,23758,29489,22753,18393,13162,21143,34967,40500,30547,39236,35245,33306,44000,29839,17711];
+    const nuclear_real =  [314081,331340,338445,368188,359981,377231,397340,395483,387990,394244,415162,421076,436760,441070,448241,451529,450191,439730,439447,409736,428521,442387,425406,423684,436479,437427,403195,398359,412941,399011,353832,379361,294731,338202,380451];
+    const hydro_real =    [57418,61544,72583,67947,81068,76192,70281,67559,66103,77082,71133,78511,65830,64278,64898,56331,61741,63259,68367,61966,67525,50893,64759,77070,69570,60513,65685,55134,70472,61572,67094,63946,51049,60850,77461];
+    const wind_real =     [2,5,5,7,11,19,37,48,131,265,388,595,962,2182,4070,5694,7912,9945,12619,15481,16459,17670,21849,21808,25101,29170,35416,40658,37628,38963,51488,47245];
+    const solar_real =    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,620,2333,4427,5193,6391,7753,8659,9586,10808,12165,13189,15356,19627,21823,23623];
+
+    // 合并全序列 (1970-2024)
+    const coal = [...coal_hist, ...coal_real];
+    const oil = [...oil_hist, ...oil_real];
+    const gas = [...gas_hist, ...gas_real];
+    const nuclear = [...nuclear_hist, ...nuclear_real];
+    const hydro = [...hydro_hist, ...hydro_real];
+    const wind = [...wind_hist, ...wind_real];
+    const solar = [...solar_hist, ...solar_real];
+
+    // 化石能源合计
+    const fossil = coal.map((v, i) => v + oil[i] + gas[i]);
+
+    // ---------- 总发电量 (用于占比计算) ----------
+    const totalReal = [
+        421788, 435618, 457670, 468411, 475230, 492664, 514186, 512223, 510444, 525047,
+        537312, 542876, 558479, 563859, 571246, 572143, 568240, 559230, 562733, 545026,
+        566553, 563688, 556593, 568429, 566378, 571571, 547511, 541725, 554471, 552441,
+        540498, 539820, 491353, 543245, 561721
+    ];
+    let totalHist = [];
+    for (let i = 0; i < histYears.length; i++) {
+        let sumMain = coal_hist[i] + oil_hist[i] + gas_hist[i] + nuclear_hist[i] + hydro_hist[i] + wind_hist[i] + solar_hist[i];
+        let factor = 1.03 - (i / 20) * 0.015;
+        totalHist.push(Math.round(sumMain * factor));
+    }
+    const total = [...totalHist, ...totalReal];
+
+    // 展示的能源
+    const sources = [
+        { name: "化石能源 (煤+油+气)", data: fossil, color: "#A9A9A9" },
+        { name: "核电 (Nuclear)", data: nuclear, color: "#2C7DA0" },
+        { name: "水电 (Hydropower)", data: hydro, color: "#2B9EB3" },
+        { name: "风电 (Wind)", data: wind, color: "#4C9A8C" },
+        { name: "太阳能 (Solar PV)", data: solar, color: "#F4D03F" }
+    ];
+
+    function getSeriesByMetric(metric) {
+        if (metric === 'generation') {
+            return sources.map(src => ({
+                name: src.name,
+                type: 'line',
+                data: src.data,
+                smooth: false,
+                symbol: 'none',
+                lineStyle: { width: 2, color: src.color },
+                emphasis: { focus: 'series' },
+                tooltip: { valueFormatter: (value) => value != null ? Math.round(value).toLocaleString() + ' GWh' : '—' }
+            }));
+        } else {
+            return sources.map(src => {
+                const percentData = src.data.map((val, i) => (total[i] > 0 ? (val / total[i]) * 100 : 0));
+                return {
+                    name: src.name,
+                    type: 'line',
+                    data: percentData,
+                    smooth: false,
+                    symbol: 'none',
+                    lineStyle: { width: 2, color: src.color },
+                    emphasis: { focus: 'series' },
+                    tooltip: { valueFormatter: (value) => value != null ? value.toFixed(2) + '%' : '—' }
+                };
+            });
+        }
+    }
+
+    const chartDom = document.getElementById('energy-chart');
+    const myChart = echarts.init(chartDom);
+    let currentMetric = 'generation';
+
+    const baseOption = {
+        backgroundColor: '#ffffff',
+        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+        legend: {
+            type: 'scroll',
+            orient: 'horizontal',
+            left: 'left',
+            top: 0,
+            itemWidth: 28,
+            itemHeight: 12,
+            textStyle: { fontSize: 10 },
+            selector: [{ type: 'all', title: '全选' }, { type: 'inverse', title: '反选' }],
+            selectorLabel: { fontSize: 8, backgroundColor: '#f0f2f5', borderRadius: 10 }
+        },
+        grid: { left: '8%', right: '6%', top: '14%', bottom: '8%', containLabel: false },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: years,
+            axisLabel: { rotate: 35, interval: 5, fontSize: 9, color: '#4a627a' },
+            axisLine: { lineStyle: { color: '#cbd5e1' } },
+            axisTick: { show: false },
+            name: '年份', nameLocation: 'middle', nameGap: 35
+        },
+        yAxis: {
+            type: 'value',
+            name: '发电量 (GWh)',
+            nameTextStyle: { fontSize: 10, fontWeight: 500, color: '#2c6e9e' },
+            axisLabel: {
+                fontSize: 9,
+                formatter: (value) => {
+                    if (currentMetric === 'generation') {
+                        if (value >= 1e6) return (value/1e6).toFixed(1)+'M';
+                        if (value >= 1e3) return (value/1e3).toFixed(0)+'k';
+                        return value;
+                    } else {
+                        return value.toFixed(0)+'%';
+                    }
+                }
+            },
+            splitLine: { lineStyle: { color: '#e9edf2', type: 'dashed' } }
+        },
+        dataZoom: [
+            { type: 'inside', start: 0, end: 100, xAxisIndex: [0] },
+            { type: 'slider', start: 0, end: 100, xAxisIndex: [0], bottom: 5, height: 16 }
+        ],
+        toolbox: { show: false }
+    };
+
+    function updateChart(metric) {
+        const seriesData = getSeriesByMetric(metric);
+        const newYname = metric === 'generation' ? '发电量 (GWh)' : '占比 (%)';
+        myChart.setOption({ yAxis: { name: newYname }, series: seriesData }, { replaceMerge: false });
+    }
+
+    myChart.setOption(baseOption);
+    updateChart(currentMetric);
+
+    const selectEl = document.getElementById('metric-select');
+    selectEl.addEventListener('change', (e) => {
+        currentMetric = e.target.value;
+        updateChart(currentMetric);
+    });
+    window.addEventListener('resize', () => myChart.resize());
+})();
+</script>
+</body>
+</html>

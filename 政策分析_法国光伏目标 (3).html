@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国能源转向：核电复兴，光伏目标下调</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .poster {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #eef2f5;
+            padding: 1rem 0.8rem 1rem;
+        }
+
+        .title-main {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0.8rem 0 0.6rem;
+            color: #1f3a4b;
+            border-left: 3px solid #2c6e9e;
+            padding-left: 0.5rem;
+        }
+
+        .timeline-climate {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 16px;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .years {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+        .target-bars {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin: 0.3rem 0;
+        }
+        .target {
+            flex: 1;
+            text-align: center;
+        }
+        .bar {
+            height: 6px;
+            border-radius: 8px;
+            background: #cbdde9;
+            margin-bottom: 0.2rem;
+        }
+        .bar.filled {
+            background: #2c6e9e;
+        }
+        .target-value {
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        .zero-note {
+            font-size: 0.55rem;
+            color: #6c7e95;
+            margin-top: 0.2rem;
+        }
+
+        .pv-ranking {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 16px;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .ranking-bars {
+            margin: 0.3rem 0;
+        }
+        .rank-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.65rem;
+        }
+        .rank-country {
+            width: 50px;
+            font-weight: 600;
+        }
+        .bar-container {
+            flex: 1;
+            height: 18px;
+            background: #e9edf2;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            background: #8fc9e0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 4px;
+            font-size: 0.55rem;
+            color: white;
+            font-weight: 500;
+        }
+        .fr-fill {
+            background: #2c6e9e;
+        }
+        .rank-value {
+            width: 40px;
+            text-align: right;
+            font-weight: 500;
+        }
+        .fr-note {
+            font-size: 0.6rem;
+            color: #d97706;
+            margin-top: 0.3rem;
+            background: #fef7e0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 14px;
+            display: inline-block;
+        }
+
+        .ppe-evolution {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 16px;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .ppe-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .ppe-year {
+            font-weight: 700;
+            font-size: 0.8rem;
+            background: #e9f0f5;
+            padding: 0.2rem 0.6rem;
+            border-radius: 24px;
+            flex-shrink: 0;
+        }
+        .ppe-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        .ppe-desc {
+            font-size: 0.7rem;
+            color: #2c3e50;
+            line-height: 1.35;
+        }
+        .ppe-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            align-items: center;
+        }
+        .nuclear-badge {
+            background: #2c6e9e20;
+            color: #2c6e9e;
+            border-radius: 14px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.6rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .solar-change {
+            background: #eef2fa;
+            border-radius: 14px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: #b45f2b;
+            display: inline-block;
+        }
+        .highlight {
+            background: #fef7e0;
+            padding: 0.15rem 0.4rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.65rem;
+            text-align: center;
+            display: inline-block;
+        }
+        .footer-note {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+
+        .toggle-btn {
+            background: #2c6e9e;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin: 0.5rem 0 0.2rem;
+            transition: 0.2s;
+        }
+        .toggle-btn:hover {
+            background: #1f567d;
+        }
+        .detail-panel {
+            margin-top: 0.8rem;
+            border-top: 1px solid #eef2f5;
+            padding-top: 0.8rem;
+            display: none;
+        }
+        .detail-panel.show {
+            display: block;
+        }
+        .sub-section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1f3a4b;
+            margin: 0.6rem 0 0.3rem;
+            border-left: 2px solid #2c6e9e;
+            padding-left: 0.4rem;
+        }
+        .detail-text {
+            font-size: 0.7rem;
+            line-height: 1.45;
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+        .support-img {
+            width: 100%;
+            border-radius: 12px;
+            margin: 0.3rem 0;
+            border: 1px solid #eef2f5;
+        }
+        .chart-bar {
+            background: #e9edf2;
+            border-radius: 12px;
+            height: 12px;
+            width: 100%;
+            margin: 0.2rem 0;
+            overflow: hidden;
+        }
+        .chart-fill {
+            background: #2c6e9e;
+            height: 100%;
+            width: 0%;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="title-main">⚡ 法国能源政策转向</div>
+    <div class="subhead">核电复兴 · 光伏目标下调 · 欧盟碳减排驱动</div>
+
+    <!-- 一、欧盟碳排放目标 -->
+    <div class="section-title">🌍 欧盟气候与能源目标</div>
+    <div class="timeline-climate">
+        <div class="years">
+            <span>1990</span><span>2030</span><span>2040</span><span>2050</span>
+        </div>
+        <div class="target-bars">
+            <div class="target"><div class="bar"><div class="bar filled" style="width: 100%;"></div></div><div class="target-value">基准</div></div>
+            <div class="target"><div class="bar"><div class="bar filled" style="width: 45%;"></div></div><div class="target-value">-55%</div></div>
+            <div class="target"><div class="bar"><div class="bar filled" style="width: 10%;"></div></div><div class="target-value">-90%</div></div>
+            <div class="target"><div class="bar"><div class="bar filled" style="width: 0%;"></div></div><div class="target-value">净零</div></div>
+        </div>
+        <div class="zero-note">※ 净零指通过碳捕获、碳交易中和剩余排放</div>
+    </div>
+
+    <!-- 二、2030年光伏容量目标（NECP） -->
+    <div class="section-title">☀️ 2030 年光伏容量目标 · NECP</div>
+    <div class="pv-ranking">
+        <div class="ranking-bars">
+            <div class="rank-item"><span class="rank-country">🇩🇪 德国</span><div class="bar-container"><div class="bar-fill" style="width: 100%; background: #8fc9e0;">215 GW</div></div><span class="rank-value">#1</span></div>
+            <div class="rank-item"><span class="rank-country">🇪🇸 西班牙</span><div class="bar-container"><div class="bar-fill" style="width: 44.6%; background: #8fc9e0;">96 GW</div></div><span class="rank-value">#2</span></div>
+            <div class="rank-item"><span class="rank-country">🇮🇹 意大利</span><div class="bar-container"><div class="bar-fill" style="width: 36.7%; background: #8fc9e0;">79 GW</div></div><span class="rank-value">#3</span></div>
+            <div class="rank-item"><span class="rank-country">🇫🇷 法国</span><div class="bar-container"><div class="bar-fill fr-fill" style="width: 25.1%; background: #2c6e9e;">48 GW ← 54 GW</div></div><span class="rank-value">#4</span></div>
+            <div class="rank-item"><span class="rank-country">🇳🇱 荷兰</span><div class="bar-container"><div class="bar-fill" style="width: 12.1%; background: #8fc9e0;">26 GW</div></div><span class="rank-value">#5</span></div>
+        </div>
+        <div class="fr-note">⚠️ 法国在2025年最终修订版中将光伏目标降低 <strong>7.2 GW</strong> (54→48 GW)，<br>降幅超过其他9个国家的增幅总量</div>
+    </div>
+
+    <!-- 三、法国 PPE 计划演变（核电复兴，光伏下调） -->
+    <div class="section-title">🏭 法国 PPE 能源规划演变</div>
+    <div class="ppe-evolution">
+        <div class="ppe-row">
+            <span class="ppe-year">PPE 1 (2015)</span>
+            <div class="ppe-content">
+                <div class="ppe-desc">将核电占比降至 <strong>50%</strong>，开启减核路线</div>
+                <div class="ppe-badges"><span class="nuclear-badge">⚛️ 降低核电</span></div>
+            </div>
+        </div>
+        <div class="ppe-row">
+            <span class="ppe-year">PPE 2 (2019)</span>
+            <div class="ppe-content">
+                <div class="ppe-desc">计划关闭 <strong>14座</strong> 核反应堆，大幅提升可再生能源目标</div>
+                <div class="ppe-badges"><span class="nuclear-badge">⚛️ 加速减核</span></div>
+            </div>
+        </div>
+        <div class="ppe-row">
+            <span class="ppe-year">PPE 3 (2026)</span>
+            <div class="ppe-content">
+                <div class="ppe-desc">维持并延长现有核电站寿命，<strong>新建6座EPR2</strong>；光伏目标从54 GW降至<strong>48 GW</strong></div>
+                <div class="ppe-badges">
+                    <span class="nuclear-badge" style="background:#2c6e9e20;">⚛️ 核电复兴</span>
+                    <span class="solar-change">☀️ 光伏目标 -7 GW</span>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 0.4rem; border-top: 1px dashed #eef2f5; padding-top: 0.4rem; text-align: center;">
+            <span class="highlight">🔁 核心转向：从“降低核电”到“核电复兴”，同时下调光伏目标</span>
+        </div>
+    </div>
+
+    <!-- 交互按钮 + 详细分析面板 -->
+    <button class="toggle-btn" id="detailToggleBtn">🔍 查看详细：为何核电复兴难以逆转？</button>
+    <div id="detailPanel" class="detail-panel">
+        <!-- 1. PPE 计划的持续性 -->
+        <div class="sub-section-title">📌 1. PPE 3 能源计划的持续性</div>
+        <div class="detail-text">
+            作为法国实现2050净零排放目标的长期计划，PPE计划每5年修订一次，且每次计划覆盖未来10年的发展规划细则。至少在2030年前，除非出现重大核安全问题，法国不会改变目前的核电复兴战略。
+        </div>
+
+        <!-- 2. 政治支持率高：使用本地图片 policy.png -->
+        <div class="sub-section-title">🗳️ 2. 政治支持率高（国民议会2024年议席占比）</div>
+        <img class="support-img" src="policy.png" alt="法国国民议会政治支持率分布图" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="font-size:0.65rem; color:#8c9aa8; margin-top:0.2rem; text-align:center;">※ 图片文件: policy.png (请确保与HTML在同一目录下)</div>
+        <div class="detail-text" style="margin-top:0.4rem;">
+            <strong>支持核电的右翼+中间派合计占比超过65%</strong>，即使2027年左翼胜出，其内部对核电态度分歧，难以统一放弃核电；目前法国民众对右翼党派的支持率更高，左翼内部斗争分散选票，胜算较小。
+        </div>
+        <!-- 简易柱状图示意 -->
+        <div class="detail-text" style="margin-top:0.3rem;"><strong>核电支持阵营议席占比示意</strong></div>
+        <div class="chart-bar"><div class="chart-fill" style="width: 65%; background: #2c6e9e;"></div></div>
+        <div class="detail-text" style="font-size:0.65rem;">支持核电的议席占比约65% (右翼+中间派+极右翼部分)</div>
+
+        <!-- 3. 经济性和能源安全性 -->
+        <div class="sub-section-title">⚡ 3. 经济性与能源安全性</div>
+        <div class="detail-text">
+            2026年美以伊冲突重新激发民众对能源安全、能源独立和能源价格的焦虑情绪。保持以核电为基础的能源结构能够支持法国进一步保持能源安全性，减少能源价格和经济受到国际形势的冲击。核电作为稳定、低成本的基荷电源，是保障法国能源主权和经济稳定的关键。
+        </div>
+    </div>
+
+    <div class="footer-note">
+        📌 欧盟碳减排压力下，法国选择以核电作为低碳基荷，调整可再生能源节奏。<br>
+        2030年光伏目标不增反降，远低于德、西、意，核电装机与延寿成为新重心。
+    </div>
+</div>
+
+<script>
+    const toggleBtn = document.getElementById('detailToggleBtn');
+    const detailPanel = document.getElementById('detailPanel');
+    toggleBtn.addEventListener('click', () => {
+        if (detailPanel.classList.contains('show')) {
+            detailPanel.classList.remove('show');
+            toggleBtn.textContent = '🔍 查看详细：为何核电复兴难以逆转？';
+        } else {
+            detailPanel.classList.add('show');
+            toggleBtn.textContent = '▼ 收起详细分析';
+        }
+    });
+</script>
+</body>
+</html>

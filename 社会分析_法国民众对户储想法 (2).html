@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国民众对户用储能的想法 · 观点与事实</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        .report {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 24px;
+            padding: 1rem;
+            box-shadow: none;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .title h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e2f3e;
+        }
+        .title p {
+            font-size: 0.65rem;
+            color: #6c7e95;
+            margin-top: 0.2rem;
+        }
+        .section {
+            margin-bottom: 1rem;
+        }
+        .section-header {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.6rem;
+            padding-left: 0.5rem;
+            border-left: 2px solid #2c6e9e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .section-header span {
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #2c6e9e;
+        }
+        .grid-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .card {
+            flex: 1;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 18px;
+            padding: 0.8rem;
+        }
+        .card h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card li {
+            font-size: 0.7rem;
+            margin-bottom: 0.4rem;
+            padding-left: 1rem;
+            position: relative;
+            line-height: 1.3;
+        }
+        .card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2c6e9e;
+            font-weight: bold;
+        }
+        .pros li::before { color: #2c9e6e; }
+        .cons li::before { color: #d9534f; }
+        .fact-card {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 0.6rem;
+            text-align: center;
+        }
+        .fact-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c6e9e;
+            margin-bottom: 0.2rem;
+        }
+        .fact-label {
+            font-size: 0.65rem;
+            color: #5b6f82;
+        }
+        .chart-container {
+            width: 100%;
+            height: 220px;
+            margin-top: 0.3rem;
+        }
+        .collapse-content {
+            display: none;
+        }
+        .collapse-content.show {
+            display: block;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        .toggle-icon {
+            font-size: 0.7rem;
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">
+        <h1>🔋 法国民众对户用储能的想法</h1>
+        <p>优缺点认知 · 市场趋势与事实</p>
+    </div>
+
+    <!-- 优缺点对比 -->
+    <div class="section">
+        <div class="section-header" style="cursor: default; border-left-color: #2c6e9e;">
+            ⚖️ 安装户用储能的主要优缺点
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>✅ 优势</h3>
+                <ul class="pros">
+                    <li>更高自发自用率 → 更高的能源自治水平</li>
+                    <li>全屋/部分备电能力 → 能源安全提升</li>
+                    <li>储存光伏电力供夜间使用 → 环保价值增强</li>
+                    <li>应对未来电价上涨 → 降低能源波动不确定性，潜在收益增加</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>❌ 劣势</h3>
+                <ul class="cons">
+                    <li>初期投资成本高 → 投资回报下降</li>
+                    <li>寿命和质保时间有限 → 后期性能下降+维护成本，影响回报</li>
+                    <li>空间损失（墙面/占地空间）</li>
+                    <li>安全、报废等顾虑</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关键事实（可折叠） -->
+    <div class="section">
+        <div class="section-header" id="factsHeader">
+            📊 关键事实
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="factsContent" class="collapse-content">
+            <div class="grid-2" style="margin-bottom: 0.8rem;">
+                <div class="fact-card">
+                    <div class="fact-number">18–20%</div>
+                    <div class="fact-label">2026年Q1新注册户用光伏电站中<br>配储比例</div>
+                    <div class="fact-label" style="margin-top: 0.2rem; font-size:0.6rem;">(Enedis 官方注册)</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-number">50–60%</div>
+                    <div class="fact-label">当前新装市场中，主动询问<br>光伏配储系统的用户比例</div>
+                    <div class="fact-label" style="margin-top: 0.2rem; font-size:0.6rem;">(本地安装商经验反馈)</div>
+                </div>
+            </div>
+            <div style="margin-top: 0.8rem;">
+                <div style="font-size: 0.7rem; font-weight: 500; margin-bottom: 0.2rem;">📈 Enedis 注册电站配储比例趋势</div>
+                <div id="storageTrend" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 配储比例指2025年Q2-Q3安装的电站，在2026年Q1完成注册的数据。<br>随着电价波动和自用意识提升，储能需求快速增长。
+    </div>
+</div>
+
+<script>
+    // 折线图数据
+    const quarters = ['2025Q1', '2025Q2', '2025Q3', '2025Q4', '2026Q1'];
+    const ratios = [3.3, 3.7, 5.7, 14.3, 18.0];
+
+    let chartInitialized = false;
+    let myChart = null;
+
+    function initChart() {
+        if (myChart) return;
+        const dom = document.getElementById('storageTrend');
+        if (!dom) return;
+        myChart = echarts.init(dom);
+        myChart.setOption({
+            tooltip: { trigger: 'axis', valueFormatter: (value) => value + '%' },
+            grid: { top: 25, bottom: 15, left: 40, right: 15, containLabel: true },
+            xAxis: { type: 'category', data: quarters, name: '时间', axisLabel: { rotate: 30, fontSize: 8 } },
+            yAxis: { type: 'value', name: '配储比例 (%)', min: 0, max: 20, axisLabel: { fontSize: 8, formatter: '{value}%' } },
+            series: [{
+                name: '配储比例', type: 'line', data: ratios, smooth: false,
+                symbol: 'circle', symbolSize: 5,
+                lineStyle: { width: 2, color: '#2C7DA0' },
+                areaStyle: { opacity: 0.1, color: '#2C7DA0' },
+                label: { show: true, position: 'top', formatter: '{c}%', fontSize: 8 }
+            }]
+        });
+        chartInitialized = true;
+    }
+
+    // 折叠/展开交互
+    const factsHeader = document.getElementById('factsHeader');
+    const factsContent = document.getElementById('factsContent');
+    const toggleIcon = factsHeader.querySelector('.toggle-icon');
+
+    factsHeader.addEventListener('click', () => {
+        if (factsContent.classList.contains('show')) {
+            factsContent.classList.remove('show');
+            toggleIcon.textContent = '▼';
+        } else {
+            factsContent.classList.add('show');
+            toggleIcon.textContent = '▲';
+            // 首次展开时初始化图表
+            if (!chartInitialized) {
+                initChart();
+            } else if (myChart) {
+                setTimeout(() => myChart.resize(), 50);
+            }
+        }
+    });
+</script>
+</body>
+</html>

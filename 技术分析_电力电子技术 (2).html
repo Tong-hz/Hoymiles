@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>电力电子高频高密化发展 · 技术趋势</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+        .poster {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .header p {
+            font-size: 0.7rem;
+            opacity: 0.85;
+            margin-top: 0.2rem;
+        }
+        .content {
+            padding: 1.5rem;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin: 1rem 0 0.6rem 0;
+            padding-left: 0.6rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+        .card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .tech-item {
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eef2f5;
+        }
+        .tech-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .tech-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1e2f3e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tech-tag {
+            background: #e9f0f5;
+            border-radius: 30px;
+            padding: 0.15rem 0.6rem;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #2c6e9e;
+        }
+        .tech-detail {
+            font-size: 0.8rem;
+            color: #4a627a;
+            margin-top: 0.4rem;
+            line-height: 1.4;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .future-badge {
+            background: #eef2fa;
+            border-radius: 20px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.6rem;
+            color: #8c9aa8;
+            margin: 0.5rem 1.5rem 1.2rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 550px) {
+            .poster { max-width: 95%; }
+            .content { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>⚡ 电力电子高频高密化发展</h1>
+        <p>高效光伏组件 · 新型电力电子拓扑 · 第四代半导体</p>
+    </div>
+    <div class="content">
+        <!-- 第一部分：高效钙钛矿组件 -->
+        <div class="section-title">☀️ 高效钙钛矿组件</div>
+        <div class="card">
+            <div class="tech-item">
+                <div class="tech-name">
+                    天合 / 晶科 / 隆基
+                    <span class="tech-tag">钙钛矿-硅串联电池 (实验室效率)</span>
+                </div>
+                <div class="tech-detail">
+                    实验室效率突破 <span class="highlight">31% ~ 34.8%</span>，为下一代超高效光伏技术奠定基础。
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">
+                    天合光能
+                    <span class="tech-tag">钙钛矿-硅基叠层组件 (量产级)</span>
+                </div>
+                <div class="tech-detail">
+                    发布新一代叠层组件，功率突破 <span class="highlight">900W</span>，全面积组件效率达 <span class="highlight">29.2%</span>，刷新全球叠层组件功率世界纪录。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二部分：新型电力电子拓扑技术 -->
+        <div class="section-title">⚙️ 新型电力电子拓扑技术</div>
+        <div class="card">
+            <div class="tech-item">
+                <div class="tech-name">
+                    Enphase IQ9 系列
+                    <span class="tech-tag">GaN 双向开关</span>
+                </div>
+                <div class="tech-detail">
+                    基于氮化镓（GaN）双向开关技术，降低系统成本，同时提高转换效率、功率密度和可靠性。
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">
+                    Atmoce 微逆
+                    <span class="tech-tag">DAB 变换电路</span>
+                </div>
+                <div class="tech-detail">
+                    采用 DAB（双有源桥）变换拓扑，一拖二微逆最大功率 <span class="highlight">1250W</span>，转换效率高达 <span class="highlight">98.2%</span>。
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">
+                    Fox M 系列微逆
+                    <span class="tech-tag">大功率一拖二</span>
+                </div>
+                <div class="tech-detail">
+                    顺应组件功率增大趋势，推出最大功率 <span class="highlight">1200W</span> 的一拖二微逆，提高发电和收益能力。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三部分：未来展望 -->
+        <div class="section-title">🔮 未来展望</div>
+        <div class="card">
+            <div class="tech-name">
+                第四代半导体材料
+                <span class="tech-tag">Ga₂O₃ 氧化镓</span>
+            </div>
+            <div class="tech-detail">
+                氧化镓（Ga₂O₃）技术，支持更高电压、更高功率/效率，推动电力电子系统向更高频、更高密、更高效演进。
+            </div>
+            <div class="future-badge">
+                💡 更小体积 · 更低损耗 · 更高功率密度
+            </div>
+        </div>
+    </div>
+    <div class="footnote">
+        📊 数据基于2025-2026年行业发布会及企业公开技术资料 · 钙钛矿实验室效率与企业量产组件效率均为公开数据
+    </div>
+</div>
+</body>
+</html>

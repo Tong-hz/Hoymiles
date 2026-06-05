@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国环境因素分析 · 光伏产业影响</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .poster {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.65rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+        .content {
+            padding: 1rem;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        /* 卡片样式（可折叠） */
+        .card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 18px;
+            margin-bottom: 0.8rem;
+            overflow: hidden;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            cursor: pointer;
+            background: #ffffff;
+            transition: background 0.2s;
+        }
+        .card-header:hover {
+            background: #f8fafc;
+        }
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2c6e9e;
+        }
+        .toggle-icon {
+            font-size: 0.7rem;
+            color: #8c9aa8;
+        }
+        .card-content {
+            padding: 0 0.8rem 0.8rem 0.8rem;
+            display: none;
+            border-top: 1px solid #eef2f5;
+        }
+        .card-content.show {
+            display: block;
+        }
+        .tech-detail {
+            font-size: 0.75rem;
+            color: #5b6f82;
+            line-height: 1.4;
+            margin-bottom: 0.3rem;
+        }
+        .badge {
+            background: #e9f0f5;
+            border-radius: 16px;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.65rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.55rem;
+            color: #8c9aa8;
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>🌱 法国环境因素分析</h1>
+        <p>碳排放评估 · 光伏产业准入门槛加速升级</p>
+    </div>
+    <div class="content">
+        <div class="section-title">📋 碳评估工具重要性凸显</div>
+        <div class="card" style="cursor: default;">
+            <div class="card-header" style="cursor: default; background: #fefefe;">
+                <div class="card-title">环境认证成关键准入指标</div>
+            </div>
+            <div class="card-content show" style="border-top: none; display: block;">
+                <div class="tech-detail">法国能源转型过程中，<span class="highlight">PEP生态护照、PCF产品碳足迹、LCA生命周期评估</span>等环境认证已成为市场准入的关键指标，影响范围从招投标扩展到建筑法规和补贴政策。</div>
+            </div>
+        </div>
+
+        <!-- 1. 招投标碳足迹门槛（可折叠） -->
+        <div class="card">
+            <div class="card-header" data-target="content1">
+                <div class="card-title">🎯 招投标碳足迹门槛</div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="content1" class="card-content">
+                <div class="tech-detail"><span class="highlight">门槛从500kW+ 降至 100kW+</span><br>
+                此前仅要求<span class="highlight">≥500kW</span>工商业光伏项目通过<span class="highlight">ECS简化碳排放评估</span>；<span class="highlight">2025年10月起</span>，适用范围扩大至<span class="highlight">≥100kW</span>，更多工商业项目必须满足碳足迹标准方可参与招投标。</div>
+                <div class="badge">准入门槛大幅收紧</div>
+            </div>
+        </div>
+
+        <!-- 2. 建筑光伏强制EPD声明（可折叠） -->
+        <div class="card">
+            <div class="card-header" data-target="content2">
+                <div class="card-title">🏗️ 建筑光伏强制EPD声明</div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="content2" class="card-content">
+                <div class="tech-detail"><span class="highlight">APER 可再生能源加速法</span><br>
+                新建或翻新建筑安装光伏系统，组件和逆变器须提供<span class="highlight">EPD III型环境产品声明</span>。EPD基于LCA全面评估碳排放、能源消耗、废料产出、原材料可循环性等，<span class="highlight">要求高于ECS碳足迹评估</span>。</div>
+                <div class="badge">综合环境影响强制披露</div>
+            </div>
+        </div>
+
+        <!-- 3. 光伏VAT补贴低碳门槛（可折叠） -->
+        <div class="card">
+            <div class="card-header" data-target="content3">
+                <div class="card-title">💰 光伏VAT补贴低碳门槛</div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="content3" class="card-content">
+                <div class="tech-detail"><span class="highlight">5.5% 优惠税率新规</span><br>
+                自<span class="highlight">2025年10月</span>起，享受<span class="highlight">5.5% VAT</span>的光伏项目必须满足组件碳足迹要求。此举不仅出于环保考量，也呼应欧盟<span class="highlight">《关键原材料法案》</span>与<span class="highlight">《净零工业法案》</span>，鼓励欧洲本土制造。</div>
+                <div class="badge">环保 + 产业扶持双目标</div>
+            </div>
+        </div>
+    </div>
+    <div class="footnote">
+        📌 数据来源：法国能源转型部 / APER 可再生能源加速法 / 2025年10月起实施的VAT新政
+    </div>
+</div>
+
+<script>
+    // 为所有可折叠卡片添加交互
+    const headers = document.querySelectorAll('.card-header[data-target]');
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const targetId = header.getAttribute('data-target');
+            const contentDiv = document.getElementById(targetId);
+            const icon = header.querySelector('.toggle-icon');
+            if (contentDiv.classList.contains('show')) {
+                contentDiv.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                contentDiv.classList.add('show');
+                icon.textContent = '▲';
+            }
+        });
+    });
+</script>
+</body>
+</html>

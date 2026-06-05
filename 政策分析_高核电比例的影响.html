@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国高核电结构 · 灵活性问题分析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        .report {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+        .title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.2rem;
+        }
+        .tab-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5b6f82;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #2c6e9e;
+            color: white;
+        }
+        .content-panel {
+            display: none;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        .card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        .stat-highlight {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+            margin: 0.2rem 0;
+        }
+        .stat-large {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #d9534f;
+            margin: 0.2rem 0;
+        }
+        .flag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            align-items: center;
+        }
+        .flag {
+            font-size: 1rem;
+            background: #f8fafc;
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+            border: 1px solid #eef2f5;
+        }
+        .ratio-bar {
+            width: 100%;
+            background: #e9edf2;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+            display: flex;
+        }
+        .ratio-segment {
+            text-align: center;
+            padding: 0.3rem 0;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: white;
+        }
+        .chart-inline {
+            display: flex;
+            align-items: flex-end;
+            gap: 1rem;
+            margin: 0.5rem 0;
+        }
+        .bar-item {
+            text-align: center;
+            flex: 1;
+        }
+        .bar {
+            background: #2c6e9e;
+            height: 0;
+            width: 100%;
+            border-radius: 8px;
+        }
+        .bar-label {
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+        }
+        .flex-compare {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 0.5rem 0;
+        }
+        .compare-item {
+            flex: 1;
+            text-align: center;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.5rem;
+        }
+        .compare-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+        .img-placeholder {
+            margin: 0.8rem 0;
+            text-align: center;
+        }
+        .img-placeholder img {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid #eef2f5;
+        }
+        .small-note {
+            font-size: 0.65rem;
+            color: #8c9aa8;
+            margin-top: 0.3rem;
+            line-height: 1.4;
+        }
+        .footnote {
+            font-size: 0.65rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        .pill-list {
+            margin: 0.5rem 0 0 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .pill-list li {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+            line-height: 1.4;
+        }
+        .pill-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #d9534f;
+            font-weight: bold;
+        }
+        .pill-list .strong {
+            font-weight: 700;
+            color: #d9534f;
+            font-size: 0.85rem;
+        }
+        .reason-list {
+            margin: 0.3rem 0 0 1rem;
+            font-size: 0.8rem;
+            color: #4a627a;
+            line-height: 1.45;
+        }
+        .reason-list li {
+            margin-bottom: 0.25rem;
+        }
+        .reason-title {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #2c3e50;
+            margin-top: 0.2rem;
+        }
+        .conclusion-box {
+            background: #fef7e0;
+            border-radius: 16px;
+            padding: 0.6rem;
+            margin-top: 0.8rem;
+            text-align: center;
+            border-left: 3px solid #d9534f;
+        }
+        .thin-bar {
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+            background: #e9edf2;
+            display: flex;
+        }
+        .thin-segment {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">⚡ 法国高核电结构 · 灵活性问题</div>
+    <div class="subhead">发用电 · 出口 · 核电调节</div>
+
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="tab1">📊 发用电不均匀</button>
+        <button class="tab-btn" data-tab="tab2">📉 出口需求降低</button>
+        <button class="tab-btn" data-tab="tab3">⚛️ 核电灵活性限制</button>
+    </div>
+
+    <!-- 选项卡1：发用电不均匀 -->
+    <div id="tab1" class="content-panel active">
+        <div class="card">
+            <div class="stat-highlight">🇫🇷 2025年总发电量 544 TWh</div>
+            <div class="ratio-bar">
+                <div class="ratio-segment" style="width: 82.5%; background: #2c6e9e;">国内消费 449 TWh (82.5%)</div>
+                <div class="ratio-segment" style="width: 17.5%; background: #E9A23B;">出口 95 TWh (17.5%)</div>
+            </div>
+            <div class="flag-row">
+                <span>📍 主要出口方向：</span>
+                <span class="flag">🇮🇹 意大利</span>
+                <span class="flag">🇬🇧 英国</span>
+                <span class="flag">🇩🇪 德国</span>
+                <span class="flag">🇧🇪 比利时</span>
+                <span class="flag">🇨🇭 瑞士</span>
+            </div>
+            <div style="margin-top: 0.8rem;">
+                <div class="stat-large">📉 国内用电水平较2021年下降 6%</div>
+                <div class="reason-title">📌 主要原因：</div>
+                <ul class="reason-list">
+                    <li>• 能源危机期间民众持续的自发节能行为</li>
+                    <li>• 法国较低的电气化改造程度（热泵、电动汽车等普及较慢）</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 选项卡2：出口需求降低 -->
+    <div id="tab2" class="content-panel">
+        <div class="card">
+            <div class="stat-highlight">📉 欧洲日前市场负电价小时数激增</div>
+            <div class="flex-compare">
+                <div class="compare-item">
+                    <div class="compare-number">352 h</div>
+                    <div>2024年</div>
+                </div>
+                <div class="compare-item">
+                    <div class="compare-number">513 h</div>
+                    <div>2025年</div>
+                </div>
+            </div>
+            <div class="chart-inline">
+                <div class="bar-item">
+                    <div class="bar" style="height: 70px; background:#2c6e9e;"></div>
+                    <div class="bar-label">2024: 352h</div>
+                </div>
+                <div class="bar-item">
+                    <div class="bar" style="height: 102px; background:#d9534f;"></div>
+                    <div class="bar-label">2025: 513h</div>
+                </div>
+            </div>
+            <div class="small-note">随着欧洲可再生能源扩张，供过于求加剧，负电价时长 +46%</div>
+
+            <div style="margin-top: 1rem;">
+                <div class="stat-highlight">🇪🇸 西班牙从法国进口电力断崖式下降</div>
+                <div class="flex-compare">
+                    <div class="compare-item">
+                        <div class="compare-number">~8 TWh</div>
+                        <div>能源危机前（年均）</div>
+                    </div>
+                    <div class="compare-item">
+                        <div class="compare-number">0.2 TWh</div>
+                        <div>2025年</div>
+                    </div>
+                </div>
+                <div class="small-note">西班牙国内光伏快速发展，几乎不再依赖法国核电进口</div>
+            </div>
+            <div class="conclusion-box">
+                ⚠️ <strong>核电收益潜力和稳定性降低</strong> — 出口市场萎缩、负电价频发，核电经济性承压
+            </div>
+        </div>
+    </div>
+
+    <!-- 选项卡3：核电灵活性调节限制 -->
+    <div id="tab3" class="content-panel">
+        <div class="card">
+            <div class="stat-highlight">⚙️ 核电日内调节能力提升，但远不及电价波动</div>
+            <div class="flex-compare">
+                <div class="compare-item">
+                    <div class="compare-number">~1 GW/天</div>
+                    <div>2022年核电日均调节容量</div>
+                </div>
+                <div class="compare-item">
+                    <div class="compare-number">~5 GW/天</div>
+                    <div>2025年核电日均调节容量</div>
+                </div>
+            </div>
+            <div class="small-note">核电已增加动态调节能力，但电价日波动可达数十至上百€/MWh</div>
+
+            <div class="img-placeholder">
+                <img src="nuclear_flexibility.png" alt="核电调节能力与电价波动对比图" style="max-width:100%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; font-size:0.65rem; color:#d9534f;">※ 图片缺失: nuclear_flexibility.png</div>
+            </div>
+
+            <div style="margin-top: 0.8rem;">
+                <div class="stat-highlight" style="font-size:0.9rem;">⚠️ 技术限制核电灵活性调控</div>
+                <!-- 变细的柱状图 -->
+                <div class="thin-bar">
+                    <div class="thin-segment" style="width: 96.4%; background: #d9534f;"></div>
+                    <div class="thin-segment" style="width: 3.6%; background: #A9B4C2;"></div>
+                </div>
+                <div class="small-note" style="margin-top:0;">
+                    <strong>PWR 老旧技术占比 96.4% (54/56座)</strong> | 新EPR技术仅占3.6%
+                </div>
+                <div class="small-note" style="margin-top:0.2rem;">法国在运56座核电机组中，54座建于2000年以前，采用老旧的PWR（压水堆）技术。</div>
+                
+                <div class="stat-highlight" style="font-size:0.9rem; margin-top:0.5rem;">❌ PWR技术的三大缺陷</div>
+                <ul class="pill-list">
+                    <li><span class="strong">灵活性调节能力差</span> — 难以快速响应电网负荷变化和电价波动，无法适应可再生能源高比例接入</li>
+                    <li><span class="strong">调节运维成本高</span> — 频繁功率调整加速设备老化，维护费用显著高于稳定运行</li>
+                    <li><span class="strong">核废料排放增加</span> — 负荷跟踪运行会额外产生放射性废料，处置难度和成本上升</li>
+                </ul>
+                <div class="small-note" style="margin-top:0.3rem;">※ 新一代EPR机组具备更好的调节能力，但占比极低，无法改变整体结构。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 数据来源：RTE、ENTSO-E、IEA · 基于2024-2025年实际运行数据及预测
+    </div>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = {
+        tab1: document.getElementById('tab1'),
+        tab2: document.getElementById('tab2'),
+        tab3: document.getElementById('tab3')
+    };
+
+    function activateTab(tabId) {
+        Object.values(panels).forEach(panel => panel.classList.remove('active'));
+        panels[tabId].classList.add('active');
+        tabs.forEach(btn => {
+            if (btn.dataset.tab === tabId) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+    });
+</script>
+</body>
+</html>

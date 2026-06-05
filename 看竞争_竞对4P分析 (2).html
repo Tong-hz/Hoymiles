@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>竞对分析 · Enphase vs ATMOCE | 4P矩阵对比</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .report {
+            max-width: 1000px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+        }
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            font-size: 0.85rem;
+            color: #6c7e95;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.3rem;
+        }
+        .matrix {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #ffffff;
+            margin-bottom: 1rem;
+        }
+        .matrix th {
+            background: #f8fafc;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #eef2f5;
+        }
+        .matrix td {
+            vertical-align: top;
+            padding: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            background: #ffffff;
+        }
+        .matrix .p-label {
+            width: 100px;
+            background: #f8fafc;
+            font-weight: 700;
+            color: #1f3a4b;
+            text-align: center;
+            border-right: 1px solid #eef2f5;
+        }
+        .brand-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .brand-logo {
+            max-height: 32px;
+            width: auto;
+        }
+        .brand-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+        .p-content {
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+        .p-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .p-list li {
+            font-size: 0.85rem;
+            margin-bottom: 0.35rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        .p-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2c6e9e;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .summary {
+            background: #eef2fa;
+            border-radius: 20px;
+            padding: 0.8rem;
+            margin: 1rem 0;
+        }
+        .summary-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #1f3a4b;
+        }
+        .summary-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .footnote {
+            font-size: 0.75rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 750px) {
+            .matrix, .matrix tbody, .matrix tr, .matrix td, .matrix th {
+                display: block;
+                width: 100%;
+            }
+            .matrix tr {
+                margin-bottom: 1rem;
+                border: 1px solid #eef2f8;
+                border-radius: 20px;
+            }
+            .matrix td {
+                border: none;
+                padding: 0.8rem;
+            }
+            .matrix .p-label {
+                width: 100%;
+                background: #f8fafc;
+                border-right: none;
+                text-align: left;
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">⚡ 竞对分析 · 4P 矩阵对比</div>
+    <div style="text-align: center;"><span class="subhead">Enphase vs ATMOCE · 法国微逆市场</span></div>
+
+    <table class="matrix">
+        <thead>
+            <tr><th style="width: 100px;"></th>
+                <th>
+                    <div class="brand-header">
+                        <img class="brand-logo" src="Enphase_logo.png" alt="Enphase Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="brand-name" style="display: none;">🔵 Enphase</span>
+                    </div>
+                </th>
+                <th>
+                    <div class="brand-header">
+                        <img class="brand-logo" src="Atmoce_logo.png" alt="ATMOCE Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="brand-name" style="display: none;">🟢 ATMOCE</span>
+                    </div>
+                </th>
+             </tr>
+        </thead>
+        <tbody>
+            <!-- 产品 Product -->
+            <tr>
+                <td class="p-label">📦 产品</td>
+                <td>
+                    <ul class="p-list">
+                        <li>高技术价值，PLC通信，产品稳定性强</li>
+                        <li>全套生态系统：光伏+储能+充电桩+HEMS网关，AI优化</li>
+                        <li>技术前瞻：IQ9系列GaN微逆，AC堆叠电池，极简AC耦合</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="p-list">
+                        <li>几乎与Enphase一致的技术路线（PLC通信、继电器外置等）</li>
+                        <li>借力Enphase技术信任，快速提升自身定位</li>
+                        <li>一拖一高端性价比竞争；一拖二DAB架构+单路MPPT，维持技术优势，以中端价格冲击市场</li>
+                    </ul>
+                </td>
+            </tr>
+            <!-- 价格 Price -->
+            <tr>
+                <td class="p-label">💰 价格</td>
+                <td>高产品价值和服务带来高定价。<br>分销商价：一拖一 IQ8P <span class="highlight">120-130 €</span></td>
+                <td>中高端技术，价格低于同类玩家。<br>一拖二分销商价约 <span class="highlight">95 €</span></td>
+            </tr>
+            <!-- 渠道 Place -->
+            <tr>
+                <td class="p-label">🏪 渠道</td>
+                <td>2026年初收缩渠道，提高小分销商拿货价，聚焦大型分销商，优化渠道结构。</td>
+                <td>
+                    <ul class="p-list">
+                        <li>依托 Mavisun 和 Eklor 两大分销商，大力推广</li>
+                        <li>高额激励：推广客户一次性奖励<span class="highlight">30万欧元</span>，并配专属员工 → 分销商无成本推广</li>
+                    </ul>
+                </td>
+            </tr>
+            <!-- 促销 Promotion -->
+            <tr>
+                <td class="p-label">📢 促销</td>
+                <td>受ATMOCE价格冲击及份额被蚕食，2026年降价 <span class="highlight">15%-20%</span>。</td>
+                <td>作为新晋玩家，暂无已知产品促销活动。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 竞争局势小结 -->
+    <div class="summary">
+        <div class="summary-title">📌 竞争局势小结</div>
+        <div class="summary-text">
+            Enphase 凭借技术生态和品牌认知占据高端，但正面临 ATMOCE 的高性价比产品和渠道激进策略的挑战，已启动降价反击。<br>
+            ATMOCE 以“复制+优化”策略快速切入，利用价格优势和分销商激励，正在抢夺 Enphase 市场份额，尤其在中高端市场形成直接竞争。
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 数据基于2025-2026年法国市场调研及分销渠道访谈 · 价格为含税参考价
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国民众消费风格 · 四大主题交互报告</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+        .report {
+            max-width: 550px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .title h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e2f3e;
+        }
+        .title p {
+            font-size: 0.65rem;
+            color: #6c7e95;
+            margin-top: 0.2rem;
+        }
+
+        /* 一级菜单模块 */
+        .module {
+            margin-bottom: 0.9rem;
+            border: 1px solid #eef2f5;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: #fafcfc;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .module-header:hover {
+            background: #f5f7f9;
+        }
+        .module-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1f3a4b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toggle-icon {
+            font-size: 0.85rem;
+            color: #2c6e9e;
+            transition: transform 0.2s;
+        }
+        .module-content {
+            padding: 0.2rem 1rem 1rem 1rem;
+            border-top: 1px solid #eef2f5;
+            display: none;
+        }
+        .module-content.show {
+            display: block;
+        }
+
+        /* 二级菜单（数据卡片，可折叠） */
+        .sub-section {
+            margin-top: 0.8rem;
+            border-left: 2px solid #eef2f5;
+            padding-left: 0.5rem;
+        }
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0.2rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #2c6e9e;
+            background: none;
+            border-bottom: 1px dashed #eef2f5;
+            margin-bottom: 0.4rem;
+        }
+        .sub-icon {
+            font-size: 0.7rem;
+            color: #8c9aa8;
+        }
+        .sub-content {
+            display: none;
+            padding: 0.2rem 0;
+        }
+        .sub-content.show {
+            display: block;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            font-size: 0.7rem;
+        }
+        .progress-bar {
+            background: #e9edf2;
+            border-radius: 20px;
+            height: 6px;
+            width: 100%;
+            overflow: hidden;
+            margin: 0.2rem 0;
+        }
+        .progress-fill {
+            background: #2c6e9e;
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+        }
+        .badge {
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+        .small-note {
+            font-size: 0.6rem;
+            color: #5b6f82;
+            margin-top: 0.2rem;
+            line-height: 1.3;
+        }
+        .chart-container {
+            width: 100%;
+            height: 160px;
+            margin: 0.3rem 0;
+        }
+        .comparison-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.6rem;
+            margin: 0.4rem 0;
+        }
+        .flex-2 {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: space-between;
+        }
+        .stat-number {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c6e9e;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        hr { margin: 0.4rem 0; border: none; border-top: 1px solid #eef2f5; }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">
+        <h1>🇫🇷 法国民众消费风格分析</h1>
+        <p>四大主题 · 点击展开详细数据</p>
+    </div>
+
+    <!-- ==================== 模块1：核心消费驱动力 ==================== -->
+    <div class="module">
+        <div class="module-header" data-target="content1">
+            <div class="module-title"><span>💰</span> 核心消费驱动力</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content1" class="module-content">
+            <div class="comparison-card" style="margin-bottom:0.4rem;">
+                <div style="font-size:0.7rem; font-weight:600;">🇫🇷 法国消费特征</div>
+                <div style="font-size:0.7rem; margin-top:0.2rem;">价格驱动 + 设计/品质附带精神价值溢价。注重美学、品牌故事和情感连接，愿意为“美感”和“法式生活艺术”支付额外费用。</div>
+            </div>
+            <!-- 二级数据：智能家居渗透率 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="smartHome">
+                    <span>📱 智能家居渗透率 · 法国</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subSmartHome" class="sub-content">
+                    <div class="stat-row"><span>🇫🇷 法国 2025年</span><span><strong class="badge">56%</strong></span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:56%;"></div></div>
+                    <div class="small-note">注：德国75% / 荷兰68% (渗透率低于欧洲邻国)</div>
+                    <div style="margin-top:0.5rem;">
+                        <div style="font-size:0.7rem; font-weight:600;">🎯 主要使用目的</div>
+                        <div class="small-note">• 35岁以下：自动化操作省心省力<br>• 50岁以上：舒适度提升、能源管理节约电费<br>• 通用需求：安全性</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 二级数据：电气化供暖普及率 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="heatPump">
+                    <span>🔥 电气化供暖普及率与满意度</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subHeatPump" class="sub-content">
+                    <div class="stat-row"><span>电气供暖家庭占比 (2025)</span><span><strong class="badge">38%</strong> (天然气32%)</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:38%;"></div></div>
+                    <div class="stat-row"><span>热泵供暖满意度</span><span><strong class="badge">91%</strong></span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:91%; background:#2c9e6e;"></div></div>
+                    <div class="small-note" style="margin-top:0.3rem;">🔄 倾向更换为热泵的人群：50岁以下中年/年轻人 · 独栋住宅居民 · 当前使用燃油/电暖的用户</div>
+                </div>
+            </div>
+            <hr>
+            <div class="comparison-card" style="margin-top:0.2rem;">
+                <div style="font-size:0.7rem; font-weight:600;">🌐 对比：德国 | 荷兰</div>
+                <div class="stat-row"><span>🇩🇪 德国</span><span>效率、品质与功能性驱动的质量溢价</span></div>
+                <div class="stat-row"><span>🇳🇱 荷兰</span><span>性价比高度敏感 · 理性消费</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 模块2：创新事物接受程度 ==================== -->
+    <div class="module">
+        <div class="module-header" data-target="content2">
+            <div class="module-title"><span>🚀</span> 创新事物接受程度</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content2" class="module-content">
+            <div class="comparison-card" style="margin-bottom:0.4rem;">
+                <div style="font-size:0.7rem; font-weight:600;">🇫🇷 法国 · 创新指标 0.582</div>
+                <div style="font-size:0.7rem;">年轻人更接受创新，但前提是保证安全和稳定性。对产品选择更注重知名性和可靠性，对新科技持谨慎乐观态度。</div>
+            </div>
+            <!-- 二级数据1：电动汽车保有量对比柱状图 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="evOwnership">
+                    <span>🚗 电动汽车保有量对比 (2025)</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subEvOwnership" class="sub-content">
+                    <div id="evChart" class="chart-container"></div>
+                    <div class="small-note">⚠️ 主要阻碍：购买和运维成本高、里程焦虑/充电站覆盖率不足、缺乏生态信念<br>👥 支持人群：35岁以下年轻人、高等教育毕业生、男性、左翼支持者、城市居民</div>
+                </div>
+            </div>
+            <!-- 二级数据2：电力供应商选择倾向 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="energyProvider">
+                    <span>⚡ 电力供应商选择倾向 (2025)</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subEnergyProvider" class="sub-content">
+                    <div id="providerChart" class="chart-container"></div>
+                    <div class="small-note">法国市场有超过100个替代电力供应商，价格比EDF更有优惠，但超过70%的法国民众依然选择EDF的电力合同，习惯信赖传统国有企业。</div>
+                </div>
+            </div>
+            <hr>
+            <div class="comparison-card">
+                <div class="stat-row"><span>🇩🇪 德国 · 创新指标0.596</span><span>创新集中在工业科技，日常应用谨慎</span></div>
+                <div class="stat-row"><span>🇳🇱 荷兰 · 创新指标0.692</span><span>数字先锋，因性价比快速切换习惯</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 模块3：环保意识与社会责任感 ==================== -->
+    <div class="module">
+        <div class="module-header" data-target="content3">
+            <div class="module-title"><span>🌱</span> 环保意识与社会责任感</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content3" class="module-content">
+            <div class="comparison-card">
+                <div style="font-size:0.7rem; font-weight:600;">🇫🇷 法国</div>
+                <div style="font-size:0.7rem;">受限于价格敏感性，环保消费通常让位于经济性考虑。但在高性价比的前提下愿意为可持续包装、社会影响等支付溢价。法国是最愿意购买二手产品的国家之一。</div>
+            </div>
+            <hr>
+            <div class="comparison-card">
+                <div class="stat-row"><span>🇩🇪 德国</span><span>愿意为可持续产品支付溢价，前提是质量达标</span></div>
+                <div class="stat-row"><span>🇳🇱 荷兰</span><span>务实环保，倾向共享经济/二手交易/节能改造</span></div>
+            </div>
+            <div class="small-note" style="margin-top:0.3rem; background:#fef7e0; padding:0.4rem; border-radius:12px;">📌 小结：价格与投资回报是根本驱动力，设计与品质带来附加价值，环保理念执行力相对不强，对新技术和产品保持安全和稳定性的顾虑。</div>
+        </div>
+    </div>
+
+    <!-- ==================== 模块4：本土品牌偏好性 ==================== -->
+    <div class="module">
+        <div class="module-header" data-target="content4">
+            <div class="module-title"><span>🏭</span> 本土品牌偏好性</div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="content4" class="module-content">
+            <div class="comparison-card" style="margin-bottom:0.4rem;">
+                <div style="font-size:0.7rem; font-weight:600;">🇫🇷 法国市场格局</div>
+                <div style="font-size:0.7rem;">法国消费者对本土品牌有显著偏好。64%的法国消费者对国产产品持“非常积极”态度；46%的消费者愿意为本土产品支付溢价；87%的法国人认为“法国制造”至关重要。在价格透明和环保等条件满足的前提下，消费者会优先选择本土品牌。</div>
+            </div>
+            <!-- 二级数据1：法国制造感知 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="madeInFrance">
+                    <span>🇫🇷 “法国制造”感知与偏好</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subMadeInFrance" class="sub-content">
+                    <div id="madeInFranceChart" class="chart-container"></div>
+                    <div class="small-note">87%的法国消费者认为“法国制造”至关重要；53%愿意为“法国制造”支付更高价格；74%希望减少包装，66%愿意为更环保配送等待更长时间。</div>
+                </div>
+            </div>
+            <!-- 二级数据2：汽车品牌销量柱状图 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="carSales">
+                    <span>🚗 法国汽车品牌销量 (2025年)</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subCarSales" class="sub-content">
+                    <div id="carSalesChart" class="chart-container"></div>
+                    <div class="small-note">2025年销量前四品牌均为法国本土企业——雷诺（约28.5万辆）、标致（约22万辆）、达契亚（约13.9万辆）和雪铁龙（约11.6万辆）。大众、丰田等外国品牌均未超过11.1万辆。</div>
+                </div>
+            </div>
+            <!-- 二级数据3：品牌信任度与价格敏感度 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="brandTrust">
+                    <span>🔍 品牌信任度与价格敏感度</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subBrandTrust" class="sub-content">
+                    <div id="brandTrustChart" class="chart-container"></div>
+                    <div class="small-note">81%的法国人信任品牌，近四分之三重视所购品牌的理念。但60%的法国消费者是价格最敏感群体，会因价格上涨放弃品牌。</div>
+                </div>
+            </div>
+            <!-- 二级数据4：品牌忠诚度宏观趋势 -->
+            <div class="sub-section">
+                <div class="sub-header" data-sub="brandLoyalty">
+                    <span>📊 品牌忠诚度趋势</span>
+                    <span class="sub-icon">▼</span>
+                </div>
+                <div id="subBrandLoyalty" class="sub-content">
+                    <div id="loyaltyChart" class="chart-container"></div>
+                    <div class="small-note">Deloitte研究显示，45.7%的消费者对任何品牌无特别依恋，品牌忠诚度不再是理所当然。92%的消费者仍忠诚于已知品牌，但对本土企业的信任度正在上升。</div>
+                </div>
+            </div>
+            <hr>
+            <div class="comparison-card">
+                <div class="stat-row"><span>🇩🇪 德国</span><span>本土品牌强势 (大众、奔驰、宝马主导)</span></div>
+                <div class="stat-row"><span>🇳🇱 荷兰</span><span>开放市场，国际品牌接受度高</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📊 数据来源：Statista / IEA / CCFA / SCAYLE / Deloitte / PwC / Insight Engineers / Mollie / AMZ123
+    </div>
+</div>
+
+<script>
+    // 通用：折叠/展开管理
+    const modules = document.querySelectorAll('.module-header');
+    modules.forEach(header => {
+        header.addEventListener('click', () => {
+            const targetId = header.getAttribute('data-target');
+            const contentDiv = document.getElementById(targetId);
+            const icon = header.querySelector('.toggle-icon');
+            if (contentDiv.classList.contains('show')) {
+                contentDiv.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                contentDiv.classList.add('show');
+                icon.textContent = '▲';
+            }
+        });
+    });
+
+    // 二级菜单折叠/展开
+    const subHeaders = document.querySelectorAll('.sub-header');
+    subHeaders.forEach(sub => {
+        sub.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const subTargetId = sub.getAttribute('data-sub');
+            const targetDiv = document.getElementById('sub' + subTargetId.charAt(0).toUpperCase() + subTargetId.slice(1));
+            const icon = sub.querySelector('.sub-icon');
+            if (targetDiv.classList.contains('show')) {
+                targetDiv.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                targetDiv.classList.add('show');
+                icon.textContent = '▲';
+                if (subTargetId === 'evOwnership') renderEvChart();
+                if (subTargetId === 'energyProvider') renderProviderChart();
+                if (subTargetId === 'madeInFrance') renderMadeInFranceChart();
+                if (subTargetId === 'carSales') renderCarSalesChart();
+                if (subTargetId === 'brandTrust') renderBrandTrustChart();
+                if (subTargetId === 'brandLoyalty') renderLoyaltyChart();
+            }
+        });
+    });
+
+    // 电动汽车保有量对比柱状图
+    let evChart = null;
+    function renderEvChart() {
+        const dom = document.getElementById('evChart');
+        if (!dom) return;
+        if (evChart) evChart.dispose();
+        evChart = echarts.init(dom);
+        evChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '8%', right: '5%', top: 15, bottom: 10, containLabel: true },
+            xAxis: { type: 'category', data: ['法国', '德国'], axisLabel: { fontSize: 9 } },
+            yAxis: { type: 'value', name: '保有量占比 (%)', axisLabel: { fontSize: 8, formatter: '{value}%' } },
+            series: [{
+                type: 'bar', data: [2, 6],
+                itemStyle: { color: function(params) { return params.dataIndex === 0 ? '#2C7DA0' : '#A9B4C2'; }, borderRadius: [4,4,0,0] },
+                label: { show: true, position: 'top', formatter: '{c}%', fontSize: 9 }
+            }]
+        });
+    }
+
+    // 电力供应商选择倾向柱状图
+    let providerChart = null;
+    function renderProviderChart() {
+        const dom = document.getElementById('providerChart');
+        if (!dom) return;
+        if (providerChart) providerChart.dispose();
+        providerChart = echarts.init(dom);
+        providerChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '8%', right: '5%', top: 15, bottom: 10, containLabel: true },
+            xAxis: { type: 'category', data: ['坚持 EDF', '切换替代供应商'], axisLabel: { fontSize: 9 } },
+            yAxis: { type: 'value', name: '用户比例 (%)', axisLabel: { fontSize: 8, formatter: '{value}%' } },
+            series: [{
+                type: 'bar', data: [70, 30],
+                itemStyle: { color: function(params) { return params.dataIndex === 0 ? '#2C7DA0' : '#E9A23B'; }, borderRadius: [4,4,0,0] },
+                label: { show: true, position: 'top', formatter: '{c}%', fontSize: 9 }
+            }]
+        });
+    }
+
+    // "法国制造"感知与偏好柱状图
+    let madeInFranceChart = null;
+    function renderMadeInFranceChart() {
+        const dom = document.getElementById('madeInFranceChart');
+        if (!dom) return;
+        if (madeInFranceChart) madeInFranceChart.dispose();
+        madeInFranceChart = echarts.init(dom);
+        madeInFranceChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '8%', right: '5%', top: 15, bottom: 10, containLabel: true },
+            xAxis: { type: 'category', data: ['法国制造至关重要', '愿为法国制造支付溢价', '认为法国制造代表高品质'], axisLabel: { rotate: 20, fontSize: 8 } },
+            yAxis: { type: 'value', name: '消费者比例 (%)', axisLabel: { fontSize: 8, formatter: '{value}%' } },
+            series: [{
+                type: 'bar', data: [87, 53, 64],
+                itemStyle: { color: '#2C7DA0', borderRadius: [4,4,0,0] },
+                label: { show: true, position: 'top', formatter: '{c}%', fontSize: 8 }
+            }]
+        });
+    }
+
+    // 汽车品牌销量柱状图 (2025年)
+    let carSalesChart = null;
+    function renderCarSalesChart() {
+        const dom = document.getElementById('carSalesChart');
+        if (!dom) return;
+        if (carSalesChart) carSalesChart.dispose();
+        carSalesChart = echarts.init(dom);
+        carSalesChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '10%', right: '5%', top: 15, bottom: 10, containLabel: true },
+            xAxis: { type: 'category', data: ['雷诺', '标致', '达契亚', '雪铁龙', '大众', '特斯拉'], axisLabel: { rotate: 20, fontSize: 8 } },
+            yAxis: { type: 'value', name: '销量 (万辆)', axisLabel: { fontSize: 8 } },
+            series: [{
+                type: 'bar', data: [28.5, 22, 13.9, 11.6, 11.1, 2.5],
+                itemStyle: { color: function(params) { return params.dataIndex < 4 ? '#2C7DA0' : '#A9B4C2'; }, borderRadius: [4,4,0,0] },
+                label: { show: true, position: 'top', formatter: '{c}', fontSize: 8 }
+            }]
+        });
+    }
+
+    // 品牌信任度与价格敏感度柱状图
+    let brandTrustChart = null;
+    function renderBrandTrustChart() {
+        const dom = document.getElementById('brandTrustChart');
+        if (!dom) return;
+        if (brandTrustChart) brandTrustChart.dispose();
+        brandTrustChart = echarts.init(dom);
+        brandTrustChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '8%', right: '5%', top: 15, bottom: 10, containLabel: true },
+            xAxis: { type: 'category', data: ['信任品牌', '重视品牌理念', '会因涨价放弃品牌'], axisLabel: { fontSize: 8 } },
+            yAxis: { type: 'value', name: '消费者比例 (%)', axisLabel: { fontSize: 8, formatter: '{value}%' } },
+            series: [{
+                type: 'bar', data: [81, 75, 60],
+                itemStyle: { color: function(params) { return params.dataIndex === 2 ? '#d9534f' : '#2C7DA0'; }, borderRadius: [4,4,0,0] },
+                label: { show: true, position: 'top', formatter: '{c}%', fontSize: 8 }
+            }]
+        });
+    }
+
+    // 品牌忠诚度宏观趋势柱状图
+    let loyaltyChart = null;
+    function renderLoyaltyChart() {
+        const dom = document.getElementById('loyaltyChart');
+        if (!dom) return;
+        if (loyaltyChart) loyaltyChart.dispose();
+        loyaltyChart = echarts.init(dom);
+        loyaltyChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '8%', right: '5%', top: 15, bottom: 10, containLabel: true },
+            xAxis: { type: 'category', data: ['对任何品牌无依恋', '忠诚于已知品牌'], axisLabel: { fontSize: 9 } },
+            yAxis: { type: 'value', name: '消费者比例 (%)', axisLabel: { fontSize: 8, formatter: '{value}%' } },
+            series: [{
+                type: 'bar', data: [45.7, 92],
+                itemStyle: { color: '#2C7DA0', borderRadius: [4,4,0,0] },
+                label: { show: true, position: 'top', formatter: '{c}%', fontSize: 9 }
+            }]
+        });
+    }
+</script>
+</body>
+</html>

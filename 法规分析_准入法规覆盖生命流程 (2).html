@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>光伏法规 · 全生命周期与准入体系</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .poster {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.65rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+        .timeline {
+            padding: 1rem 1rem 1rem 1rem;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1.8rem;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            width: 3px;
+            background: #cbdde9;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 3.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 1.1rem;
+            top: 0.2rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            background: #2c6e9e;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #cbdde9;
+            z-index: 1;
+        }
+        .timeline-card {
+            background: #ffffff;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            background: #fefefe;
+            transition: background 0.2s;
+        }
+        .card-header:hover {
+            background: #f8fafc;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f3a4b;
+        }
+        .toggle-icon {
+            font-size: 0.75rem;
+            color: #2c6e9e;
+        }
+        .card-summary {
+            padding: 0 1rem 0.8rem 1rem;
+            font-size: 0.75rem;
+            color: #4a627a;
+            border-top: 1px solid #eef2f5;
+            background: #ffffff;
+        }
+        .expand-detail {
+            padding: 0 1rem 1rem 1rem;
+            border-top: 1px solid #eef2f5;
+            display: none;
+            background: #fcfdfe;
+        }
+        .expand-detail.show {
+            display: block;
+        }
+        .detail-block {
+            margin-bottom: 1rem;
+        }
+        .detail-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #2c6e9e;
+            margin-bottom: 0.3rem;
+        }
+        .tech-detail {
+            font-size: 0.7rem;
+            color: #5b6f82;
+            line-height: 1.4;
+        }
+        .std-list {
+            margin: 0.3rem 0 0 1rem;
+            font-size: 0.7rem;
+            color: #5b6f82;
+            list-style: none;
+        }
+        .std-list li {
+            margin-bottom: 0.2rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        .std-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2c6e9e;
+        }
+        .badge {
+            background: #e9f0f5;
+            border-radius: 16px;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.6rem;
+            display: inline-block;
+            margin-right: 0.4rem;
+            margin-top: 0.2rem;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.55rem;
+            color: #8c9aa8;
+            margin-top: 0.5rem;
+            padding: 0.8rem 1rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>📜 光伏法规 · 全生命周期</h1>
+        <p>从生产到回收 · 安全性 · 环保性 · 技术准入</p>
+    </div>
+    <div class="timeline">
+
+        <!-- 1. 生产 & 测试 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+                <div class="card-header" data-target="detail1">
+                    <div class="card-title">🔬 1. 生产 & 测试</div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-summary">
+                    产品标准（CE RED、RoHS、REACH）及组件/逆变器等系列技术规范，确保产品安全与性能。
+                </div>
+                <div id="detail1" class="expand-detail">
+                    <div class="detail-block">
+                        <div class="detail-title">✅ CE RED 指令</div>
+                        <div class="tech-detail">针对逆变器及无线电设备的安全性、健康性、EMC电磁兼容性、无线射频等技术标准。逆变器强制。</div>
+                        <div class="detail-title" style="margin-top:0.5rem;">典型产品相关标准</div>
+                        <ul class="std-list">
+                            <li>光伏组件：NF EN 61215, NF EN 61701, NF EN 62716 等</li>
+                            <li>光伏线缆：NF EN 50618, UTE C 32-502</li>
+                            <li>连接器：NF EN 62852</li>
+                            <li>保护开关：NF EN 60269, NF EN 50539</li>
+                            <li>逆变器：NF EN 62109, NF EN 61000 等</li>
+                        </ul>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-title">✅ RoHS</div>
+                        <div class="tech-detail">限制电气电子设备中有害物质含量，保证产品技术合规与安全。</div>
+                        <span class="badge">有害物质管控</span>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-title">✅ REACH 指令</div>
+                        <div class="tech-detail">针对电池等化学产品，综合评估化学物质含量，范围更广、审批更复杂。</div>
+                        <span class="badge">电池专项</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 包装 & 运输 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+                <div class="card-header" data-target="detail2">
+                    <div class="card-title">📦 2. 包装 & 运输</div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-summary">
+                    UN38.3 锂电池运输安全测试、Class 9 危险品标签、包装固定/防水/电极保护。
+                </div>
+                <div id="detail2" class="expand-detail">
+                    <div class="detail-block">
+                        <div class="detail-title">🔋 UN38.3 锂电池运输</div>
+                        <div class="tech-detail">模拟撞击、跌落、高低温等极端条件，确保运输安全。</div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-title">📦 包装要求</div>
+                        <div class="tech-detail">Class 9 危险品标签、固定强度、防水、电极外露保护等。</div>
+                        <span class="badge">物流合规</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 安装 & 消防 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+                <div class="card-header" data-target="detail3">
+                    <div class="card-title">🏗️ 3. 安装 & 消防</div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-summary">
+                    NF C 15-100 / UTE C 15-712 电气安装规范，逆变器保护参数，户用电池容量限制。
+                </div>
+                <div id="detail3" class="expand-detail">
+                    <div class="detail-block">
+                        <div class="detail-title">⚡ NF C 15-100 / UTE C 15-712</div>
+                        <div class="tech-detail">低压电气安装规范，涵盖设备隔离、电气保护、火灾风险。规定逆变器保护参数（断路器+RCD+浪涌）及安装位置。</div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-title">🔋 户用电池容量限制</div>
+                        <div class="tech-detail">单套 ≤15kWh，超过需独立非封闭房间+消防设备。</div>
+                        <span class="badge">安全红线</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 并网 & 运行 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+                <div class="card-header" data-target="detail4">
+                    <div class="card-title">⚡ 4. 并网 & 运行</div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-summary">
+                    NF EN 50549 并网技术要求，RED指令网络安全（数据隐私、防欺诈）。
+                </div>
+                <div id="detail4" class="expand-detail">
+                    <div class="detail-block">
+                        <div class="detail-title">🔌 NF EN 50549 (2025起)</div>
+                        <div class="tech-detail">规定额定功率<span class="highlight">800W以上</span>并网发电设备的运行及解耦保护技术要求，确保电网波动/停电时的安全性。</div>
+                    </div>
+                    <div class="detail-block">
+                        <div class="detail-title">🔐 RED 指令网络安全 (2025.8强制执行)</div>
+                        <div class="tech-detail">针对具备网络通信功能的无线电设备（网关、智能配件），要求数据隐私保护、网络安全、防欺诈风险。</div>
+                        <div class="detail-title" style="margin-top:0.5rem;">第3.3条 (d)(e)(f) 具体要求</div>
+                        <ul class="std-list">
+                            <li><span class="highlight">(d)</span> 设备不得损害网络或滥用网络资源</li>
+                            <li><span class="highlight">(e)</span> 设备必须保护个人数据、流量和位置数据</li>
+                            <li><span class="highlight">(f)</span> 设备必须包含降低欺诈风险的保障措施</li>
+                        </ul>
+                        <span class="badge">新兴强制</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 远程监控 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+                <div class="card-header" data-target="detail5">
+                    <div class="card-title">📡 5. 远程监控</div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-summary">
+                    网络通信设备须满足RED指令第3.3条，保护个人数据、网络资源，降低欺诈风险。
+                </div>
+                <div id="detail5" class="expand-detail">
+                    <div class="detail-block">
+                        <div class="detail-title">📊 数据隐私与网络安全</div>
+                        <div class="tech-detail">具备网络通信功能的设备（网关、智能配件）必须符合RED指令第3.3条要求，包括：</div>
+                        <ul class="std-list">
+                            <li>不得损害网络或滥用网络资源</li>
+                            <li>保护个人数据、流量和位置数据</li>
+                            <li>包含降低欺诈风险的保障措施</li>
+                        </ul>
+                        <div class="tech-detail" style="margin-top:0.4rem;">法国对远程监控设备的合规性审查日趋严格，确保用户信息与电网安全。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. 废弃回收 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+                <div class="card-header" data-target="detail6">
+                    <div class="card-title">♻️ 6. 废弃回收</div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-summary">
+                    WEEE 指令规范电气电子设备回收处理，推动资源再利用与环保。
+                </div>
+                <div id="detail6" class="expand-detail">
+                    <div class="detail-block">
+                        <div class="detail-title">♻️ WEEE 指令</div>
+                        <div class="tech-detail">规定电气电子设备的回收与废弃处理要求，提升循环经济水平，减少环境污染。</div>
+                        <span class="badge">循环经济</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="footnote">
+        📌 数据来源：欧盟法规及法国标准化协会(AFNOR) · 覆盖光伏逆变器、组件、电池及成套系统
+    </div>
+</div>
+
+<script>
+    // 为每个卡片绑定展开/收起事件
+    const headers = document.querySelectorAll('.card-header');
+    headers.forEach(header => {
+        header.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const targetId = header.getAttribute('data-target');
+            const targetDiv = document.getElementById(targetId);
+            const icon = header.querySelector('.toggle-icon');
+            if (targetDiv.classList.contains('show')) {
+                targetDiv.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                targetDiv.classList.add('show');
+                icon.textContent = '▲';
+            }
+        });
+    });
+</script>
+</body>
+</html>

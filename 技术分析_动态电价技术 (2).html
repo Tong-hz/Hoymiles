@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>新型电力市场技术 · 动态电价合约</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        .poster {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: none;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 0.8rem 1rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.6rem;
+            opacity: 0.8;
+            margin-top: 0.1rem;
+        }
+        .content {
+            padding: 1rem;
+        }
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin-bottom: 0.4rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        .grid-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .card {
+            flex: 1;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 18px;
+            padding: 0.6rem;
+        }
+        .card h3 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #2c6e9e;
+        }
+        .tech-detail {
+            font-size: 0.7rem;
+            color: #5b6f82;
+            margin-bottom: 0.2rem;
+            line-height: 1.4;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .badge {
+            background: #e9f0f5;
+            border-radius: 14px;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.6rem;
+            display: inline-block;
+            margin-top: 0.1rem;
+        }
+        .warning {
+            background: #fef7e0;
+            border-radius: 16px;
+            padding: 0.4rem;
+            font-size: 0.65rem;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.55rem;
+            color: #8c9aa8;
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 550px) {
+            .poster { max-width: 95%; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>⚡ 新型电力市场技术</h1>
+        <p>动态电价合约 · 法国进程与市场影响</p>
+    </div>
+    <div class="content">
+        <div class="section-title">📈 发展现状</div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>🇫🇷 法国滞后</h3>
+                <div class="tech-detail">欧盟要求提供动态电价，但截至<span class="highlight">2026年法国无一家公司提供</span>。曾有2家因用户不接受价格波动被迫取消。</div>
+            </div>
+            <div class="card">
+                <h3>🚀 最新进展</h3>
+                <div class="tech-detail"><span class="highlight">EDF 2026年10月开启首次动态电价试点</span>，法国即将进入动态电价时代。</div>
+                <div class="badge">里程碑</div>
+            </div>
+        </div>
+
+        <div class="section-title">⚠️ 机会与风险</div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>📉 纯光伏收益下降</h3>
+                <div class="tech-detail">纯光伏电站的收益进一步降低。</div>
+            </div>
+            <div class="card">
+                <h3>🔋 配储+AI优化成刚需</h3>
+                <div class="tech-detail">配储+AI优化成市场刚需，VPP和平衡市场接入能力进一步提高储能收益。</div>
+                <div class="badge">市场趋势</div>
+            </div>
+        </div>
+        <div class="warning">
+            💡 <span class="highlight">结论：</span>动态电价将加速“光伏+储能+AI优化”普及，VPP与平衡市场接入能力成为提升储能收益的关键。
+        </div>
+    </div>
+    <div class="footnote">
+        📌 数据来源：CRE / EDF 2026年公告
+    </div>
+</div>
+</body>
+</html>

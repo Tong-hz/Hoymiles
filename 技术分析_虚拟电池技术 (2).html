@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>新型电力市场技术 · 虚拟电池</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;   /* 白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .poster {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;  /* 细边框代替阴影 */
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.65rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+        .content {
+            padding: 1rem;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1f3a4b;
+            margin: 0.8rem 0 0.4rem 0;
+            padding-left: 0.5rem;
+            border-left: 3px solid #2c6e9e;
+        }
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+        .grid-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .card {
+            flex: 1;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 18px;
+            padding: 0.6rem;
+        }
+        .card h3 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #2c6e9e;
+        }
+        .tech-detail {
+            font-size: 0.7rem;
+            color: #5b6f82;
+            margin-bottom: 0.2rem;
+            line-height: 1.4;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .badge {
+            background: #e9f0f5;
+            border-radius: 14px;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.6rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+        .warning {
+            background: #fef7e0;
+            border-radius: 16px;
+            padding: 0.5rem;
+            font-size: 0.65rem;
+            margin-top: 0.6rem;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.55rem;
+            color: #8c9aa8;
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 550px) {
+            .grid-2 { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>🔋 新型电力市场技术</h1>
+        <p>虚拟电池 · 零投资成本的户用储能</p>
+    </div>
+    <div class="content">
+        <div class="section-title">📌 什么是虚拟电池？</div>
+        <div class="tech-detail" style="background:#f8fafc; padding:0.5rem; border-radius:16px; margin-bottom:0.8rem;">
+            <span class="highlight">Mylight150</span> 为代表的虚拟电池，本质是<span class="highlight">类似净计量的电力合约</span>。用户通过订阅费购买虚拟储能额度，将光伏余电上网“存储”到额度中，用于抵消用电电费，实现逻辑上的自发自用。
+        </div>
+
+        <div class="section-title">✅ 优势</div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>💰 零初期投资</h3>
+                <div class="tech-detail">无需购买实体电池，减少初期投资，取消合约成本低。</div>
+            </div>
+            <div class="card">
+                <h3>⚡ 灵活容量</h3>
+                <div class="tech-detail">不受功率限制，容量可通过订阅费灵活调整，理论上可实现<span class="highlight">100%自发自用</span>。</div>
+            </div>
+            <div class="card">
+                <h3>🏠 无实体风险</h3>
+                <div class="tech-detail">无实体电池，没有空间占用，无安全风险（火灾、报废等）。</div>
+            </div>
+        </div>
+
+        <div class="section-title">⚠️ 局限与挑战</div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>💰 附加费用高</h3>
+                <div class="tech-detail">上网电量抵消电费时仍需支付税费和电网使用费，约占电费的<span class="highlight">66%</span>。</div>
+            </div>
+            <div class="card">
+                <h3>🔌 依赖特定合约</h3>
+                <div class="tech-detail">需要取消与EDF的电力合约，无法获得EDF购电投资补贴。</div>
+            </div>
+            <div class="card">
+                <h3>⚡ 无备电能力</h3>
+                <div class="tech-detail">没有全屋备电能力，无法满足家庭断电时的应急需求。</div>
+            </div>
+            <div class="card">
+                <h3>🌐 电网压力增加</h3>
+                <div class="tech-detail">虚拟电池鼓励余电上网，会增加配电网络压力，与长期电力系统稳定目标不符。</div>
+            </div>
+        </div>
+        <div class="warning">
+            💡 <span class="highlight">总结：</span>虚拟电池降低了户用储能门槛，但经济效益受附加费用削弱，且不具备物理备电能力，并可能加剧电网负担。适合追求低成本、灵活自用且对备电无要求的用户。
+        </div>
+    </div>
+    <div class="footnote">
+        📌 数据来源：Mylight150 产品资料及法国能源监管委员会（CRE）公开信息
+    </div>
+</div>
+</body>
+</html>

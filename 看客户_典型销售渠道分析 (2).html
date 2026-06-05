@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国光储销售渠道模型 · 传统渠道 vs 新兴渠道</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .report {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.5rem;
+        }
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6c7e95;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.3rem;
+        }
+        .tab-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5b6f82;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #2c6e9e;
+            color: white;
+        }
+        /* 传统渠道双卡片布局 */
+        .two-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .channel-card {
+            flex: 1;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 28px;
+            padding: 1.2rem;
+        }
+        .channel-header {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #eef2f5;
+        }
+        .channel-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #2c6e9e;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .margin-row {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c6e9e;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            background: #f8fafc;
+            border-radius: 40px;
+            padding: 0.4rem 0.2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 1px solid #eef2f8;
+        }
+        .arrow-icon {
+            font-size: 1.2rem;
+            color: #8c9aa8;
+        }
+        .role-section {
+            margin-top: 1rem;
+        }
+        .role-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1f3a4b;
+            background: #f8fafc;
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+        .work-list, .demand-list {
+            margin: 0.4rem 0 0.6rem 0.8rem;
+            list-style: none;
+        }
+        .work-list li, .demand-list li {
+            font-size: 0.75rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.4;
+        }
+        .decision-box {
+            background: #fef7e0;
+            border-radius: 20px;
+            padding: 0.6rem;
+            margin-top: 0.8rem;
+        }
+        .decision-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #b45f2b;
+            margin-bottom: 0.3rem;
+        }
+        .footnote {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 800px) {
+            .two-cards { flex-direction: column; }
+            .flow-steps { flex-direction: column; }
+            .arrow-icon { transform: rotate(90deg); margin: 0.1rem 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="report">
+    <div class="title">🔌 法国光储典型销售渠道模型</div>
+    <div class="subhead">传统渠道 · 新兴渠道对比</div>
+
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="traditional">📦 传统渠道</button>
+        <button class="tab-btn" data-tab="emerging">🛒 新兴渠道 (B2C)</button>
+    </div>
+
+    <!-- 传统渠道：包含两种模式并排 -->
+    <div id="traditionalPanel" class="two-cards">
+        <!-- 模式一：分销商 → 安装商 → 终端用户 -->
+        <div class="channel-card">
+            <div class="channel-header">
+                <div class="channel-title">📦 分销商 → 安装商 → 终端用户</div>
+                <div class="margin-row">💰 利润：分销商15-20% &nbsp;&nbsp;|&nbsp;&nbsp; 安装商15-20%</div>
+            </div>
+            <div class="flow-steps">
+                <div class="step">🏭 制造商</div>
+                <div class="arrow-icon">→</div>
+                <div class="step">📦 分销商</div>
+                <div class="arrow-icon">→</div>
+                <div class="step">🔧 安装商</div>
+                <div class="arrow-icon">→</div>
+                <div class="step">🏠 终端用户</div>
+            </div>
+            <div style="background:#eef2fa; border-radius: 16px; padding: 0.4rem 0.6rem; margin: 0.6rem 0;">
+                <span style="font-size:0.7rem; font-weight:500;">🎯 系统特点：</span>
+                <span style="font-size:0.7rem;">技术价值高，安装要求高，时间周期长</span>
+            </div>
+            <div class="role-section">
+                <div class="role-title">🏢 分销商</div>
+                <ul class="work-list">
+                    <li>📌 <strong>工作：</strong>品牌宣传、产品推广与培训、售后服务</li>
+                    <li>⚡ <strong>需求：</strong>产品可靠运行，技术支持，供应链稳定，SKU简化库存管理</li>
+                </ul>
+            </div>
+            <div class="role-section">
+                <div class="role-title">🔧 安装商</div>
+                <ul class="work-list">
+                    <li>📌 <strong>工作：</strong>销售、方案设计与审批工作、现场安装、售后服务</li>
+                    <li>⚡ <strong>需求：</strong>产品可靠运行，安装运维方便，技术支持，性价比</li>
+                </ul>
+            </div>
+            <div class="decision-box">
+                <div class="decision-title">👥 终端用户决策逻辑</div>
+                <div style="font-size:0.7rem;">选择多家安装商询价、比价、商务谈判 → 选择报价并安装</div>
+                <div style="font-size:0.7rem; margin-top:0.3rem;"><strong>决策依据：</strong>安装商专业度 > 投资成本/收益 > 产品性能</div>
+            </div>
+        </div>
+
+        <!-- 模式二：制造商 → KA → 终端用户 -->
+        <div class="channel-card">
+            <div class="channel-header">
+                <div class="channel-title">🏭 制造商 → KA → 终端用户</div>
+                <div class="margin-row">💰 利润：KA独占约40%</div>
+            </div>
+            <div class="flow-steps">
+                <div class="step">🏭 制造商</div>
+                <div class="arrow-icon">→</div>
+                <div class="step">🤝 KA (关键客户)</div>
+                <div class="arrow-icon">→</div>
+                <div class="step">🏠 终端用户</div>
+            </div>
+            <div style="background:#eef2fa; border-radius: 16px; padding: 0.4rem 0.6rem; margin: 0.6rem 0;">
+                <span style="font-size:0.7rem; font-weight:500;">🎯 系统特点：</span>
+                <span style="font-size:0.7rem;">系统成本低，安装简单，免审批手续</span>
+            </div>
+            <div class="role-section">
+                <div class="role-title">🤝 KA（关键客户）</div>
+                <ul class="work-list">
+                    <li>📌 <strong>工作：</strong>市场宣传、产品推广（目前不承担售后，未来希望承担）</li>
+                    <li>⚡ <strong>需求：</strong>产品可靠运行，性价比，安装简单，SKU简化（KiT成套销售）</li>
+                </ul>
+            </div>
+            <div class="decision-box">
+                <div class="decision-title">👥 终端用户决策逻辑</div>
+                <div style="font-size:0.7rem;">品牌知名度、产品性价比优先 → 收益能力次重要</div>
+            </div>
+            <div style="margin-top: 0.8rem;">
+                <span class="role-title" style="background: none; padding-left:0;">📌 典型参与者</span>
+                <div style="font-size:0.7rem; color:#5b6f82; margin-top:0.2rem;">Solarchoc, Dexergie 等</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新兴渠道：B2C模式 -->
+    <div id="emergingPanel" class="channel-card" style="display: none;">
+        <div class="channel-header">
+            <div class="channel-title">🛒 分销商 → 终端用户 ← 安装商</div>
+            <div class="margin-row">💰 利润：分销商略高于传统B2B分销商，安装商仅赚取安装服务费</div>
+        </div>
+        <div class="flow-steps">
+            <div class="step">🏭 制造商</div>
+            <div class="arrow-icon">→</div>
+            <div class="step">📦 分销商</div>
+            <div class="arrow-icon">→</div>
+            <div class="step">🏠 终端用户</div>
+            <div class="arrow-icon">←</div>
+            <div class="step">🔧 安装商</div>
+        </div>
+        <div style="background:#eef2fa; border-radius: 16px; padding: 0.4rem 0.6rem; margin: 0.6rem 0;">
+            <span style="font-size:0.7rem; font-weight:500;">🎯 系统特点：</span>
+            <span style="font-size:0.7rem;">户用屋顶安装，技术要求高，系统成本较传统分销渠道低</span>
+        </div>
+        <div class="role-section">
+            <div class="role-title">📦 分销商</div>
+            <ul class="work-list">
+                <li>📌 <strong>工作：</strong>品牌宣传、产品推广与培训、销售、安装指导（指导DIY用户自行安装）、审批材料准备、售后服务</li>
+                <li>⚡ <strong>需求：</strong>产品可靠运行，性价比，技术支持，供应链稳定，SKU简化库存管理</li>
+            </ul>
+        </div>
+        <div class="role-section">
+            <div class="role-title">🔧 安装商</div>
+            <ul class="work-list">
+                <li>📌 <strong>工作：</strong>只提供现场安装服务，不负责销售和售后</li>
+                <li>⚡ <strong>需求：</strong>产品安装方便</li>
+            </ul>
+        </div>
+        <div class="decision-box">
+            <div class="decision-title">👥 终端用户决策逻辑</div>
+            <div style="font-size:0.7rem;">用户认为安装商报价过高时，通过B2C网店直接购买产品。</div>
+            <div style="font-size:0.7rem; margin-top:0.3rem;">
+                • 有技术能力的DIY用户可参照安装指导自行安装。<br>
+                • 技术能力不足的用户可自行寻找本地安装商提供安装服务。
+            </div>
+            <div style="font-size:0.7rem; margin-top:0.3rem;"><strong>核心优势：</strong>跨过传统安装商销售环节，减少安装商抽成，降低系统成本。</div>
+            <div style="font-size:0.7rem; margin-top:0.3rem;"><strong>目标人群：</strong>对安装售后要求不高，但对系统成本高度敏感的消费者。</div>
+        </div>
+        <div style="margin-top: 0.8rem;">
+            <span class="role-title" style="background: none; padding-left:0;">📌 典型参与者</span>
+            <div style="font-size:0.7rem; color:#5b6f82; margin-top:0.2rem;">ALLO SOLAR 等</div>
+        </div>
+    </div>
+
+    <div class="footnote">
+        📌 数据基于法国光储市场调研 · 利润比例及决策依据为典型经验值
+    </div>
+</div>
+
+<script>
+    // 选项卡切换逻辑
+    const tabs = document.querySelectorAll('.tab-btn');
+    const traditionalPanel = document.getElementById('traditionalPanel');
+    const emergingPanel = document.getElementById('emergingPanel');
+
+    function switchTab(tabId) {
+        if (tabId === 'traditional') {
+            traditionalPanel.style.display = 'flex';
+            emergingPanel.style.display = 'none';
+        } else {
+            traditionalPanel.style.display = 'none';
+            emergingPanel.style.display = 'block';
+        }
+        // 更新按钮样式
+        tabs.forEach(btn => {
+            if (btn.dataset.tab === tabId) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchTab(btn.dataset.tab);
+        });
+    });
+
+    // 默认显示传统渠道（flex布局）
+    switchTab('traditional');
+</script>
+</body>
+</html>

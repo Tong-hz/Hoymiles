@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>模拟家庭能源账单 · 法德荷对比</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.8rem;
+            min-height: 100vh;
+        }
+
+        /* 页面缩小，宽度改为500px */
+        .bill {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .bill-header {
+            background: #1e2f3e;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            color: white;
+        }
+        .bill-header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .bill-header p {
+            font-size: 0.6rem;
+            opacity: 0.8;
+            margin-top: 0.1rem;
+        }
+
+        .country-selector {
+            background: #f8fafc;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #eef2f5;
+        }
+        .country-selector label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c5a74;
+        }
+        select {
+            background: white;
+            border: 1px solid #cbdde9;
+            border-radius: 24px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .bill-content {
+            padding: 0.8rem;
+        }
+
+        .energy-card {
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .energy-title {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f3a4b;
+        }
+        .energy-detail {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
+        }
+        .detail-item {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.4rem;
+            text-align: center;
+        }
+        .detail-label {
+            font-size: 0.6rem;
+            color: #5b6f82;
+            margin-bottom: 0.1rem;
+        }
+        .detail-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1e2f3e;
+        }
+        .detail-unit {
+            font-size: 0.6rem;
+            font-weight: normal;
+            color: #6c7e95;
+        }
+        .price {
+            color: #2c6e9e;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.3rem;
+        }
+        .total-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .total-amount {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e2f3e;
+        }
+        .total-box {
+            background: #eef2fa;
+            border-radius: 20px;
+            padding: 0.6rem;
+            margin: 0.8rem 0;
+        }
+        .total-note {
+            font-size: 0.55rem;
+            color: #5b6f82;
+            text-align: right;
+            margin-top: 0.1rem;
+        }
+
+        .ratio-card {
+            background: #fef7e0;
+            border-radius: 20px;
+            padding: 0.6rem;
+            margin-top: 0.8rem;
+        }
+        .ratio-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            font-size: 0.7rem;
+        }
+        .ratio-label {
+            color: #b45f2b;
+        }
+        .ratio-value {
+            font-weight: 700;
+            color: #b45f2b;
+        }
+        hr {
+            margin: 0.5rem 0;
+            border: none;
+            border-top: 1px solid #eef2f5;
+        }
+        .footnote {
+            font-size: 0.55rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 0.6rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="bill">
+    <div class="bill-header">
+        <h1>🧾 模拟家庭能源账单</h1>
+        <p>电+气 · 典型家庭消费量 | 可切换国家</p>
+    </div>
+    <div class="country-selector">
+        <label>📍 选择国家：</label>
+        <select id="countrySelect">
+            <option value="fr">🇫🇷 法国</option>
+            <option value="de">🇩🇪 德国</option>
+            <option value="nl">🇳🇱 荷兰</option>
+        </select>
+    </div>
+    <div class="bill-content" id="billContent"></div>
+</div>
+
+<script>
+    const ELECTRICITY_KWH = 4000;
+    const GAS_KWH = 11800;
+
+    const countries = {
+        fr: {
+            name: '法国',
+            flag: '🇫🇷',
+            electricityPrice: 0.201,
+            gasPrice: 0.12,
+            income: 56400,
+            willingConsumption: 45833,
+        },
+        de: {
+            name: '德国',
+            flag: '🇩🇪',
+            electricityPrice: 0.40,
+            gasPrice: 0.12,
+            income: 60000,
+            willingConsumption: 54000,
+        },
+        nl: {
+            name: '荷兰',
+            flag: '🇳🇱',
+            electricityPrice: 0.25,
+            gasPrice: 0.18,
+            income: 71000,
+            willingConsumption: 58000,
+        }
+    };
+
+    function calculateBill(country) {
+        const elecYear = ELECTRICITY_KWH * country.electricityPrice;
+        const gasYear = GAS_KWH * country.gasPrice;
+        const totalYear = elecYear + gasYear;
+        const totalMonth = totalYear / 12;
+        const elecMonth = elecYear / 12;
+        const gasMonth = gasYear / 12;
+        const incomeRatio = (totalYear / country.income) * 100;
+        const willingRatio = (totalYear / country.willingConsumption) * 100;
+        return {
+            elecMonth, elecYear,
+            gasMonth, gasYear,
+            totalMonth, totalYear,
+            incomeRatio: incomeRatio.toFixed(1),
+            willingRatio: willingRatio.toFixed(1)
+        };
+    }
+
+    function renderBill(countryCode) {
+        const country = countries[countryCode];
+        const bill = calculateBill(country);
+        const html = `
+            <div class="energy-card">
+                <div class="energy-title">⚡ 电力消费</div>
+                <div class="energy-detail">
+                    <div class="detail-item">
+                        <div class="detail-label">年消费量</div>
+                        <div class="detail-value">${ELECTRICITY_KWH.toLocaleString()} <span class="detail-unit">kWh</span></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">月均消费</div>
+                        <div class="detail-value">${Math.round(ELECTRICITY_KWH/12)} <span class="detail-unit">kWh</span></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">合约电价</div>
+                        <div class="detail-value price">${country.electricityPrice} <span class="detail-unit">€/kWh</span></div>
+                    </div>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">📆 月电费</span>
+                    <span class="total-amount price">${Math.round(bill.elecMonth)} €</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">📅 年电费</span>
+                    <span class="total-amount price">${Math.round(bill.elecYear)} €</span>
+                </div>
+            </div>
+            <div class="energy-card">
+                <div class="energy-title">🔥 天然气消费</div>
+                <div class="energy-detail">
+                    <div class="detail-item">
+                        <div class="detail-label">年消费量</div>
+                        <div class="detail-value">${GAS_KWH.toLocaleString()} <span class="detail-unit">kWh</span></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">月均消费</div>
+                        <div class="detail-value">${Math.round(GAS_KWH/12)} <span class="detail-unit">kWh</span></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">合约气价</div>
+                        <div class="detail-value price">${country.gasPrice} <span class="detail-unit">€/kWh</span></div>
+                    </div>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">📆 月燃气费</span>
+                    <span class="total-amount price">${Math.round(bill.gasMonth)} €</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">📅 年燃气费</span>
+                    <span class="total-amount price">${Math.round(bill.gasYear)} €</span>
+                </div>
+            </div>
+            <div class="total-box">
+                <div class="total-row">
+                    <span class="total-label">🏠 月能源总费用</span>
+                    <span class="total-amount">${Math.round(bill.totalMonth)} €</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">🏠 年能源总费用</span>
+                    <span class="total-amount">${Math.round(bill.totalYear)} €</span>
+                </div>
+                <div class="total-note">* 含税，标准合约</div>
+            </div>
+            <div class="ratio-card">
+                <div class="ratio-item">
+                    <span class="ratio-label">📊 占家庭收入比例</span>
+                    <span class="ratio-value">${bill.incomeRatio}%</span>
+                </div>
+                <div class="ratio-item">
+                    <span class="ratio-label">📊 占意愿消费支出比例</span>
+                    <span class="ratio-value">${bill.willingRatio}%</span>
+                </div>
+                <hr>
+                <div style="font-size: 0.6rem; color: #b45f2b; text-align: center;">
+                    ⚠️ 能源支出对可支配收入形成压力，抑制其他消费。
+                </div>
+            </div>
+            <div class="footnote">
+                📌 电4000kWh/年 · 气11800kWh/年 · 收入/支出参考各国统计
+            </div>
+        `;
+        document.getElementById('billContent').innerHTML = html;
+    }
+
+    const select = document.getElementById('countrySelect');
+    select.addEventListener('change', (e) => renderBill(e.target.value));
+    renderBill('fr');
+</script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国户用光伏安装全流程 · 交互时间轴（默认折叠）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .poster {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.65rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+        .timeline {
+            padding: 1rem;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1.8rem;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            width: 3px;
+            background: #cbdde9;
+            border-radius: 2px;
+        }
+        .phase {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 1.2rem;
+        }
+        .phase:last-child {
+            margin-bottom: 0;
+        }
+        .phase-dot {
+            position: absolute;
+            left: 1.1rem;
+            top: 0.2rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            background: #2c6e9e;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #cbdde9;
+            z-index: 1;
+        }
+        .phase-card {
+            background: #ffffff;
+            border: 1px solid #eef2f8;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            background: #fefefe;
+            transition: background 0.2s;
+        }
+        .phase-header:hover {
+            background: #f8fafc;
+        }
+        .phase-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f3a4b;
+        }
+        .duration {
+            font-size: 0.9rem;
+            font-weight: 700;
+            background: #e9f0f5;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            color: #2c6e9e;
+        }
+        .toggle-icon {
+            font-size: 0.75rem;
+            color: #2c6e9e;
+            margin-left: 0.5rem;
+        }
+        .phase-content {
+            padding: 0.2rem 1rem 1rem 1rem;
+            border-top: 1px solid #eef2f5;
+            display: none;  /* 默认隐藏 */
+        }
+        .phase-content.show {
+            display: block;
+        }
+        .step-list {
+            margin: 0.5rem 0 0 1rem;
+        }
+        .step-list li {
+            margin-bottom: 0.3rem;
+            font-size: 0.75rem;
+        }
+        .highlight {
+            color: #2c6e9e;
+            font-weight: 600;
+        }
+        .subnote {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.4rem 0.6rem;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            color: #5b6f82;
+        }
+        .insurance-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            align-items: center;
+        }
+        .insurance-badge {
+            background: #eef2fa;
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c6e9e;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .insurance-badge:hover {
+            background: #d9e4ed;
+        }
+        .insurance-detail {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 0.6rem;
+            margin-top: 0.5rem;
+            font-size: 0.7rem;
+            display: none;
+        }
+        .insurance-detail.show {
+            display: block;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.55rem;
+            color: #8c9aa8;
+            margin-top: 0.5rem;
+            padding: 0.8rem 1rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>🔧 法国户用光伏安装全流程</h1>
+        <p>点击阶段标题查看详细内容</p>
+    </div>
+    <div class="timeline">
+        <!-- 阶段1：商务阶段 -->
+        <div class="phase">
+            <div class="phase-dot"></div>
+            <div class="phase-card">
+                <div class="phase-header" data-target="phase1">
+                    <div class="phase-title">1. 商务阶段</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="duration">⏱️ 约15天</span>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                </div>
+                <div id="phase1" class="phase-content">
+                    <ul class="step-list">
+                        <li>🔍 终端用户选择2-3家当地有资质安装商询价</li>
+                        <li>📋 安装商现场勘探，销售报价 + 技术人员制定安装方案</li>
+                        <li>💰 用户根据报价、收益测算、预算偏好选择方案并签约</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 阶段2：预安装阶段 -->
+        <div class="phase">
+            <div class="phase-dot"></div>
+            <div class="phase-card">
+                <div class="phase-header" data-target="phase2">
+                    <div class="phase-title">2. 预安装阶段</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="duration">⏱️ 市政审批 ~30天<br>预约安装 5天~6个月</span>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                </div>
+                <div id="phase2" class="phase-content">
+                    <ul class="step-list">
+                        <li>📑 安装商准备市政审批材料（屋顶改造、组件排布、美观度）</li>
+                        <li>🏛️ 市政审批：主要考虑建筑风格一致性，历史保护区除外 → 一般100%通过</li>
+                        <li>📅 预约安装时间：淡季5-10天，旺季1-2个月，最长可达6个月以上</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 阶段3：安装阶段 -->
+        <div class="phase">
+            <div class="phase-dot"></div>
+            <div class="phase-card">
+                <div class="phase-header" data-target="phase3">
+                    <div class="phase-title">3. 安装阶段</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="duration">⏱️ 1-2天</span>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                </div>
+                <div id="phase3" class="phase-content">
+                    <ul class="step-list">
+                        <li>👷 3-4人团队现场安装：屋顶作业2-3小时，电工4-6小时（配电箱位置影响时长）</li>
+                        <li>🔧 小电站1天完成；大电站或配储系统2天（安装+调试）</li>
+                        <li>📄 电站交付 + 保险文件（EDF售电协议必备）：</li>
+                    </ul>
+                    <div class="insurance-grid">
+                        <div class="insurance-badge" data-insurance="product">🔹 2年产品保修</div>
+                        <div class="insurance-badge" data-insurance="system">🔸 10年系统保险</div>
+                        <div class="insurance-badge" data-insurance="civil">🔹 民事责任保险</div>
+                        <div class="insurance-badge" data-insurance="optional">🔸 可选额外保险</div>
+                    </div>
+                    <div id="detail-product" class="insurance-detail">
+                        <p><strong>🔹 2年产品保修</strong>（安装商常延长至5-10年以提升竞争力）</p>
+                        <p>📌 涵盖可分离部分（支架、线缆连接器、微逆等）的制造缺陷。</p>
+                        <p>📌 安装商负责前往现场更换或修复，免收人工和备件费用。</p>
+                    </div>
+                    <div id="detail-system" class="insurance-detail">
+                        <p><strong>🔸 10年系统保险</strong></p>
+                        <p>📌 担保由于工程可靠性、结构稳定性和安装工作造成的问题（如屋顶防水损坏、支架倒塌）。</p>
+                        <p>📌 保障因安装质量导致的发电损失及修复费用。</p>
+                    </div>
+                    <div id="detail-civil" class="insurance-detail">
+                        <p><strong>🔹 民事责任保险</strong></p>
+                        <p>📌 由光伏安装导致第三方受损的保险（如支架脱落砸坏邻居财产、人员受伤）。</p>
+                        <p>📌 保障安装商和业主的法律赔偿责任。</p>
+                    </div>
+                    <div id="detail-optional" class="insurance-detail">
+                        <p><strong>🔸 可选额外保险（建议自行购买）</strong></p>
+                        <p>📌 <span class="highlight">结构损害保险（DO）</span>：10年，针对光伏结构损坏，快速赔付，无需责任判定（避免与安装商扯皮或安装商破产风险）。</p>
+                        <p>📌 <span class="highlight">家庭保险延伸</span>：将光伏系统视作家庭资产，担保极端天气、自然灾害、电网波动造成的设备损坏。</p>
+                    </div>
+                    <div class="subnote">
+                        💡 点击上方保险标签可查看详细涵盖内容。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 阶段4：安装后阶段 -->
+        <div class="phase">
+            <div class="phase-dot"></div>
+            <div class="phase-card">
+                <div class="phase-header" data-target="phase4">
+                    <div class="phase-title">4. 安装后阶段</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="duration">⏱️ 准备10天 + 审批30天 + 并网45-60天</span>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                </div>
+                <div id="phase4" class="phase-content">
+                    <ul class="step-list">
+                        <li>📐 <span class="highlight">Consuel 电气审批</span>：提交安装资料（布线、接地、保护），10%现场检查率。<br>
+                            费用：<br>
+                            &nbsp;&nbsp;• 纯光伏电站：190€<br>
+                            &nbsp;&nbsp;• 光储系统：215€<br>
+                            &nbsp;&nbsp;• 重新检查：200€<br>
+                            审批周期约30天。
+                        </li>
+                        <li>⚡ <span class="highlight">Enedis 并网审批</span>：审核设备证书，更换双向智能电表，周期45-60天</li>
+                        <li>💡 实际中安装商常提前并网（配置防逆流），等待审批期间即可发电</li>
+                        <li>📑 <span class="highlight">EDF OA 售电合约</span>：并网审批完成后签订正式售电合约，开始计量收益</li>
+                    </ul>
+                    <div class="subnote">
+                        💡 常见实践：安装完成后即并网发电（带防逆流），同步走审批流程，缩短空置期。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footnote">
+        📌 数据基于法国典型户用光伏项目流程（2025-2026） · 点击阶段标题查看详情
+    </div>
+</div>
+
+<script>
+    // 阶段展开/折叠交互（默认全部折叠，图标为▶）
+    const headers = document.querySelectorAll('.phase-header');
+    headers.forEach(header => {
+        const targetId = header.getAttribute('data-target');
+        const contentDiv = document.getElementById(targetId);
+        const iconSpan = header.querySelector('.toggle-icon');
+        // 初始状态：折叠，图标为▶
+        contentDiv.classList.remove('show');
+        iconSpan.textContent = '▶';
+
+        header.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isExpanded = contentDiv.classList.contains('show');
+            if (isExpanded) {
+                contentDiv.classList.remove('show');
+                iconSpan.textContent = '▶';
+            } else {
+                contentDiv.classList.add('show');
+                iconSpan.textContent = '▼';
+            }
+        });
+    });
+
+    // 保险详情交互（保留原有功能）
+    document.querySelectorAll('.insurance-badge').forEach(badge => {
+        badge.addEventListener('click', function(e) {
+            e.stopPropagation();
+            let targetId = '';
+            if (this.dataset.insurance === 'product') targetId = 'detail-product';
+            else if (this.dataset.insurance === 'system') targetId = 'detail-system';
+            else if (this.dataset.insurance === 'civil') targetId = 'detail-civil';
+            else if (this.dataset.insurance === 'optional') targetId = 'detail-optional';
+            if (targetId) {
+                const detailDiv = document.getElementById(targetId);
+                if (detailDiv) {
+                    detailDiv.classList.toggle('show');
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
