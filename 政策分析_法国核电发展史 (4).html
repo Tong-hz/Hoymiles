@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国核电发展史 · 可折叠时间轴</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .poster {
+            max-width: 560px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: none;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 0.6rem;
+        }
+
+        .title-main {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a2c3e;
+            letter-spacing: -0.3px;
+        }
+
+        .subhead {
+            font-size: 0.7rem;
+            color: #5b6e8c;
+            margin-top: 0.2rem;
+        }
+
+        /* 折叠块 */
+        .timeline-block {
+            border: 1px solid #eef2f5;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .block-header:hover {
+            background: #f8fafc;
+        }
+        .header-left {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .block-date {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1f3a4b;
+        }
+        .block-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0e2a38;
+        }
+        .badge {
+            font-size: 0.65rem;
+            background: #e7edf4;
+            color: #2c6e9e;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+        }
+        .toggle-icon {
+            font-size: 1rem;
+            color: #2c6e9e;
+            transition: transform 0.2s;
+        }
+
+        .block-detail {
+            padding: 0 1rem 1rem 1rem;
+            border-top: 1px solid #eef2f5;
+            display: none;
+        }
+        .block-detail.show {
+            display: block;
+        }
+        .desc, .detail {
+            font-size: 0.85rem;
+            line-height: 1.45;
+            margin-bottom: 0.5rem;
+            color: #2c3f4f;
+        }
+        .detail {
+            color: #5b6f82;
+            margin-top: 0.3rem;
+        }
+        .highlight {
+            font-weight: 600;
+            color: #1a5d8c;
+        }
+
+        .footer-note {
+            font-size: 0.6rem;
+            text-align: center;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid #eef2f5;
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="hero">
+        <div class="title-main">法国核电发展史</div>
+        <div class="subhead">点击各阶段展开详情 · 政策演变与能源抉择</div>
+    </div>
+
+    <!-- 1973 萌芽期 -->
+    <div class="timeline-block">
+        <div class="block-header" data-target="detail1">
+            <div class="header-left">
+                <span class="block-date">1973</span>
+                <span class="block-title">核电萌芽期</span>
+                <span class="badge">梅斯梅尔计划</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="detail1" class="block-detail">
+            <div class="desc"><span class="highlight">起因：</span>1973年阿以冲突引发第一次石油危机，法国能源对外依赖度高达75%，经济遭受重创。</div>
+            <div class="detail"><span class="highlight">关键事件：</span>时任法国总统蓬皮杜与总理梅斯梅尔启动“梅斯梅尔计划”，决定大力发展核电，目标30年内建成170台核反应堆，从此开启法国核能强国之路。</div>
+        </div>
+    </div>
+
+    <!-- 1973-2010 稳定期 -->
+    <div class="timeline-block">
+        <div class="block-header" data-target="detail2">
+            <div class="header-left">
+                <span class="block-date">1973-2010</span>
+                <span class="block-title">核电稳定期</span>
+                <span class="badge">左右共识</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="detail2" class="block-detail">
+            <div class="desc"><span class="highlight">政治支持：</span>法国左右党派均支持核电发展，形成跨越党派的能源共识，确保核能政策长期稳定。</div>
+            <div class="detail"><span class="highlight">成果与影响：</span>期间建成投产55台核反应堆，核电占比跃居全球第一。法国借助核能成功抵御1978年（伊斯兰革命）和1990年（科威特战争）两次石油危机，电力价格保持稳定。</div>
+        </div>
+    </div>
+
+    <!-- 2011-2021 波动期 -->
+    <div class="timeline-block">
+        <div class="block-header" data-target="detail3">
+            <div class="header-left">
+                <span class="block-date">2011-2021</span>
+                <span class="block-title">核电波动期</span>
+                <span class="badge">福岛冲击</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="detail3" class="block-detail">
+            <div class="desc"><span class="highlight">起因：</span>2011年日本福岛核事故引发欧洲反核浪潮，德国、意大利、瑞士宣布放弃核电。法国左翼政党借助社会恐核情绪上台。</div>
+            <div class="detail"><span class="highlight">政策转折：</span>2015年法国发布首份多年能源规划（PPE），首次宣布降低核电比例至50%。2017年马克龙作为中间派当选，首任期内延续“降低核电+发展可再生能源”策略，核电发展陷入停滞。</div>
+        </div>
+    </div>
+
+    <!-- 2022至今 复兴期 -->
+    <div class="timeline-block">
+        <div class="block-header" data-target="detail4">
+            <div class="header-left">
+                <span class="block-date">2022-今</span>
+                <span class="block-title">核电复兴期</span>
+                <span class="badge">能源危机驱动</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+        </div>
+        <div id="detail4" class="block-detail">
+            <div class="desc"><span class="highlight">起因：</span>2021年欧洲能源危机叠加法国核电站大规模技术检修停运，导致电价暴涨，国民能源经济性需求重回最高优先级。</div>
+            <div class="detail"><span class="highlight">结果：</span>马克龙在第二任期选举时为争取选票，宣布“核电复兴”。2026年第一季度发布的PP3能源规划中，正式确认未来以核电为主、可再生能源为辅的并行战略，计划新建6～14座EPR2机组，并延长现有反应堆运行寿命。</div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        ⚛️ 从石油危机到福岛震荡，再到能源危机下的务实复兴 —— 点击标题展开详情
+    </div>
+</div>
+
+<script>
+    // 为每个折叠块绑定点击事件
+    const headers = document.querySelectorAll('.block-header');
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const targetId = header.getAttribute('data-target');
+            const detailPanel = document.getElementById(targetId);
+            const icon = header.querySelector('.toggle-icon');
+            if (detailPanel.classList.contains('show')) {
+                detailPanel.classList.remove('show');
+                icon.textContent = '▼';
+            } else {
+                detailPanel.classList.add('show');
+                icon.textContent = '▲';
+            }
+        });
+    });
+</script>
+</body>
+</html>
