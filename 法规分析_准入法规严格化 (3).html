@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>法国光伏准入法规 · 趋严趋势（含示意图）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;   /* 纯白底 */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .poster {
+            max-width: 1000px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #eef2f5;  /* 细边框替代阴影 */
+            border-radius: 32px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e2f3e 0%, #2c3e50 100%);
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            margin-top: 0.3rem;
+        }
+        .content {
+            padding: 1.5rem;
+        }
+        .grid-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .card {
+            flex: 1;
+            min-width: 240px;
+            background: #fefefe;
+            border: 1px solid #eef2f8;
+            border-radius: 24px;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: #2c6e9e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .toggle-btn {
+            background: #e9f0f5;
+            border: none;
+            border-radius: 30px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #2c6e9e;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .toggle-btn:hover {
+            background: #d4e2ed;
+        }
+        .card-content {
+            font-size: 0.8rem;
+            color: #2c3e50;
+            line-height: 1.45;
+        }
+        .highlight {
+            color: #d9534f;
+            font-weight: 600;
+        }
+        .date {
+            background: #fef7e0;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin: 0.3rem 0;
+        }
+        .bullet {
+            margin: 0.5rem 0 0 1rem;
+            font-size: 0.75rem;
+            color: #5b6f82;
+        }
+        .bullet li {
+            margin-bottom: 0.3rem;
+        }
+        .expand-content {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed #eef2f5;
+            display: none;
+        }
+        .expand-content.show {
+            display: block;
+        }
+        .schema-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 0.5rem 0;
+        }
+        .schema-card {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 0.8rem;
+            text-align: center;
+        }
+        .schema-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #2c6e9e;
+        }
+        .schema-img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 1px solid #eef2f8;
+            background: white;
+            margin: 0.5rem 0;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #8c9aa8;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eef2f5;
+        }
+        @media (max-width: 700px) {
+            .grid-2 { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header">
+        <h1>📈 法国光伏准入法规 · 加速趋严</h1>
+        <p>并网 · 安装 · 网络安全 · 欧洲制造</p>
+    </div>
+    <div class="content">
+        <div class="grid-2">
+            <!-- 1. EN 50549-10 强制化 -->
+            <div class="card">
+                <h3>🔌 1. 并网标准强制化</h3>
+                <div class="card-content">
+                    <span class="date">📅 2025年1月 强制执行</span>
+                    <p><span class="highlight">NF EN 50549-10</span> 在 50549-1 低压并网基础上提出测试规范化要求。<br>
+                    自 <span class="highlight">2026年6月31日</span> 起，对所有并网电站强制要求。</p>
+                </div>
+            </div>
+
+            <!-- 2. 安装电气安全升级（带PNG示意图） -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>⚡ 2. 安装电气安全升级</h3>
+                    <button class="toggle-btn" data-target="nfcDetail">📐 查看示意图</button>
+                </div>
+                <div class="card-content">
+                    <p>新版 <span class="highlight">NF C 15-100</span> 在光伏接入支路电气保护基础上，增加<span class="highlight">光伏支路与电网支路汇流处的额外电气开关</span>要求，防止汇流后过流损坏下游线路和器件。</p>
+                </div>
+                <div id="nfcDetail" class="expand-content">
+                    <div class="schema-row">
+                        <!-- 旧要求图片 -->
+                        <div class="schema-card">
+                            <div class="schema-title">📜 旧版 NF C 15-100</div>
+                            <img class="schema-img" src="NFC前.png" alt="旧版要求示意图 - 一个AC保护盒" style="width:100%; max-width:280px;">
+                            <div style="font-size:0.7rem; color:#5b6f82; margin-top:0.3rem;">系统只需1个交流保护盒</div>
+                        </div>
+                        <!-- 新要求图片 -->
+                        <div class="schema-card">
+                            <div class="schema-title">✅ 新版 NF C 15-100</div>
+                            <img class="schema-img" src="NFC后.png" alt="新版要求示意图 - 两个AC保护盒" style="width:100%; max-width:280px;">
+                            <div style="font-size:0.7rem; color:#2c6e9e; margin-top:0.3rem;">系统需要2个交流保护盒，增强安全</div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.7rem; text-align:center; margin-top:0.5rem; color:#8c9aa8;">※ 请将图片文件（NFC前.png、NFC后.png）放置于HTML同级目录下</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- 3. 网络安全提升 + 对华限制 -->
+            <div class="card">
+                <h3>🔐 3. 网络安全与中国制造商限制</h3>
+                <div class="card-content">
+                    <p>RED 指令强制执行基础上，欧盟针对<span class="highlight">光伏逆变器高风险制造商（中国）</span>提出限制：<br>
+                    <span class="highlight">2027年4月15日</span> 前逐步淘汰，不得获得欧盟资助。</p>
+                    <ul class="bullet">
+                        <li>🇩🇪 德国 EnwG 14a：光伏系统须支持电力公司远程监控实时功率</li>
+                        <li>🇭🇺 匈牙利：光伏系统需上传实时发电功率和能量信息至电力公司平台</li>
+                        <li>🇱🇹 立陶宛：禁止中国制造商远程访问 &gt;100kW 光伏系统</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. 欧洲制造要求 -->
+            <div class="card">
+                <h3>🏭 4. 欧洲制造门槛</h3>
+                <div class="card-content">
+                    <p><span class="highlight">净零工业法案、关键原材料法案</span> 保障欧盟本土净零产业（光伏+储能）及供应链安全。</p>
+                    <p><span class="highlight">IAA 工业加速器法案</span>：3年后，参与法国<span class="highlight">CRE招投标（≥100kW）</span>的光伏和储能产品须<span class="highlight">原产于欧洲</span>，并包含欧盟产 BMS。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 趋势总结 -->
+        <div style="background: #f8fafc; border-radius: 20px; padding: 0.8rem; margin-top: 0.5rem; text-align: center;">
+            <p style="font-size: 0.8rem; color: #2c3e50;">📌 趋势总结：法国正从<span class="highlight">技术安全、网络安全、本地制造</span>三维度大幅提高光伏准入门槛，中国企业需加速合规与本地化布局。</p>
+        </div>
+    </div>
+    <div class="footnote">
+        📌 数据来源：法国能源转型部 / AFNOR / 欧盟委员会 / SolarPower Europe
+    </div>
+</div>
+
+<script>
+    // 为所有折叠按钮绑定事件
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const targetId = this.getAttribute('data-target');
+            const targetDiv = document.getElementById(targetId);
+            if (targetDiv) {
+                targetDiv.classList.toggle('show');
+            }
+        });
+    });
+</script>
+</body>
+</html>
